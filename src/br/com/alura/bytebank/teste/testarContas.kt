@@ -41,12 +41,12 @@ fun testarContas() {
     )
 
     conta_vitor.depositar(100.00)
-    conta_vitor.transferir(10.00, conta_teste)
+    conta_vitor.transferir(10.00, conta_teste,9)
     println("logradouro:" + conta_vitor.titular.endereco)
     println(conta_vitor.saldo)
 
     conta_thais.depositar(100.00)
-    conta_thais.transferir(10.00, conta_teste)
+    conta_thais.transferir(10.00, conta_teste, 0)
     println(conta_thais.saldo)
 }
 

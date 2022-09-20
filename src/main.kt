@@ -1,4 +1,7 @@
+import br.com.alura.bytebank.modelo.Endereco
+import src.br.com.alura.bytebank.exception.SaldoInsuficienteException
 import src.br.com.alura.bytebank.modelo.Teste
+import java.lang.Exception
 
 fun main() {
 //    a classe abstrata serve como base
@@ -15,35 +18,10 @@ fun main() {
     //interface nao vai ter o vinculo todo igual herença
     // interface = contrato, quem usa tem que implementar.
 
-    println("função main");
-    funcao1();
-    println("fim main");
 }
 
-fun funcao1(){
-    println("inicio funcao 1");
-    funcao2();
-    println("fim funcao 1");
-}
-fun funcao2(){
-    println("inicio funcao 2");
-    for (i in 1..5){
-        println(i);
-    }
-    var a: Int
-    var b: String
-    b = "akaska"
 
-    try {
-        a = b.toInt();
-    }
-    catch (e: NumberFormatException){
-        println("erro ao converter: ");
-        e.printStackTrace()
-    }
 
-    println("fim funcao 2");
-}
 
 
 
