@@ -1,5 +1,3 @@
-import br.com.alura.bytebank.modelo.Conta
-import br.com.alura.bytebank.modelo.Endereco
 import src.br.com.alura.bytebank.modelo.Teste
 
 fun main() {
@@ -17,18 +15,36 @@ fun main() {
     //interface nao vai ter o vinculo todo igual herença
     // interface = contrato, quem usa tem que implementar.
 
-
-//    testarContas()
-//    criarContaseTransferir()
-//    println("contas: ${Conta.total}")
-//
-//    val teste = Endereco()
-//    var numero = 10;
-
-val teste = Teste("maria", 10)
-val (nome, idade) = teste
-println("$nome\n$idade")
+    println("função main");
+    funcao1();
+    println("fim main");
 }
+
+fun funcao1(){
+    println("inicio funcao 1");
+    funcao2();
+    println("fim funcao 1");
+}
+fun funcao2(){
+    println("inicio funcao 2");
+    for (i in 1..5){
+        println(i);
+    }
+    var a: Int
+    var b: String
+    b = "akaska"
+
+    try {
+        a = b.toInt();
+    }
+    catch (e: NumberFormatException){
+        println("erro ao converter: ");
+        e.printStackTrace()
+    }
+
+    println("fim funcao 2");
+}
+
 
 
 
