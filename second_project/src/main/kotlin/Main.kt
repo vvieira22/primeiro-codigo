@@ -5,6 +5,6 @@ import br.com.codigosIniciais.testes.MenorEmaiorArray
 fun main()
 {
 //    MenorEmaiorArray()
-//    IterandoArray()
-    Ranges()
+    IterandoArray()
+//    Ranges()
 }
