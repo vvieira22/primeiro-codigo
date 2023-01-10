@@ -18,20 +18,45 @@ fun main() {
 
 //println(salarios.contentToString())
 
-
 //Ao envez de ficar linha pro linha
 //vamos usar a função que criamos bigDecimalArrayOf para facilitar
-
-    var salarios = bigDecimalArrayOf("1000.00", "1000", "3000")
+    var salarios = bigDecimalArrayOf("1000.00", "1000", "3000", "12029.887", "50000", "78222.88")
     println(salarios.contentToString())
-
 
     //aumento proporcional
     val salariosComAumento: Array<BigDecimal>  = aumentarSalarios(salarios)
     println(salariosComAumento.contentToString())
 
     val somaSalariosAtualizada =  salariosComAumento.somatoria()
-    println(somaSalariosAtualizada)
+    println("Gasto 1 mes reajustado $somaSalariosAtualizada")
+
+    //Calcular aumento para próximos meses
+    val meses = 6.toBigDecimal()
+    val gasto6meses = salariosComAumento.fold(somaSalariosAtualizada) { acumulador, salario ->
+        acumulador + (salario * meses).setScale(2, RoundingMode.UP)
+    }
+    println("Gasto em 6 meses: $gasto6meses")
+
+    /*
+    Precisamos descobrir os 3 maiores salários depois do aumentos
+    primeiro ordenar do maior pro maior e dps pegar os 3 últimos
+    sorted retorna lista menor para maior
+    */
+//    val salariosOrdenados = salariosComAumento.sorted()
+//    val tresMaioresSalarios: Array<BigDecimal> = salariosOrdenados.takeLast(3)
+//            .toTypedArray()
+//    val media = tresMaioresSalarios.media()
+//    println("Media tres maiores salarios:  $media")
+    /*
+    Uma forma de fazer isso tudo anteriormente mais efetivo:
+
+     */
+    var media: BigDecimal = salariosComAumento
+            .sorted().
+            takeLast(3).
+            toTypedArray().
+            media()
+    println("Media tres maiores salarios:  $media")
 }
 
 //vararg são argumentos variados, 1,2,3 etc...
@@ -41,7 +66,6 @@ fun bigDecimalArrayOf(vararg valores: String): Array<BigDecimal> {
     return Array<BigDecimal>(valores.size) { i ->
         valores[i].toBigDecimal()
     }
-
 }
 
 fun aumentarSalarios(salarios: Array<BigDecimal>): Array<BigDecimal> {
@@ -69,14 +93,4 @@ private fun calculaAumentoRelativo(salario: BigDecimal, aumentoAcimaPadrao: BigD
     }
 }
 
-fun Array<BigDecimal>.somatoria(): BigDecimal {
-/*
-     Acumula valor da string, com primeiro elemento e faz uma operação para agregar os outros
-    no caso abaixo vai fazer a soma de todos elementos, como se fosse um for somando primeiro
-    com o segunto, até o último elementro do array.
- */
 
-    return this.reduce { acumulador, valor ->
-        acumulador + valor
-    }
-}
