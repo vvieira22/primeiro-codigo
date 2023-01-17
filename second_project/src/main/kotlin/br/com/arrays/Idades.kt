@@ -1,4 +1,4 @@
-package br.com.codigosIniciais
+package br.com.arrays
 
 fun main() {
     var idades = intArrayOf(12,20,30,7,29,55,21,20)

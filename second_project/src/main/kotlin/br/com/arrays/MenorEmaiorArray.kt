@@ -1,4 +1,4 @@
-package br.com.codigosIniciais.testes
+package br.com.arrays.testes
 
 fun MenorEmaiorArray() {
     val idades: IntArray = intArrayOf(

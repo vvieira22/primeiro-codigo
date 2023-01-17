@@ -1,6 +1,4 @@
-import br.com.codigosIniciais.IterandoArray
-import br.com.codigosIniciais.Ranges
-import br.com.codigosIniciais.testes.MenorEmaiorArray
+import br.com.arrays.IterandoArray
 
 fun main()
 {

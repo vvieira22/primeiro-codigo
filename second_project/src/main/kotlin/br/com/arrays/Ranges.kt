@@ -1,4 +1,4 @@
-package br.com.codigosIniciais
+package br.com.arrays
 
 fun Ranges() {
 
