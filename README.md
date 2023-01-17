@@ -1,2 +1,4 @@
-# primeiro-codigo
-Primeiros códigos para conher funcionalidade de novas linguagens,
+## Primeiros códigos para conhecer funcionalidade de linguagens de programação.
+
+[Kotlin](https://github.com/vvieira22/primeiro-codigo/tree/kotlin) | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | --
+--- | --- | --- | --- |--- |--- |--- |--- |--- |--- |--- |---
