@@ -1,0 +1,16 @@
+Os seguintes tipos de coleção são relevantes para Kotlin:
+
+List é uma coleção ordenada com acesso aos elementos por índices – números
+inteiros que refletem sua posição. Os elementos podem ocorrer mais de uma vez
+em uma lista. Um exemplo de lista é um número de telefone: é um grupo de dígitos,
+sua ordem é importante e eles podem ser repetidos.
+
+Set(Conjunto) é uma coleção de elementos únicos. Reflete a abstração matemática do
+conjunto: um grupo de objetos sem repetições. Geralmente, a ordem dos elementos
+do conjunto não tem significado. Por exemplo, os números dos bilhetes de loteria
+formam um conjunto: são únicos e sua ordem não é importante.
+
+Map (ou dicionário ) é um conjunto de pares chave-valor. As chaves são únicas e
+cada uma delas mapeia exatamente um valor. Os valores podem ser duplicados.
+Os mapas são úteis para armazenar conexões lógicas entre objetos, por exemplo,
+o ID de um funcionário e sua posição.
