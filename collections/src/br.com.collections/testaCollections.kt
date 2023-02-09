@@ -1,4 +1,4 @@
-fun main() {
+private fun testaCopia() {
     val bancoDeNomes = BancoNomes()
 
     /*
@@ -26,13 +26,13 @@ class BancoNomes {
         Companion.dados.add(nome)
     }
 
-/*
-Um Companion Object em Kotlin é um objeto estático associado a uma classe.
-É semelhante a uma classe estática em Java. Ele pode acessar todas as propriedades
-e funções da classe sem precisar instanciá-la. É definido com a palavra-chave
-"companion" na classe. Ele é útil para compartilhar funcionalidades entre várias
-instâncias de uma classe ou para criar constantes na classe.
- */
+    /*
+    Um Companion Object em Kotlin é um objeto estático associado a uma classe.
+    É semelhante a uma classe estática em Java. Ele pode acessar todas as propriedades
+    e funções da classe sem precisar instanciá-la. É definido com a palavra-chave
+    "companion" na classe. Ele é útil para compartilhar funcionalidades entre várias
+    instâncias de uma classe ou para criar constantes na classe.
+     */
 
     companion object {
         private val dados = mutableListOf<String>()
