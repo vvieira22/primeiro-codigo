@@ -1,0 +1,8 @@
+let
+Retorna qualquer valor a partir de um objeto do qual o escopo se originou e refere-se a esse objeto como it.
+
+run
+Retorna qualquer valor a partir de um objeto do qual o escopo se originou e refere-se a esse objeto como this.
+
+with
+Retorna qualquer valor a partir de um objeto do qual o escopo se originou e refere-se a esse objeto como this
