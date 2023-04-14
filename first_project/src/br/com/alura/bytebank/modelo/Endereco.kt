@@ -19,4 +19,12 @@ class Endereco (
                 "Cep:         $cep\n" +
                 "Complemento: $complemento"
     }
+
+    fun enderecoCompleto() : String{
+        return """ 
+            $logradouro - $numero - $bairro - $cidade - $estado
+            $cep
+            $complemento
+        """.trimIndent()
+    }
 }
