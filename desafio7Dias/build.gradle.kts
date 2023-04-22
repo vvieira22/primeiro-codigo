@@ -1,4 +1,3 @@
-import org.jetbrains.compose.compose
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -18,6 +17,9 @@ repositories {
 
 dependencies {
     implementation(compose.desktop.currentOs)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.moshi:moshi:1.8.0")
 }
 
 tasks.withType<KotlinCompile> {
