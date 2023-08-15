@@ -30,10 +30,6 @@ menubar.add_separator()
 window.config(menu=menubar)
 
 
-
-
-
-
 def convert():
     output_string.set(str(entry_int.get() *1.61))
 
