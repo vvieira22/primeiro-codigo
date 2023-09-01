@@ -29,3 +29,5 @@ de ter adicionado o dia 6 e 7.
 
 30/08/2023: Em vez de salvar cada página dos 30 dias em python em html, preferi salvar como pdf para preservar aspectos
 visuais. Além disso dia 8 adicionado.
+
+01/09/2023: Dia 9 adicionado (30 dias de python).
