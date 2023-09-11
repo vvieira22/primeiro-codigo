@@ -33,3 +33,5 @@ visuais. Além disso dia 8 adicionado.
 01/09/2023: Dia 9 adicionado (30 dias de python).
 
 11/09/2023: Dia 10 adicionado (30 dias de python), onde foi falado sobre Loops, (Range, for, while).
+
+11/09/2023: Dia 11 adicionado, onde foi falado sobre funções.
