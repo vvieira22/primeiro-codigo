@@ -37,3 +37,6 @@ visuais. Além disso dia 8 adicionado.
 11/09/2023: Dia 11 adicionado (30 dias de python), onde foi falado sobre funções.
 
 13/09/2023: Dia 12 adicionado (30 dias de python), onde foi falado sobre modulos em python.
+
+15/09/2023: Dia 13 adicionado (30 dias de python), onde foi falado sobre compreensão de lista, mesmo
+com os desafios feitos, foi um assunto complexo, quando utilizar prestar atenção.
