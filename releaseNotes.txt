@@ -42,4 +42,5 @@ visuais. Além disso dia 8 adicionado.
 com os desafios feitos, foi um assunto complexo, quando utilizar prestar atenção.
 
 29/09/2023: Dia 14 adicionado (30 dias de python), onde foi falado sobre high order functions, Decoradores (decorators) - @,
-map, reduce e filter. Pendente dos desafios do dia.
+map, reduce e filter. Os desafios foram feitos com extrema dificuldade, demorei bastante tempo, o dia todo praticamente para
+finalizar, são meio complexos as soluções, tive que pesquisar bastante.
