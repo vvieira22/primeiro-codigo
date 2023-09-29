@@ -40,3 +40,6 @@ visuais. Além disso dia 8 adicionado.
 
 15/09/2023: Dia 13 adicionado (30 dias de python), onde foi falado sobre compreensão de lista, mesmo
 com os desafios feitos, foi um assunto complexo, quando utilizar prestar atenção.
+
+29/09/2023: Dia 14 adicionado (30 dias de python), onde foi falado sobre high order functions, Decoradores (decorators) - @,
+map, reduce e filter. Pendente dos desafios do dia.
