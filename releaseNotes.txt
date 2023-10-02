@@ -44,3 +44,6 @@ com os desafios feitos, foi um assunto complexo, quando utilizar prestar atenç�
 29/09/2023: Dia 14 adicionado (30 dias de python), onde foi falado sobre high order functions, Decoradores (decorators) - @,
 map, reduce e filter. Os desafios foram feitos com extrema dificuldade, demorei bastante tempo, o dia todo praticamente para
 finalizar, são meio complexos as soluções, tive que pesquisar bastante.
+
+02/10/2023: Dia 15 adicionado (30 dias de python), onde vimos diversos tipos de erro, seja por variavel nao declarada, import
+errado entre diversos outros.
