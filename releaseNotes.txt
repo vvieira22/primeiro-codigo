@@ -49,3 +49,6 @@ finalizar, são meio complexos as soluções, tive que pesquisar bastante.
 errado entre diversos outros.
 
 03/10/2023: Dia 16 adicionado (30 dias de python), onde foi ensinado como utilizar o modulo de data e hora em python.
+
+03/10/2023: Dia 17 adicionado (30 dias de python), onde foi falado sobre Exeções, Multiplos argumentos sendo passados por funcoes,
+(compactando e descompactando) argumentos (lista, dict), Spreading e zip. 
