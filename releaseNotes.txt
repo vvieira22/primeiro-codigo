@@ -47,3 +47,5 @@ finalizar, são meio complexos as soluções, tive que pesquisar bastante.
 
 02/10/2023: Dia 15 adicionado (30 dias de python), onde vimos diversos tipos de erro, seja por variavel nao declarada, import
 errado entre diversos outros.
+
+03/10/2023: Dia 16 adicionado (30 dias de python), onde foi ensinado como utilizar o modulo de data e hora em python.
