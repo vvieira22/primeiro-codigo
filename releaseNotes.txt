@@ -52,3 +52,5 @@ errado entre diversos outros.
 
 03/10/2023: Dia 17 adicionado (30 dias de python), onde foi falado sobre Exeções, Multiplos argumentos sendo passados por funcoes,
 (compactando e descompactando) argumentos (lista, dict), Spreading e zip. 
+
+08/10/2023: Dia 18 adicionado (30 dias de python), onde falamos sobre expressões regulares, conhecidas como regex.
