@@ -54,3 +54,6 @@ errado entre diversos outros.
 (compactando e descompactando) argumentos (lista, dict), Spreading e zip. 
 
 08/10/2023: Dia 18 adicionado (30 dias de python), onde falamos sobre expressões regulares, conhecidas como regex.
+
+10/10/2023: Dia 19 adicionado (30 dias de python), onde falamos sobre manipulação de arquivos, como ler, escrever e atualizar.
+Arquivos xml, csv, json entre outros. Ficou apenas pendente os desafios.
