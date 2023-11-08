@@ -26,7 +26,7 @@ def linguagens_mais_faladas(caminhoArquivo, quantidade):
            lista_linguagens.extend(dicionado["languages"])
     return sorted(set([(lista_linguagens.count(i),i) for i in lista_linguagens]),reverse=True)
 
-# print(linguagens_mais_faladas('./30diasDePython/dia_19/dados/countries_data.json',0))
+print(linguagens_mais_faladas('./30diasDePython/dia_19/dados/countries_data.json',0))
 
 
 #3
@@ -116,7 +116,7 @@ contador_py = 0
 with open('./30diasDePython/dia_19/dados/hacker_news.csv') as f:
     csv_reader = csv.reader(f, delimiter=',')
     contador_py = sum(1 for linha in csv_reader for elemento in linha if "python" in elemento.lower())
-print(contador_py)
+# print(contador_py)
 
 #b
 import csv
@@ -124,7 +124,7 @@ contador_js = 0
 with open('./30diasDePython/dia_19/dados/hacker_news.csv') as f:
     csv_reader = csv.reader(f, delimiter=',')
     contador_js = sum(1 for linha in csv_reader for elemento in linha if "javascript" in elemento.lower())
-print(contador_js)
+# print(contador_js)
 
 #c
 pattern = r'\bjava\b'
@@ -133,4 +133,4 @@ with open('./30diasDePython/dia_19/dados/hacker_news.csv') as f:
     csv_reader = csv.reader(f, delimiter=',')
     #re.IGNORECASE lower ou upper case
     contador_java = sum(1 for linha in csv_reader for elemento in linha if re.search(pattern, elemento, re.IGNORECASE))
-print(contador_java)
+# print(contador_java)

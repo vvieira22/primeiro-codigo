@@ -63,9 +63,7 @@ import statistics
 import numpy as np
 # print(np.std(valores))
 
-
-#2
-#LISTA DOS PAISES
+#Frequency
 paises = [elemento['origin'] for elemento in thecatapi]
 frequencia = {}
 for elemento in thecatapi:
@@ -74,4 +72,44 @@ for elemento in thecatapi:
 
 ordenado = sorted(frequencia.items(),key = lambda x: x[1],reverse=True)
 ordenado_dict = {k: v for k, v in ordenado}
-print(ordenado_dict)
+# print(ordenado_dict)
+
+
+
+#3- Read the countries API and find
+#i
+url = "https://restcountries.com/v3.1/all"
+countries = ler_texto(url)
+
+maiores_populacoes = {countries["name"]["common"]: countries["population"] for countries in countries}
+maiores_populacoes = sorted(maiores_populacoes.items(), key=lambda x: x[1], reverse=True)[:10]
+# print(maiores_populacoes)
+
+#ii
+#Uma forma meio grande de fazer, mas só consegui fazer funcionar dividindo o codigo assim
+# countries = countries[:100]
+
+dict_linguagens = [d['languages'] for d in countries if 'languages' in d]
+contagem = {}   
+
+for dicionario in dict_linguagens:
+    for valor in dicionario.values():
+        if valor in contagem:
+            contagem[valor] += 1
+        else:
+            contagem[valor] = 1
+print(contagem)
+
+#iii
+# print(dict_linguagens)
+# float(valor) for valor in elemento['weight']['metric'].split('-')] for elemento in thecatapi
+# countries = ler_texto(url)
+# countries = countries[:10]
+# dict_linguagens = [d['languages'] for d in countries]
+# lista_valores = [valor for dicionario in dict_linguagens for valor in dicionario.values()]
+# print(type(countries))
+
+#iiii
+#Esse exercicio pareceu bem confuso, nao sei se ele queria extrair arquivos html ou baixar arquivos direto do link
+#por isso nao realizei pois fiquei na duvida, deixei para caso eu precise de web scrapping, acredito que tenha modulos
+#mais pra frente falando disso.
