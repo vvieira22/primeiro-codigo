@@ -61,4 +61,4 @@ Arquivos xml, csv, json entre outros.
 25/10/2023: Dia 20 adicionado (30 dias de python), onde falamos de pacotes python, como criar, e usar
 alguns mais famosos, requests, numpy etc..
 
-23/11/2023: Dia 21 adicionado (30 dias de python), onde foi falado sobre objetos e classes. Ficaram pendentes os desafios do dia.
+23/11/2023: Dia 21 adicionado (30 dias de python), onde foi falado sobre objetos e classes.
