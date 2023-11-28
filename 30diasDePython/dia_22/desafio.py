@@ -27,7 +27,6 @@ json_data = json.dumps(data, indent=4)
 
 
 #2
-
 # URL to fetch
 url = "https://archive.ics.uci.edu/datasets"
 
@@ -56,15 +55,8 @@ content = response.content
 # Parse the content with BeautifulSoup
 soup = BeautifulSoup(content, 'html.parser')
 
-# Find all li elements with class 'list-item'
-list_item = soup.find('tbody')
-
-teste = list_item.find_all('tr')
-for item in teste:
-    for item2 in item.find_all('td'):
-        value = item2.get("data-sort-value")
-        if value != None:
-            print(value)
-# with open('list_item.html', 'w') as file:
-#     file.write(str(teste))
-
+td_elements = soup.find_all('td', {'data-sort-value': True})
+nome_presidentes = [] #ordem cronologica.
+for presidentes in td_elements:
+    nome_presidentes.append(presidentes.find('a')['title'])
+print(nome_presidentes)

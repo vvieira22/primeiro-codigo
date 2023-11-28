@@ -62,3 +62,6 @@ Arquivos xml, csv, json entre outros.
 alguns mais famosos, requests, numpy etc..
 
 23/11/2023: Dia 21 adicionado (30 dias de python), onde foi falado sobre objetos e classes.
+
+28/11/2023: Dia 22 adicionado (30 dias de python), onde foi estudado web scraping, como pegar dados da internet, usando
+a biblioteca BeautifulSoup.

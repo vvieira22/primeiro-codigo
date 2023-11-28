@@ -1,1 +1,0 @@
-[{"text": "\nStudent Body\n37,557\n"}, {"text": "\nLiving Alumni\n431,000+\n"}, {"text": "\nTotal Employees\n10,674\n"}, {"text": "\nFaculty\n4,309\n"}, {"text": "\nNondegree Students\n1,337\n"}, {"text": "\nGraduate & Professional Students\n18,476\n"}, {"text": "\nUndergraduate Students\n17,744\n"}]
