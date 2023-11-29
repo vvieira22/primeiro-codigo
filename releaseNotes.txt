@@ -68,3 +68,5 @@ a biblioteca BeautifulSoup.
 
 28/11/2023: Dia 23 adicionado (30 dias de python), onde foi falado sobre ambientes virtuais que podemos criar para
 o nosso projeto, afim de deixar o ambiente mais leve e direcionado para o que precisamos.
+
+29/11/2023: Dia 24 adicionado (30 dias de python), onde foi falado sobre jupyter notebook, numpy e o módulo de estatísticas.
