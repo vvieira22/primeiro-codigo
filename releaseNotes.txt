@@ -70,3 +70,5 @@ a biblioteca BeautifulSoup.
 o nosso projeto, afim de deixar o ambiente mais leve e direcionado para o que precisamos.
 
 29/11/2023: Dia 24 adicionado (30 dias de python), onde foi falado sobre jupyter notebook, numpy e o módulo de estatísticas.
+
+29/11/2023: Dia 24 adicionado (30 dias de python), onde falamos do framework pandas.
