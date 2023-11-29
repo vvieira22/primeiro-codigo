@@ -65,3 +65,6 @@ alguns mais famosos, requests, numpy etc..
 
 28/11/2023: Dia 22 adicionado (30 dias de python), onde foi estudado web scraping, como pegar dados da internet, usando
 a biblioteca BeautifulSoup.
+
+28/11/2023: Dia 23 adicionado (30 dias de python), onde foi falado sobre ambientes virtuais que podemos criar para
+o nosso projeto, afim de deixar o ambiente mais leve e direcionado para o que precisamos.
