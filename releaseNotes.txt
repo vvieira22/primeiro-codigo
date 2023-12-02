@@ -71,4 +71,10 @@ o nosso projeto, afim de deixar o ambiente mais leve e direcionado para o que pr
 
 29/11/2023: Dia 24 adicionado (30 dias de python), onde foi falado sobre jupyter notebook, numpy e o módulo de estatísticas.
 
-29/11/2023: Dia 24 adicionado (30 dias de python), onde falamos do framework pandas.
+29/11/2023: Dia 25 adicionado (30 dias de python), onde falamos do framework pandas.
+
+01/12/2023: Dia 26 adicionado (30 dias de python), onde foi falado brevemente sobre flask, não me aprofundei pois achei
+o conteúdo bem fraco e nada explicativo.
+
+01/12/2023: Dia 27 adicionado (30 dias de python), onde foi falado brevemente sobre nosql - mongodb, não me aprofundei pois achei
+o conteúdo rapido e não explicativo sobre banco de dados nosql, procurarei mais para entender melhor.
