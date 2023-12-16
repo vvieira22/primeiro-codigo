@@ -78,3 +78,5 @@ o conteúdo bem fraco e nada explicativo.
 
 01/12/2023: Dia 27 adicionado (30 dias de python), onde foi falado brevemente sobre nosql - mongodb, não me aprofundei pois achei
 o conteúdo rapido e não explicativo sobre banco de dados nosql, procurarei mais para entender melhor.
+
+16/12/2023: Dia 28 adicionado (30 dias de python), onde comecamos a falar sobre apis. E como e da seu funcionamento.
