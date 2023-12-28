@@ -80,3 +80,7 @@ o conteúdo bem fraco e nada explicativo.
 o conteúdo rapido e não explicativo sobre banco de dados nosql, procurarei mais para entender melhor.
 
 16/12/2023: Dia 28 adicionado (30 dias de python), onde comecamos a falar sobre apis. E como e da seu funcionamento.
+
+28/12/2023: Dia 29 adicionado (30 dias de python), onde realizamos diversos exemplos de apis e requests.
+
+28/12/2023: Dia 30 adicionado (30 dias de python), projeto finalizado.
