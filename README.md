@@ -4,26 +4,18 @@
 
 ### Folder organization:
 
-      Objeto/ Examples of using object orientation in python
+      Conceitos Iniciais/     Code examples in Python, how to work with dates, requests and other examples.
 
-      30diasDePython/ Is a challenge proposed by https://github.com/Asabeneh/30-Days-Of-Python
+      Tkinter/                Use of the tkinter framework.
 
-      Datas/ Here are some examples using date format.
-
-      Games/ Implementation of some games, using many features of the language
-
-      endPoint/ Example of using endPoints in python, using api that returns data about a zip code from Brazil
+      FastApi/                Use of the fastapi framework.
 
 ## Esse é um repositório feito para aprender a linguagem de programação Python 3, diversos códigos e exercícios serão postados aqui, subdivididos em pastas.
 
 ### Organização das Pastas:
 
-      Objeto/ Exemplos de uso de orientação a objetos em python
+      Conceitos Iniciais/     Exemplos de códigos em python, como trabalhar com datas, requests entre outros exemplos. 
 
-      30diasDePython/ É um desafio proposto por https://github.com/Asabeneh/30-Days-Of-Python
+      Tkinter/                Utilização do framework tkinter.
 
-      Datas/ Aqui tem alguns exemplos de uitlização do formato de datas.
-
-      Games/ Implementação  de alguns jogos, usando algunas carecterísticas da linguagem
-
-      endPoint/  Exemplo de uso do EndPoint em python, usamos a api que retorna dados sobre o cep do Brasil
+      FastApi/                Uso do framework fastapi.

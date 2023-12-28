@@ -84,3 +84,5 @@ o conteúdo rapido e não explicativo sobre banco de dados nosql, procurarei mai
 28/12/2023: Dia 29 adicionado (30 dias de python), onde realizamos diversos exemplos de apis e requests.
 
 28/12/2023: Dia 30 adicionado (30 dias de python), projeto finalizado.
+
+28/12/2023: Realizada uma organização da pasta, para melhor compreender o repositório e se localizar.
