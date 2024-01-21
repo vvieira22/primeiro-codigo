@@ -1,0 +1,60 @@
+Testes automatizados
+    Garantir metodos, classes, funcionalidade que estejam
+    de acordo com o esperado, funcionamento correto.
+
+Teste manual -> Lento, sujeito a falhas.
+Teste automatizado -> Rápido, Segurança quando altera código.
+
+Tipos de Testes:
+    Unitario - pequena parte, menor parte da aplicacao.
+    Integração - teste de integracao entre unidades da aplicacao.
+    Teste (E2E, ponta a ponta) - Testa a aplicacao inteira, simula ambiente
+    de aplicacao onde ele é colocado.
+
+Metodologia TDD - TEST DRIVEN DEVELOPMENT
+    A metodologia TDD defende que primeiro sejam feitos os Testes
+    e em seguida o desenvolvimento.
+    testes -> codigo -> refatoracao
+    (ciclo repetitivo)
+Em resumo é, criei meu teste para tal funcionalidade, ele vai falhar
+pq ainda n existe código, em faço o código para passar no teste, garantindo assim
+um codigo direto e reduzido, em seguida posso fazer refatoracao desse codigo afim
+de finalizar ele com boas práticas da linguagem.
+
+Rodando apenas testes especificos:
+    Para rodarmos apenas testes especificos, vamos usar
+    decorator mark (from pytest import mark).
+    Só chamar em cima de cada teste o nome do agrupamento
+    @mark.teste_classe_x
+    no terminal, pytest -m teste_classe_x
+    sao chamados de marks personalizados.
+
+    Alguns ja existem, como @mark.skip(reason="codigo ainda nao implementado.")
+    Pra adicionar certinho, criar o pytest.ini com a config certa
+    para o nosso mark.
+        
+
+Pra dar cobertura a um projeto inteiro, existe extensao
+do pytest chamada cov, pip3 install pytest-cov
+com essa tag pytest --cov, a gente consegue ver melhor onde estao 
+sendo rodados nossos testes e os caminhos etc..
+pytest --cov --cov-report term-missing  , comando interessante para saber
+onde nao tem cobertura de teste em determinado arquivo.
+
+ pytest --cov --cov-report html, esse aqui entao, gera arquivo html bonitinho
+ relatanto tudo. apertar [ vai ver onde ta o teste nao coberto.
+
+ Quando temos funcoes internas do python, para evitar atrabalhar a porcentagem
+ de cobertura, podemos ignorar elas criando arquivo .coveragerc
+ com esse exemplo aqui
+ [run]
+
+[report]
+exclude_lines = 
+    def __str__
+
+Gerar xml com relatorio dos nossos testes
+    pytest --junitxml report.xml
+Melhor ainda
+    pytest --cov-report xml
+gera coverage.xml
