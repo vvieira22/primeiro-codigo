@@ -1,0 +1,18 @@
+#logging.debug
+- Informacao detalhada, tipicamente de interesse apenas
+quando diagnosticando problemas.
+
+#logging.info
+- Confirmação de que as coisas estão funcionando como esperado.
+
+#logging.warning
+- Uma indicação que algo inesperado aconteceu, ou um 
+indicativo que algum problema em um futuro
+
+#logging.error
+- Por conta de um problema mais grave, o software não conseguiu
+executar alguma função.
+
+#logging.critical
+- Um erro muito grave, indicando que o programa
+pode não conseguir continuar rodando.

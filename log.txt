@@ -1,0 +1,16 @@
+2024-01-21 21:52:57,646:WARNING:function funcaoSoma args: (1, 2)
+2024-01-21 21:52:57,646:ERROR:Ocorreu um erro na função: funcaoSoma. (Erro na função)
+Traceback (most recent call last):
+  File "c:\Users\vitor\Desktop\Projetos\primeiro-codigo\python-log\log.py", line 17, in wrapper
+    result = func(*args, **kwargs)
+  File "c:\Users\vitor\Desktop\Projetos\primeiro-codigo\python-log\log.py", line 27, in funcaoSoma
+    raise(Exception("Erro na função"))
+Exception: Erro na função
+WARNING:function funcaoSoma args: (1, 2)
+ERROR:Ocorreu um erro na função: funcaoSoma. (Erro na função)
+Traceback (most recent call last):
+  File "c:\Users\vitor\Desktop\Projetos\primeiro-codigo\pythonLogging\log.py", line 17, in wrapper
+    result = func(*args, **kwargs)
+  File "c:\Users\vitor\Desktop\Projetos\primeiro-codigo\pythonLogging\log.py", line 27, in funcaoSoma
+    raise(Exception("Erro na função"))
+Exception: Erro na função
