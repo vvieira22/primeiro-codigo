@@ -1,22 +1,10 @@
 pipeline {
     agent any
     stages {
-        stage('Instalar Python') {
+        stage('Executar main.py') {
             steps {
-                echo 'Instalando Python'
-                bat '''
-                    @echo off
-                    setlocal
-
-                    :: Baixar o instalador do Python
-                    powershell -Command "Invoke-WebRequest -Uri 'https://www.python.org/ftp/python/3.9.7/python-3.9.7-amd64.exe' -OutFile 'python-installer.exe'"
-
-                    :: Instalar o Python
-                    start /wait python-installer.exe /quiet InstallAllUsers=1 PrependPath=1
-
-                    :: Verificar a instalação
-                    python3 --version
-                '''
+                echo 'Executando main.py'
+                bat 'python main.py'
             }
         }
     }
