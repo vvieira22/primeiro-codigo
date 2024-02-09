@@ -1,1 +1,6 @@
 echo "Primeiro pipeline Jenkinsfile.jenkins"
+stage('Executar main.py') {
+    steps {
+        sh 'python main.py'
+    }
+}
