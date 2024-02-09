@@ -1,10 +1,16 @@
 pipeline {
     agent any
     stages {
+        stage('Instalar dependências') {
+            steps {
+                echo 'Instalando dependências do Python'
+                bat 'pip install -r requirements.txt'
+            }
+        }
         stage('Executar main.py') {
             steps {
                 echo 'Executando main.py'
-                bat 'python main.py'
+                bat 'python pasta01/main.py'
             }
         }
     }
