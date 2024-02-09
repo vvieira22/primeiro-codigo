@@ -4,6 +4,7 @@ pipeline{
         stage('Preparar ambiente'){
             steps{
                 echo 'Instalando dependências'
+                sh 'npm install'
         }
         }
 }
