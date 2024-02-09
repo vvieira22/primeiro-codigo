@@ -5,13 +5,14 @@ pipeline {
             steps {
                 echo 'Instalando dependências'
                 bat 'choco install python --yes'
+                bat 'refreshenv' // Atualiza as variáveis de ambiente
                 bat 'python --version'
             }
         }
         stage('Executar main.py') {
             steps {
                 echo 'Executando main.py'
-                bat 'Python3 main.py'
+                bat 'python main.py'
             }
         }
     }
