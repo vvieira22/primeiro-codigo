@@ -1,11 +1,18 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage('Preparar ambiente'){
-            steps{
+    stages {
+        stage('Preparar ambiente') {
+            steps {
                 echo 'Instalando dependências'
-                bat 'Python3 --version'
+                bat 'choco install python --yes'
+                bat 'python --version'
+            }
         }
+        stage('Executar main.py') {
+            steps {
+                echo 'Executando main.py'
+                bat 'Python3 main.py'
+            }
         }
-}
+    }
 }
