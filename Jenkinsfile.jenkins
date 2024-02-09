@@ -15,7 +15,7 @@ pipeline {
                     start /wait python-installer.exe /quiet InstallAllUsers=1 PrependPath=1
 
                     :: Verificar a instalação
-                    python --version
+                    python3 --version
                 '''
             }
         }
