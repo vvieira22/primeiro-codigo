@@ -1,9 +1,9 @@
 pipeline{
-    echo "Primeiro pipeline Jenkinsfile.jenkins"
     agent any
     stages{
         stage('Executar main.py'){
             steps{
+                echo 'Iniciando main.py'
                 sh 'python main.py'
             }
         }
