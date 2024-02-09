@@ -4,7 +4,7 @@ pipeline{
         stage('Preparar ambiente'){
             steps{
                 echo 'Instalando dependências'
-                bat 'python3 --version'
+                bat 'Python3 --version'
         }
         }
 }
