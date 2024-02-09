@@ -1,11 +1,10 @@
 pipeline{
     agent any
     stages{
-        stage('Executar main.py'){
+        stage('Preparar ambiente'){
             steps{
-                echo 'Iniciando main.py'
-                sh 'python main.py'
-            }
+                echo 'Instalando dependências'
         }
-    }
+        }
+}
 }
