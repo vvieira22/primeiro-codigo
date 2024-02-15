@@ -9,7 +9,9 @@ directory = os.getcwd().replace('\\', '/')
 print("300")
 
 # Abra o repositório
+print(git.Repo(directory))
 repo = git.Repo(directory)
+print(repo)
 print("400")
 repo.git.fetch("-p", "--tags")
 print("500")
