@@ -1,20 +1,14 @@
-#!/usr/bin/env python
+import json
 
-import numpy as np
-import time
-import os
+# a Python object (dict):
+x = {
+  "name": "John",
+  "age": 30,
+  "city": "New York"
+}
 
-# Generate random matrices
-matrix1 = np.random.rand(1000, 1000)
-matrix2 = np.random.rand(1000, 1000)
+# convert into JSON:
+y = json.dumps(x)
 
-# Perform matrix multiplication and measure the time
-start_time = time.time()
-result = np.dot(matrix1, matrix2)
-end_time = time.time()
-
-# Calculate the elapsed time
-elapsed_time = end_time - start_time
-os.environ['TAG'] = str(elapsed_time)
-
-print(f"The matrix multiplication took {elapsed_time} seconds.")
+# print the result to transfer to caller:
+print(y)
