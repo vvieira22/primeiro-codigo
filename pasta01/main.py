@@ -6,7 +6,7 @@ cwd = os.getcwd()
 command = "git tag --sort=-creatordate | head -n 3"
 
 # Execute o comando 
-process = subprocess.Popen(command, cwd = "C:\ProgramData\Jenkins\.jenkins\workspace\teste\pasta01\", stdout=subprocess.PIPE, shell=True, text=True)
+process = subprocess.Popen(command, cwd = "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\teste\\pasta01", stdout=subprocess.PIPE, shell=True, text=True)
 
 # Obtenha a saída do comando
 output, error = process.communicate()
