@@ -3,7 +3,7 @@ import os
 import git
 
 # Defina o diretório de trabalho
-repo_dir = "C:\ProgramData\Jenkins\.jenkins\workspace\teste\pasta01"
+repo_dir = "C:\\ProgramData\\Jenkins\\.jenkins\workspace\\teste\\pasta01"
 
 # Abra o repositório
 repo = git.Repo(repo_dir)
