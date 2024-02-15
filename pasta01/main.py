@@ -2,7 +2,8 @@ import subprocess
 import os
 import git
 
-print(["100","200"])
+print("100")
+print("200")
 
 directory = os.getcwd().replace('\\', '/')
 
