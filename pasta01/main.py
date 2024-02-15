@@ -1,15 +1,16 @@
 import subprocess
 import os
+import git
 
-cwd = os.getcwd()
-# Defina o comando como uma string
-command = "git tag --sort=-creatordate | head -n 3"
+# Defina o diretório de trabalho
+repo_dir = "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\teste\\pasta01"
 
-# Execute o comando 
-process = subprocess.Popen(command, cwd = "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\teste\\pasta01", stdout=subprocess.PIPE, shell=True, text=True)
+# Abra o repositório
+repo = git.Repo(repo_dir)
 
-# Obtenha a saída do comando
-output, error = process.communicate()
+# Obtenha as três últimas tags ordenadas por data de criação
+tags = repo.tags.sort(key=lambda t: t.commit.committed_datetime, reverse=True)[:3]
 
-# Imprima a saída
-print(output)
+# Imprima as tags
+for tag in tags:
+    print(tag.name)
