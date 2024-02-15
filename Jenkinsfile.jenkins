@@ -11,7 +11,7 @@ pipeline {
             steps {
                 echo 'Executando main.py'
                 bat 'python pasta01/main.py'
-                echo TAG
+                echo $TAG
             }
         }
     }
