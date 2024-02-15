@@ -2,6 +2,8 @@ import subprocess
 import os
 import git
 
+print("100")
+
 directory = os.getcwd().replace('\\', '/')
 
 # Abra o repositório
