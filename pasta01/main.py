@@ -12,4 +12,4 @@ process = subprocess.Popen(command, cwd = "C:\ProgramData\Jenkins\.jenkins\works
 output, error = process.communicate()
 
 # Imprima a saída
-print(cwd)
+print(output)
