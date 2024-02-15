@@ -12,4 +12,4 @@ process = subprocess.Popen(command, cwd = cwd, stdout=subprocess.PIPE, shell=Tru
 output, error = process.communicate()
 
 # Imprima a saída
-print(output)
+print(cwd)
