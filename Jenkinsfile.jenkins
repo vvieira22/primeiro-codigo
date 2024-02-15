@@ -11,7 +11,7 @@ pipeline {
             steps {
                 echo 'Executando main.py'
                 bat 'python pasta01/main.py'
-                def myVar = build.getEnvironment(listener).get('TAG')
+                myVar = build.getEnvironment(listener).get('TAG')
             }
         }
     }
