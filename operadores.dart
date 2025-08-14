@@ -1,3 +1,5 @@
+// ignore_for_file: dead_code
+// rs,isso é legal, ignorar código morto ou inacessivel no topo do arquivo.
 void main() {
   // Operadores Aritméticos
   int a = 10;
