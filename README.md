@@ -20,7 +20,20 @@ int idade = 30;
 final nome = 'Vitor';
 const pi = 3.14;
 ```
+## Variáveis *Dynamic* vs *Var* vs *Num*
+Dynamic são variáveis que podem receber qualquer tipo de dado após sua criação. Var, é definido e sempre precisará ser daquele tipo criado, e o tipo num só irá aceitar números, inteiros ou decimais.
+```dart
+dynamic variavelDynamic = "30";
+var variavelVar = 30
+num numero = 30
 
+variavelDynamic = 30;
+variavelVar = 30
+numero = 3.0
+
+variavelVar = "30" #Erro !!
+numero = "30" #Erro !!
+```
 ## Funções
 
 ```dart
