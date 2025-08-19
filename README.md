@@ -91,6 +91,104 @@ Map<String, int> mapa = {'a': 1, 'b': 2};
 Set<int> conjunto = {1, 2, 3};
 ```
 
+# Métodos Avançados para Listas em Dart
+
+### `List.filled()`
+
+Cria uma lista de tamanho fixo onde todos os elementos são preenchidos com o mesmo valor.
+
+```dart
+// Cria uma lista com 10 posições, todas preenchidas com a string "Vitor"
+List<String> nomes = List.filled(10, "Vitor");
+print(nomes); // [Vitor, Vitor, Vitor, Vitor, Vitor, Vitor, Vitor, Vitor, Vitor, Vitor]
+```
+
+### `List.generate()`
+
+Cria uma lista cujo conteúdo é gerado por uma função. A função recebe o índice do elemento como parâmetro e deve retornar o valor para aquela posição.
+
+```dart
+// Gera uma lista de 10 elementos, onde cada elemento é o seu índice multiplicado por 2.
+List<int> lista = List.generate(10, (index) {
+  return index * 2;
+});
+print(lista); // [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+
+// Versão simplificada com arrow function (=>)
+List<int> lista2 = List.generate(10, (index) => (index + 1));
+print(lista2); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+```
+
+---
+
+### `isEmpty` e `isNotEmpty`
+
+Verificam de forma rápida e legível se a lista contém ou não elementos.
+
+```dart
+print(lista2.isEmpty);   // false
+print(lista2.isNotEmpty); // true
+```
+
+### `any()`
+
+Retorna `true` se **pelo menos um** elemento da lista satisfizer a condição da função.
+
+```dart
+// Verifica se existe algum elemento maior que 5 na lista.
+bool temMaiorQue5 = lista2.any((elemento) => elemento > 5);
+print(temMaiorQue5); // true
+```
+
+---
+
+### `firstWhere()` e `lastWhere()`
+
+- `firstWhere`: Retorna o **primeiro** elemento que atende à condição.
+- `lastWhere`: Retorna o **último** elemento que atende à condição.
+
+**Atenção:** Se nenhum elemento for encontrado, uma exceção (erro) será lançada.
+
+```dart
+// Retorna o primeiro número par da lista.
+print(lista2.firstWhere((i) => i % 2 == 0)); // 2
+
+// Retorna o último número par da lista.
+print(lista2.lastWhere((i) => i % 2 == 0)); // 10
+```
+
+### `where()`
+
+Retorna uma nova coleção **iterável** (`Iterable`) com **todos** os elementos que atendem à condição. Por não ser uma `List`, se você precisar dos métodos de lista (como `[]` ou `.length`), você deve convertê-la com `.toList()`.
+
+```dart
+// Retorna um Iterable com todos os números pares.
+var numerosPares = lista2.where((i) => i % 2 == 0);
+print(numerosPares); // (2, 4, 6, 8, 10)
+
+// Para usar como lista, converta:
+List<int> listaDePares = numerosPares.toList();
+print(listaDePares[0]); // 2
+```
+
+---
+
+### `map()`
+
+Aplica uma função a **cada elemento** da lista e retorna um novo `Iterable` com os resultados. É a ferramenta perfeita para transformar dados.
+
+```dart
+// Cria um novo Iterable onde cada elemento da lista original foi incrementado em 1.
+var listaIncrementada = lista2.map((i) => i + 1);
+print(listaIncrementada.toList()); // [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+
+// Você também pode usar uma função com lógica mais complexa.
+var resultadoComplexo = lista2.map((i) => i % 2 == 0 ? i * 10 : i);
+print(resultadoComplexo.toList()); // [1, 20, 3, 40, 5, 60, 7, 80, 9, 100]
+```
+
+
+
 ## Controle de Fluxo
 
 ```dart
