@@ -240,7 +240,120 @@ Pessoa? pessoa;
 print(pessoa?.nome); // Só acessa 'nome' se pessoa não for nulo
 ```
 
-Esses operadores ajudam a evitar erros de acesso a variáveis nulas e garantem maior segurança no código.
+### Esses operadores ajudam a evitar erros de acesso a variáveis nulas e garantem maior segurança no código.
+
+```dart
+Map<String, dynamic> usuario = {
+  'nome': 'Alice',
+  'idade': 30,
+  'ativo': true,
+};
+print(usuario); // {nome: Alice, idade: 30, ativo: true}
+
+// Map vazio
+Map<String, int> idades = {};
+```
+
+Acesse usando a chave entre colchetes `[]`.
+
+```dart
+print(usuario['nome']);   // Alice
+print(usuario['idade']);  // 30
+
+// Se a chave não existir, retorna null
+print(usuario['email']); // null
+```
+
+### Adicionando/Atualizando Valores
+
+Use a chave entre colchetes `[]` e atribua um valor.
+
+```dart
+usuario['cidade'] = 'São Paulo'; // Adiciona uma nova chave/valor
+usuario['idade'] = 31;         // Atualiza o valor da chave 'idade'
+print(usuario); // {nome: Alice, idade: 31, ativo: true, cidade: São Paulo}
+```
+
+### Removendo Valores
+
+Use o método `remove()`.
+
+```dart
+usuario.remove('ativo');
+print(usuario); // {nome: Alice, idade: 31, cidade: São Paulo}
+```
+
+### Verificando Chaves e Valores
+
+- `containsKey()`: Verifica se a chave existe.
+- `containsValue()`: Verifica se o valor existe.
+- `isEmpty`, `isNotEmpty`: Verificam se o map está vazio.
+- `length`: Retorna o número de pares chave/valor.
+
+```dart
+print(usuario.containsKey('nome'));  // true
+print(usuario.containsKey('email')); // false
+print(usuario.containsValue('Alice')); // true
+print(usuario.isEmpty);             // false
+print(usuario.length);              // 3
+```
+
+### Iterando sobre um Map
+
+Use `forEach()` ou um loop `for-in` nos métodos `keys`, `values` ou `entries`.
+
+```dart
+// Iterando com forEach
+usuario.forEach((chave, valor) {
+  print('$chave: $valor');
+});
+// Saída:
+// nome: Alice
+// idade: 31
+// cidade: São Paulo
+
+// Iterando sobre as chaves
+for (var chave in usuario.keys) {
+  print('Chave: $chave');
+}
+
+// Iterando sobre os valores
+for (var valor in usuario.values) {
+  print('Valor: $valor');
+}
+
+// Iterando sobre pares chave/valor (entries)
+for (var entry in usuario.entries) {
+  print('Chave: ${entry.key}, Valor: ${entry.value}');
+}
+```
+
+### Outros Métodos Úteis
+
+- `clear()`: Remove todos os pares chave/valor.
+- `putIfAbsent()`: Adiciona um par chave/valor apenas se a chave ainda não existir.
+- `update()`: Atualiza o valor de uma chave existente.
+- `map()`: Cria um novo map aplicando uma função a cada entrada.
+
+```dart
+Map<String, int> contadores = {'a': 1, 'b': 2};
+
+// Adiciona 'c': 3 apenas se 'c' não existir
+contadores.putIfAbsent('c', () => 3);
+print(contadores); // {a: 1, b: 2, c: 3}
+
+// Não adiciona 'a' porque já existe
+contadores.putIfAbsent('a', () => 10);
+print(contadores); // {a: 1, b: 2, c: 3}
+
+// Atualiza o valor de 'a'
+contadores.update('a', (valorAtual) => valorAtual * 2);
+print(contadores); // {a: 2, b: 2, c: 3}
+
+// Cria um novo map com valores dobrados
+var contadoresDobrados = contadores.map((key, value) => MapEntry(key, value * 2));
+print(contadoresDobrados); // {a: 4, b: 4, c: 6}
+
 
 ## Async/Await
 
