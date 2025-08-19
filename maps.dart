@@ -1,4 +1,17 @@
- void main(){
+void main() {
+  //Declarando um Map nulo
+  Map<String, double>? salariosNulos;
+  //Posso preencher ele depois sem problemas.
+  salariosNulos = {
+    'gerente': 19345.78,
+    'estagiario': 600.00,
+    'pleno': 10000.00,
+  };
+  //Se for nulo nao posso fazer uma operacao sem antes garantir que ele nao eh nulo
+  if (salariosNulos != null) {
+    salariosNulos.remove('pleno');
+  }
+
   // Declarando um Map (Chave/Valor)
   Map<String, double> salarios = {
     'gerente': 19345.78,
@@ -17,7 +30,7 @@
   print(salarios.isEmpty);
 
   //Aumento de 10% para todo mapa
-  salarios.forEach((chave,valor) => salarios[chave] = valor * 1.1);
+  salarios.forEach((chave, valor) => salarios[chave] = valor * 1.1);
   print(salarios);
 
   // BOTA O ! no final quando vc tem certeza que tem o valor certo, e nao nulo !!!!!
