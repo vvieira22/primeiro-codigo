@@ -1,4 +1,4 @@
-package com.example.contador_pessoas
+package com.example.silk_deaths
 
 import io.flutter.embedding.android.FlutterActivity
 
