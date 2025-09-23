@@ -14,10 +14,15 @@
 
 **Importante:** Sempre que você alterar o arquivo `pubspec.yaml` (adicionando uma dependência, por exemplo), é necessário executar o comando `flutter pub get` no terminal ou clicar no botão que geralmente aparece no seu editor de código (semelhante ao "Sync Gradle" no Android Studio para projetos nativos Android). Isso garante que as novas dependências sejam baixadas e configuradas corretamente.
 
-### Flutter suporta hot reload, mexeu no código ele já atualiza na tela :)
+#### Flutter suporta hot reload, mexeu no código ele já atualiza na tela :)
 
-### Modos de Compilação (Build Modes) no Flutter
+## Passagem parâmetros/widgets entre filhos/pai
+1.  **Pai -> Filho:**
+   Passagem por parâmetro simples.
+2.  **Filho -> Pai:**
+   Através de um callback (função), cria um callback no pai, passa pelo filho, então o filho recebe e "chama".
 
+## Modos de Compilação (Build Modes) no Flutter 
 O Flutter oferece três modos de compilação, cada um otimizado para uma fase diferente do desenvolvimento:
 Obs: Para jogar na playstore é recomendado buildar appbundle em vez de apk!
 1.  **Debug Mode:**
@@ -47,7 +52,6 @@ Obs: Para jogar na playstore é recomendado buildar appbundle em vez de apk!
         *   **Ferramentas de Profiling Disponíveis:** Permite o uso de ferramentas como o DevTools para analisar gargalos de performance, uso de memória, etc.
         *   **Sem Marca d'água "Debug".**
     *   **Como usar:** Execute `flutter run --profile` ou `flutter build <platform> --profile`. É útil para identificar problemas de performance antes de lançar a versão final.
-
 **Em resumo:**
 *   Use **Debug Mode** para o desenvolvimento diário.
 *   Use **Profile Mode** para analisar a performance antes de lançar.
