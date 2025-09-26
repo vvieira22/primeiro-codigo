@@ -88,7 +88,36 @@ class _TodoListHomePageState extends State<TodoListHomePage> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: null,
+                    onPressed: () {
+                      if(tarefas.isNotEmpty) {
+                        showDialog(
+                          context: context,
+                          builder: (context) =>
+                              AlertDialog(
+                                title: Text('Limpar Tudo?'),
+                                content: Text(
+                                    'Você tem certeza que deseja apagar todas as tarefas?'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(); //fechar alerta
+                                    },
+                                    child: Text('Cancelar'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      limpartarefas();
+                                    },
+                                    child: Text('Limpar Tudo',
+                                      style: TextStyle(color: Colors.red),),
+                                  ),
+                                ],
+                              ),
+                        );
+                      }
+                      },
+
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                       foregroundColor: Colors.white,
@@ -173,5 +202,12 @@ class _TodoListHomePageState extends State<TodoListHomePage> {
         ),
       ),
     );
+  }
+
+  void limpartarefas() {
+
+    setState(() {
+      tarefas.clear();
+    });
   }
 }
