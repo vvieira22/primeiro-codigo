@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lista_tarefas/repositories/lista_repository.dart';
 import 'package:lista_tarefas/widgets/lista_tarefas_item.dart';
 
 import '../models/tarefa.dart';
@@ -13,10 +14,21 @@ class TodoListHomePage extends StatefulWidget {
 class _TodoListHomePageState extends State<TodoListHomePage> {
   final TextEditingController campoTarefa = TextEditingController();
   final FocusNode _focusNode = FocusNode();
+  final ListaRepository listaRepository = ListaRepository();
 
   List<Tarefa> tarefas = [];
   Tarefa? tarefaDeletada;
   int? indiceTarefaDeletada;
+
+  @override
+  void initState(){
+    super.initState(); //sempre fazer isso!, é chamado na criacao do widget.
+    listaRepository.getListas().then((value) {
+      setState(() {
+        tarefas = value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -146,6 +158,7 @@ class _TodoListHomePageState extends State<TodoListHomePage> {
       campoTarefa.clear();
       _focusNode.requestFocus();
       tarefas.add(novaTarefa);
+      listaRepository.saveTodoList(tarefas);
     });
   }
 
@@ -164,6 +177,7 @@ class _TodoListHomePageState extends State<TodoListHomePage> {
 
     setState(() {
       tarefas.remove(todo);
+      listaRepository.saveTodoList(tarefas);
     });
 
     // Para Snackbar com botao nao tem timeout nem duracao, tem que fazer
@@ -198,6 +212,7 @@ class _TodoListHomePageState extends State<TodoListHomePage> {
             setState(() {
               tarefas.insert(indiceTarefaDeletada!, tarefaDeletada as Tarefa);
             });
+            listaRepository.saveTodoList(tarefas);
           },
         ),
       ),
@@ -205,9 +220,9 @@ class _TodoListHomePageState extends State<TodoListHomePage> {
   }
 
   void limpartarefas() {
-
     setState(() {
       tarefas.clear();
+      listaRepository.saveTodoList(tarefas);
     });
   }
 }
