@@ -19,6 +19,7 @@ class _TodoListHomePageState extends State<TodoListHomePage> {
   List<Tarefa> tarefas = [];
   Tarefa? tarefaDeletada;
   int? indiceTarefaDeletada;
+  String? errorTarefaVazia;
 
   @override
   void initState(){
@@ -51,6 +52,13 @@ class _TodoListHomePageState extends State<TodoListHomePage> {
                       decoration: InputDecoration(
                         hintText: 'Ex. Estudar Python.',
                         labelText: 'Tarefa',
+                        errorText: errorTarefaVazia,
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.lightBlue,
+                            width: 2
+                          )
+                        ),
                         labelStyle: const TextStyle(
                           fontSize: 25,
                           color: Colors.black,
@@ -150,16 +158,25 @@ class _TodoListHomePageState extends State<TodoListHomePage> {
   }
 
   void addTarefa() {
-    Tarefa novaTarefa = Tarefa(
-      nomeTarefa: campoTarefa.text,
-      data: DateTime.now(),
-    );
-    setState(() {
-      campoTarefa.clear();
-      _focusNode.requestFocus();
-      tarefas.add(novaTarefa);
-      listaRepository.saveTodoList(tarefas);
-    });
+    if (campoTarefa.text.isEmpty){
+      setState(() {
+        errorTarefaVazia = "Nome da tarefa não pode ser vazia.";
+        return;
+      });
+    }
+    else {
+      errorTarefaVazia = null;
+      Tarefa novaTarefa = Tarefa(
+        nomeTarefa: campoTarefa.text,
+        data: DateTime.now(),
+      );
+      setState(() {
+        campoTarefa.clear();
+        _focusNode.requestFocus();
+        tarefas.add(novaTarefa);
+        listaRepository.saveTodoList(tarefas);
+      });
+    }
   }
 
   void onChanged(String text) {
