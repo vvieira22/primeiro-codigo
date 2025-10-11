@@ -1,10 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:math';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:silk_deaths/screens/login_screen.dart';
+import 'firebase_options.dart';
 
+final db = FirebaseFirestore.instance;
 //primeira funcao quando executa app.
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   // Garante que os bindings do Flutter sejam inicializados
   runApp(const MyApp());
 }
@@ -14,7 +23,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: HomePage());
+    return MaterialApp(home: LoginScreen());
   }
 }
 
@@ -29,17 +38,24 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int mortes = 0;
-  final AudioPlayer _audioPlayer = AudioPlayer();
 
+  final AudioPlayer _audioPlayer = AudioPlayer();
   //Precisa colocar o setState por que é ele quem avisa o flutter que precisa reconstruir a tela com o novo valor da variável.
   void increment() {
     setState(() {
+      late final teste = <String,String> {
+        "teste": "teste_$mortes",
+        "teste2": "123"
+      };
+      db.collection("teste_$mortes")
+          .doc("teste").set(teste)
+          .onError((error, stacktrace) =>
+          print("Erro firebase"));
       mortes++;
       playSoundDeath();
     });
     print(mortes);
   }
-
   void resetar() {
     setState(() {
       mortes = 0;

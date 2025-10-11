@@ -2,6 +2,9 @@ import java.util.Properties
 import java.io.FileInputStream
 plugins {
     id("com.android.application")
+    // START: FlutterFire Configuration
+    id("com.google.gms.google-services")
+    // END: FlutterFire Configuration
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
@@ -35,22 +38,28 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        // Habilita o suporte a "MultiDex".
+        // Aplicações Android têm um limite de 65.536 métodos que podem ser referenciados
+        // em um único arquivo DEX (o formato de bytecode executado pela máquina virtual do Android).
+        // Quando seu app e as bibliotecas que ele usa excedem esse limite, a compilação falha.
+        // Definir `multiDexEnabled = true` permite que o sistema de build gere múltiplos arquivos DEX,
+        // contornando essa limitação e permitindo que seu app cresça em tamanho e complexidade.
+        multiDexEnabled = true
     }
 
     signingConfigs {
         create("release") {
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            storeFile = keystoreProperties["storeFile"]?.let { file(it) }
-            storePassword = keystoreProperties["storePassword"] as String
+            keyAlias = keystoreProperties.getProperty("keyAlias")
+            keyPassword = keystoreProperties.getProperty("keyPassword")
+            storeFile = keystoreProperties.getProperty("storeFile")?.let { file(it) }
+            storePassword = keystoreProperties.getProperty("storePassword")
         }
     }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now,
-            // so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            // See https://docs.flutter.dev/deployment/android#signing-the-app for more information.
             signingConfig = signingConfigs.getByName("release")
         }
     }
