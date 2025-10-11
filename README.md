@@ -16,12 +16,6 @@
 
 #### Flutter suporta hot reload, mexeu no código ele já atualiza na tela :)
 
-## Passagem parâmetros/widgets entre filhos/pai
-1.  **Pai -> Filho:**
-   Passagem por parâmetro simples.
-2.  **Filho -> Pai:**
-   Através de um callback (função), cria um callback no pai, passa pelo filho, então o filho recebe e "chama".
-
 ## Modos de Compilação (Build Modes) no Flutter 
 O Flutter oferece três modos de compilação, cada um otimizado para uma fase diferente do desenvolvimento:
 Obs: Para jogar na playstore é recomendado buildar appbundle em vez de apk!
@@ -56,3 +50,55 @@ Obs: Para jogar na playstore é recomendado buildar appbundle em vez de apk!
 *   Use **Debug Mode** para o desenvolvimento diário.
 *   Use **Profile Mode** para analisar a performance antes de lançar.
 *   Use **Release Mode** para construir a versão final para os usuários.
+
+## Widgets
+
+Tudo em Flutter é construído a partir de widgets. Widgets são os blocos fundamentais da interface do usuário: cada elemento visual, como botões, textos, imagens, é um widget. Eles podem ser combinados e personalizados para criar as interfaces.
+
+* StatefulWidget
+É um widget que pode mudar com o tempo. Por exemplo, um botão que muda de cor quando você clica. Ele guarda informações (estado) e pode atualizar a tela quando algo muda.
+
+* StatelessWidget
+É um widget que nunca muda depois de criado. Ele só mostra informações fixas. Por exemplo, um texto ou um ícone que não muda.
+
+* InheritedWidget
+Serve para compartilhar informações entre vários widgets filhos. Por exemplo, se você quer que vários widgets tenham acesso ao mesmo tema ou configuração, usa um InheritedWidget para passar esses dados para baixo na árvore de widgets.
+
+Se pensar em widgets como peças de LEGO:
+
+**StatelessWidget** é uma peça fixa.
+**StatefulWidget** é uma peça que pode mudar de cor ou forma.
+**InheritedWidget** é como uma base que passa energia para várias peças conectadas.
+
+### Scaffold
+
+O Scaffold é um widget que implementa a estrutura visual básica do Material
+Design. Pense nele como o "esqueleto" de uma tela. **Basicamente um dos widgets mais importantes, literalmente a base de tudo teoricamente**.
+
+Por que usá-lo aqui?
+* Estrutura Padrão: Ele fornece slots (propriedades) para os elementos mais comuns de uma tela, como `appBar` (barra superior), `body` (o conteúdo principal), `floatingActionButton` (botão de ação flutuante), `drawer` (menu lateral), `bottomNavigationBar` (barra de navegação inferior), etc.
+
+* Aparência Consistente: Garante que sua tela siga as diretrizes do Material Design, como definir uma cor de fundo padrão (geralmente branco ou cinza claro) e garantir que o conteúdo não se sobreponha a elementos do sistema operacional (como a barra de status na parte superior ou a barra de gestos na parte inferior).
+
+### Container
+O Container é um widget versátil usado para layout, estilização e pintura. Você pode definir sua cor, tamanho, preenchimento (padding), margens, bordas e muito mais. É um dos blocos de construção mais fundamentaispara criar a UI (Interface de Usuário) final do seu aplicativo.
+
+Exemplo: Um cabeçalho azul com altura definida.
+
+### Placeholder
+É um widget de desenvolvimento. Ele desenha uma caixa com um 'X' dentro para "reservar" um espaço na tela. É extremamente útil durante a fase de prototipagem e layout para visualizar onde os widgets futuros serão colocados sem precisar construí-los ainda.Ele não é destinado ao aplicativo final em produção.
+
+Exemplo: Reservando espaço para um futuro formulário de login.
+
+### Passagem parâmetros/widgets entre filhos/pai
+1.  **Pai -> Filho:**
+   Passagem por parâmetro simples.
+2.  **Filho -> Pai:**
+   Através de um callback (função), cria um callback no pai, passa pelo filho, então o filho recebe e "chama".
+
+### BuildContext
+
+Ele serve como um "endereço" que diz onde você está na árvore de widgets do app. Quando você cria um widget, o Flutter dá para ele um BuildContext.
+Esse BuildContext permite que o widget encontre informações sobre onde ele está e acesse coisas como temas, tamanhos, ou navegar para outras telas.
+
+BuildContext é só uma forma do Flutter saber "onde" você está no app, para poder te ajudar a acessar recursos ou navegar entre telas.
