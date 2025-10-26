@@ -40,7 +40,8 @@ dependencies:
   firebase_messaging: ^16.0.2
   firebase_auth: ^6.1.0
   google_sign_in: ^7.2.0
-
+  flutter_staggered_animations: ^1.1.1 #animacao para listview
+  smooth_page_indicator: ^1.2.1 #indicador de paginas carossel
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -52,7 +53,6 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
   icons_launcher: ^3.0.2
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -70,8 +70,9 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   assets:
-    - assets/
     - assets/images/
+    - assets/images/regions/
+    - assets/images/monsters/bosses/
     - assets/sounds/
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:silk_deaths/screens/register_screen.dart';
 
 
 class LoginScreen extends StatelessWidget {
@@ -90,7 +91,12 @@ class LoginScreen extends StatelessWidget {
                       child: Text("Esqueceu a senha?"),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => RegisterScreen()),
+                        );
+                      },
                       child: Text("Primeiro acesso? Crie uma conta aqui"),
                     ),
                   ],
