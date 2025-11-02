@@ -5,6 +5,7 @@ class AppColors {
   AppColors._();
 
   //COLORS FOR LIST OF MONSTERS
+  static const Color backgroundElementsColor = Color(0xFF2F2E35);
   static const Color listMonstersBackgroundColor = Color(0xFF2F2E35);
   static const Color listMonstersBorderColor = Color(0xFF000000);
 }

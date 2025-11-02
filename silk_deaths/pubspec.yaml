@@ -72,6 +72,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/regions/
+    - assets/images/wallpapers/
     - assets/images/monsters/bosses/
     - assets/sounds/
 

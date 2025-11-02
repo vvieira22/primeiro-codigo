@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:silk_deaths/screens/register_screen.dart';
 
+import '../theme/app_colors.dart';
+
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -13,23 +15,30 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(16),
-        color: Colors.blue, // Cor de fundo da tela
+        padding: EdgeInsets.all(20),
+        color: Colors.black, // Cor de fundo da tela
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding: EdgeInsets.all(16),
+                padding: EdgeInsets.fromLTRB(16,16,16,8),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.backgroundElementsColor,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Column(
                   children: [
-                    FlutterLogo(
-                      size: 64,
+                    Image.asset(
+                      'assets/images/silk_deaths_logo.png', // Caminho para a sua imagem
+                      width: 340,
+                      height: 150,
                     ),
+                    // Image.asset(
+                    //   'assets/images/icon_launcher.png', // Caminho para a sua imagem
+                    //   width: 124,
+                    //   height: 124,
+                    // ),
                     SizedBox(
                       height: 16,
                     ),
@@ -52,7 +61,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 16,
+                      height: 20,
                     ),
                     ElevatedButton(
                       onPressed: () {},

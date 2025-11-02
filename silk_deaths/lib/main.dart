@@ -7,10 +7,13 @@ import 'dart:math';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:silk_deaths/screens/home_screen.dart';
+import 'package:silk_deaths/screens/home_screen2.dart';
 import 'package:silk_deaths/screens/list_monsters.dart';
 import 'package:silk_deaths/screens/login_screen.dart';
 import 'package:silk_deaths/screens/register_screen.dart';
 import 'package:silk_deaths/widgets/home_carousel.dart';
+import 'package:silk_deaths/widgets/home_drawer.dart';
+import 'package:silk_deaths/widgets/home_drawer2.dart';
 import 'firebase_options.dart';
 import 'models/Monster.dart';
 
@@ -36,7 +39,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           useMaterial3: true
         ),
-        home: InfiniteListScreen());
+        home: HomeScreenLayout());
   }
 }
 
@@ -256,42 +259,91 @@ class _InfiniteListScreenState extends State<InfiniteListScreen> {
    Color fadeColor = Colors.transparent;
    double fadeAmount = 0.1;
 
+   double xOffset = 0;
+   double yOffset = 0;
+   bool isDrawerOpen = false;
+
+  // return AnimatedContainer(
+  // transform: Matrix4.translationValues(xOffset, yOffset, 0)
+  // ..scale(isDrawerOpen ? 0.85 : 1.00)
+  // ..rotateZ(isDrawerOpen ? 50 : 0),
+  // duration: Duration(milliseconds: 200),
+  // child: MaterialApp(
+  // home: Scaffold(
+  //
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.black,
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.menu, color: Colors.white),
-            onPressed: () {
-              // TODO: Implementar a lógica para abrir o Drawer/menu lateral
-              print("Menu button pressed!");
-            },
-          ),
-          title: const Text('Silk Deaths'),
-          titleTextStyle: const TextStyle(
-            color: Colors.white,
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
+    return GestureDetector(
+      // onHorizontalDragUpdate: (details) {
+      //   if (details.delta.dx > 0) { // Arrastando para a direita
+      //     setState(() {
+      //       xOffset = 0; // Largura do drawer
+      //       yOffset = 0;
+      //       isDrawerOpen = true;
+      //     });
+      //   } else if (details.delta.dx < 0) { // Arrastando para a esquerda
+      //     setState(() {
+      //       xOffset = 0;
+      //       yOffset = 0;
+      //       isDrawerOpen = false;
+      //     });
+      //   }
+      // },
+      child: AnimatedContainer(
+        transform: Matrix4.translationValues(xOffset, yOffset, 0)
+          ..scale(isDrawerOpen ? 0.85 : 1.00)
+          ..rotateZ(isDrawerOpen ? -50: 0), // A rotação pode ser um pouco demais
+        duration: Duration(milliseconds: 250),
+        decoration: BoxDecoration( // Adicionado para evitar problemas de renderização durante a animação
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0),
         ),
-
-        // Aqui está o equivalente ao RecyclerView: ListView.builder
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Column(
+        child: Scaffold(
+          backgroundColor: Colors.black,
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+              iconTheme: const IconThemeData(
+                color: Colors.red, // Set your desired color here
+              ),
+            title: const Text('Silk Deaths'),
+            titleTextStyle: const TextStyle(
+              color: Colors.white,
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: IconButton( // Adiciona um botão para abrir/fechar o drawer
+              icon: Icon(isDrawerOpen ? Icons.arrow_back_ios : Icons.menu),
+              onPressed: () {
+                setState(() {
+                  if (isDrawerOpen) {
+                    xOffset = 0;
+                    yOffset = 0;
+                    isDrawerOpen = false;
+                  } else {
+                    xOffset = 300;
+                    yOffset = 50;
+                    isDrawerOpen = true;
+                  }
+                });
+              },
+            ),
+          ),
+          drawer: HomeDrawer(),
+      
+          // Aqui está o equivalente ao RecyclerView: ListView.builder
+          body: Column(
             children: [
-              SizedBox(height: 100), // Espaço para a AppBar transparente
+              SizedBox(height: 60), // Espaço para a AppBar transparente
+
 
               HomeCarousel(
                   images: imagesIdle,
                   onPageChanged: _onCarouselPageChanged,
                   ),
-
+      
               //MONSTROS
               Expanded(
                 child: AnimationLimiter(
@@ -309,7 +361,7 @@ class _InfiniteListScreenState extends State<InfiniteListScreen> {
                       padding: const EdgeInsets.only(top: 5, bottom: 30), // Adiciona um padding para o efeito de fade ser visível no início e fim
                       // Se você tiver dados reais, use `minhaListaDeDados.length`
                       itemCount: totalItems,
-
+      
                       // O `itemBuilder` é como o `onCreateViewHolder` e `onBindViewHolder`
                       itemBuilder: (context, index) {
                         //MOCK TESTE
@@ -319,7 +371,7 @@ class _InfiniteListScreenState extends State<InfiniteListScreen> {
                             deaths: 0,
                             optional: false,
                             boss: true);
-
+      
                         // Use o seu widget de design genérico, passando os dados de mock
                         return AnimationConfiguration.staggeredList(
                           position: index,
@@ -338,6 +390,31 @@ class _InfiniteListScreenState extends State<InfiniteListScreen> {
           ),
         ),
       ),
+    ); // Fim do GestureDetector
+  }
+}
+
+
+
+class HomeScreenLayout extends StatefulWidget {
+  const HomeScreenLayout({super.key});
+
+  @override
+  State<HomeScreenLayout> createState() => _HomeScreenLayoutState();
+}
+
+class _HomeScreenLayoutState extends State<HomeScreenLayout> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Stack(
+          children: [
+            HomeDrawer2(), // Coloca o conteúdo do drawer por trás
+            InfiniteListScreen(),
+          ],
+        ),
+      )
     );
   }
 }
