@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:silk_deaths/enums/auth_status.dart';
 
+import '../models/User.dart';
 import '../services/auth/auth_firebase.dart';
+import '../services/auth/auth_local.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
@@ -12,6 +15,7 @@ class RegisterScreen extends StatelessWidget {
   final TextEditingController?  _confirmpasswordControler = TextEditingController();
 
   AuthFirebase _authFirebase = AuthFirebase();
+  AuthLocal _authLocal = AuthLocal();
 
   @override
   Widget build(BuildContext context) {
@@ -71,18 +75,20 @@ class RegisterScreen extends StatelessWidget {
                       onPressed: () {
                         if (_passwordControler!.text ==
                             _confirmpasswordControler!.text) {
-                          _authFirebase
-                              .cadastrarUsuario(
-                                nome: _nomeControler!.text,
-                                email: _emailControler!.text,
-                                senha: _passwordControler!.text,
+                          _authLocal
+                              .registerUser(
+                                User(
+                                  name: _nomeControler!.text,
+                                  email: _emailControler!.text,
+                                  password: _passwordControler.text,
+                                )
                               )
-                              .then((String? error) {
-                                if (error != null) {
+                              .then((AuthStatus response) {
+                                if (!response.isSuccess) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                         content:
-                                        Text(error),
+                                        Text(response.message),
                                         backgroundColor: Colors.red
                                     ),
                                   );

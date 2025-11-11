@@ -96,41 +96,39 @@ class ListItemCard extends StatelessWidget {
             ),
 
           // --- WIDGET DO CONTADOR ---
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Image.asset(
-                    leftArrow,
-                    width: 30,
-                    height: 65),
-                const SizedBox(width: 4),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: SizedBox(
-                    width: 80, // Largura fixa para o contador
-                    child: Text(
-                      "99999",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Image.asset(
+                  leftArrow,
+                  width: 30,
+                  height: 65),
+              // const SizedBox(width: 4),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: SizedBox(
+                  width: 80, // Largura fixa para o contador
+                  child: Text(
+                    "99999",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
-                const SizedBox(width: 4),
-                Image.asset(
-                    rightArrow,
-                    width: 30,
-                    height: 65),
-              ],
-            ),
+              ),
+              const SizedBox(width: 1),
+              Image.asset(
+                  rightArrow,
+                  width: 30,
+                  height: 65),
+            ],
           ),
 
           // === SETA ===

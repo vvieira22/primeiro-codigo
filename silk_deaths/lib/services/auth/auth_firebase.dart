@@ -1,4 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
+import '../../models/User.dart';
 
 class AuthFirebase {
   final FirebaseAuth _FireBaseauth = FirebaseAuth.instance;
@@ -18,11 +19,11 @@ class AuthFirebase {
     return null;
   }
 
-  Future<String?> cadastrarUsuario({required String nome, required String email, required String senha}) async {
+  Future<String?> cadastrarUsuario(User newUser) async {
     try {
      UserCredential userCredential =  await _FireBaseauth.createUserWithEmailAndPassword(
-         email: email, password: senha);
-     await userCredential.user!.updateDisplayName(nome);
+         email: newUser.email, password: newUser.password);
+     await userCredential.user!.updateDisplayName(newUser.name);
     }on FirebaseAuthException catch (e) {
       switch(e.code){
         case 'weak-password':
