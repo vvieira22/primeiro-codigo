@@ -4,6 +4,7 @@ enum AuthStatus {
   invalidCredentials,
   passwordMismatch,
   unknownError,
+  databaseCorrupted
 }
 
 /// Extensão para facilitar mensagens de erro amigáveis
@@ -20,6 +21,8 @@ extension AuthStatusX on AuthStatus {
         return 'As senhas não coincidem.';
       case AuthStatus.unknownError:
         return 'Ocorreu um erro inesperado. Tente novamente.';
+      case AuthStatus.databaseCorrupted:
+        return 'db Corrompido!. Resetando...';
     }
   }
 

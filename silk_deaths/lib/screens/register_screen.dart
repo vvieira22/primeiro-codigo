@@ -1,141 +1,171 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:silk_deaths/enums/auth_status.dart';
-
 import '../models/User.dart';
-import '../services/auth/auth_firebase.dart';
 import '../services/auth/auth_local.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
 
-  final TextEditingController? _emailControler = TextEditingController();
-  final TextEditingController?  _nomeControler = TextEditingController();
-  final TextEditingController? _passwordControler = TextEditingController();
-  final TextEditingController?  _confirmpasswordControler = TextEditingController();
+  final TextEditingController _emailControler = TextEditingController();
+  final TextEditingController _nomeControler = TextEditingController();
+  final TextEditingController _passwordControler = TextEditingController();
+  final TextEditingController _confirmpasswordControler = TextEditingController();
 
-  AuthFirebase _authFirebase = AuthFirebase();
-  AuthLocal _authLocal = AuthLocal();
+  final AuthLocal _authLocal = AuthLocal();
+
+  // A KEY MÁGICA
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Container(
-        padding: EdgeInsets.all(16),
-        color: Colors.blue, // Cor de fundo da tela
+        padding: const EdgeInsets.all(16),
+        color: Colors.blue,
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Column(
-                  children: [
-                    FlutterLogo(size: 64),
-                    SizedBox(height: 16),
-                    TextField(
-                      controller: _nomeControler,
-                      decoration: InputDecoration(
-                        labelText: "Nome Completo",
-                        border: OutlineInputBorder(),
-                      ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Form(
+                  key: _formKey,
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
                     ),
-                    SizedBox(height: 16),
-                    TextField(
-                      controller: _emailControler,
-                      decoration: InputDecoration(
-                        labelText: "Email",
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    TextField(
-                      obscureText: true,
-                      controller: _passwordControler,
-                      decoration: InputDecoration(
-                        labelText: "Senha",
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    TextField(
-                      obscureText: true,
-                      controller: _confirmpasswordControler,
-                      decoration: InputDecoration(
-                        labelText: "Confirme sua senha.",
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (_passwordControler!.text ==
-                            _confirmpasswordControler!.text) {
-                          _authLocal
-                              .registerUser(
+                    child: Column(
+                      children: [
+                        const FlutterLogo(size: 64),
+                        const SizedBox(height: 16),
+
+                        // 1. TextFormField (com validator)
+                        TextFormField(
+                          controller: _nomeControler,
+                          decoration: const InputDecoration(
+                            labelText: "Nome Completo",
+                            border: OutlineInputBorder(),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {return 'Digite seu nome completo';}
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 16),
+
+                        // 2. Email com validação
+                        TextFormField(
+                          controller: _emailControler,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: const InputDecoration(
+                            labelText: "Email",
+                            border: OutlineInputBorder(),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {return 'Digite seu email';}
+                            if (!value.contains('@') || !value.contains('.')) {return 'Email inválido';}
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 16),
+
+                        // 3. Senha
+                        TextFormField(
+                          controller: _passwordControler,
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                            labelText: "Senha",
+                            border: OutlineInputBorder(),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {return 'Digite uma senha';}
+                            if (value.length < 6) {return 'Mínimo 6 caracteres';}
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 16),
+
+                        // 4. Confirmar senha
+                        TextFormField(
+                          controller: _confirmpasswordControler,
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                            labelText: "Confirme sua senha",
+                            border: OutlineInputBorder(),
+                          ),
+                          validator: (value) {
+                            if (value != _passwordControler.text) {return 'Senhas não coincidem';}
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 16),
+
+                        // BOTÃO COM VALIDAÇÃO AUTOMÁTICA
+                        ElevatedButton(
+                          onPressed: () {
+                            // 1. VALIDA TUDO COM O FORM
+                            if (_formKey.currentState!.validate()) {
+                              // 2. SÓ ENTRA AQUI SE TUDO ESTIVER OK
+                              _authLocal
+                                  .registerUser(
                                 User(
-                                  name: _nomeControler!.text,
-                                  email: _emailControler!.text,
+                                  name: _nomeControler.text.trim(),
+                                  email: _emailControler.text.trim(),
                                   password: _passwordControler.text,
-                                )
+                                ),
                               )
-                              .then((AuthStatus response) {
+                                  .then((AuthStatus response) {
                                 if (!response.isSuccess) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                        content:
-                                        Text(response.message),
-                                        backgroundColor: Colors.red
+                                      content: Text(response.message),
+                                      backgroundColor: Colors.red,
                                     ),
                                   );
                                 } else {
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      title: Text(
-                                        "Cadastro realizado com sucesso",
-                                      ),
-                                      content: Text(
-                                        "Faça login para continuar",
-                                      ),
+                                      title: const Text("Sucesso!"),
+                                      content: const Text("Faça login para continuar"),
                                       actions: [
                                         TextButton(
-                                          onPressed: () =>
-                                              Navigator.of(context).pop(),
-                                          child: Text("OK"),
+                                          onPressed: () {
+                                            _formKey.currentState?.reset();
+                                            _nomeControler.clear();
+                                            _emailControler.clear();
+                                            _passwordControler.clear();
+                                            _confirmpasswordControler.clear();
+                                            // Remove o foco de qualquer campo de texto
+                                            FocusScope.of(context).unfocus();
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text("OK"),
                                         ),
                                       ],
                                     ),
                                   );
                                 }
                               });
-                        }
-                        else{
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                                content:
-                                Text("As senhas não coincidem"),
-                                backgroundColor: Colors.red
+                            }
+                            // Se não validar → mostra erros automaticamente
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 42,
+                              vertical: 12,
                             ),
-                          );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 42,
-                          vertical: 12,
+                          ),
+                          child: const Text("Cadastrar"),
                         ),
-                      ),
-                      child: Text("Cadastrar"),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
