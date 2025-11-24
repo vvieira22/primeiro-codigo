@@ -81,7 +81,7 @@ class ListItemCard extends StatelessWidget {
                       style: const TextStyle(fontSize: 20, color: Colors.grey),
                     ),
                     Text(
-                      monster.region,
+                      monster.regions.first,
                       style: const TextStyle(fontSize: 18, color: Colors.red),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

@@ -6,11 +6,13 @@ import 'package:audioplayers/audioplayers.dart';
 import 'dart:math';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:provider/provider.dart';
 import 'package:silk_deaths/screens/home_screen.dart';
 import 'package:silk_deaths/screens/home_screen2.dart';
 import 'package:silk_deaths/screens/list_monsters.dart';
 import 'package:silk_deaths/screens/login_screen.dart';
 import 'package:silk_deaths/screens/register_screen.dart';
+import 'package:silk_deaths/viewmodels/monster_view_model.dart';
 import 'package:silk_deaths/widgets/home_carousel.dart';
 import 'package:silk_deaths/widgets/home_drawer.dart';
 import 'package:silk_deaths/widgets/home_drawer2.dart';
@@ -18,14 +20,21 @@ import 'firebase_options.dart';
 import 'models/Monster.dart';
 
 final db = FirebaseFirestore.instance;
-//primeira funcao quando executa app.
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // Garante que os bindings do Flutter sejam inicializados
-  runApp(const MyApp());
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MonsterViewModel()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -39,7 +48,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           useMaterial3: true
         ),
-        home: RegisterScreen());
+        home: HomeScreenLayout());
   }
 }
 
@@ -263,33 +272,9 @@ class _InfiniteListScreenState extends State<InfiniteListScreen> {
    double yOffset = 0;
    bool isDrawerOpen = false;
 
-  // return AnimatedContainer(
-  // transform: Matrix4.translationValues(xOffset, yOffset, 0)
-  // ..scale(isDrawerOpen ? 0.85 : 1.00)
-  // ..rotateZ(isDrawerOpen ? 50 : 0),
-  // duration: Duration(milliseconds: 200),
-  // child: MaterialApp(
-  // home: Scaffold(
-  //
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // onHorizontalDragUpdate: (details) {
-      //   if (details.delta.dx > 0) { // Arrastando para a direita
-      //     setState(() {
-      //       xOffset = 0; // Largura do drawer
-      //       yOffset = 0;
-      //       isDrawerOpen = true;
-      //     });
-      //   } else if (details.delta.dx < 0) { // Arrastando para a esquerda
-      //     setState(() {
-      //       xOffset = 0;
-      //       yOffset = 0;
-      //       isDrawerOpen = false;
-      //     });
-      //   }
-      // },
       child: AnimatedContainer(
         transform: Matrix4.translationValues(xOffset, yOffset, 0)
           ..scale(isDrawerOpen ? 0.85 : 1.00)
@@ -337,8 +322,6 @@ class _InfiniteListScreenState extends State<InfiniteListScreen> {
           body: Column(
             children: [
               SizedBox(height: 60), // Espaço para a AppBar transparente
-
-
               HomeCarousel(
                   images: imagesIdle,
                   onPageChanged: _onCarouselPageChanged,
@@ -357,32 +340,26 @@ class _InfiniteListScreenState extends State<InfiniteListScreen> {
                       ).createShader(rect);
                     },
                     blendMode: BlendMode.dstIn,
-                    child: ListView.builder(
-                      padding: const EdgeInsets.only(top: 5, bottom: 30), // Adiciona um padding para o efeito de fade ser visível no início e fim
-                      // Se você tiver dados reais, use `minhaListaDeDados.length`
-                      itemCount: totalItems,
-      
-                      // O `itemBuilder` é como o `onCreateViewHolder` e `onBindViewHolder`
-                      itemBuilder: (context, index) {
-                        //MOCK TESTE
-                        Monster monstroTeste = Monster(
-                            name: 'Lace',
-                            region: 'Deep Docks',
-                            deaths: 0,
-                            optional: false,
-                            boss: true);
-      
-                        // Use o seu widget de design genérico, passando os dados de mock
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          duration: const Duration(milliseconds: 1000),
-                          child: SlideAnimation(
-                            verticalOffset: 100.0,
-                            child: FadeInAnimation(child: ListItemCard(monster: monstroTeste)),
-                          ),
-                        );
-                    },
-                    ),
+                    child: Consumer<MonsterViewModel>(
+                        builder: (context, viewModel, child) {
+
+                          return ListView.builder(
+                            itemCount: viewModel.monsters.length,
+                            padding: const EdgeInsets.only(top: 5, bottom: 30),
+                            itemBuilder: (context, index) {
+                              final Monster monstroReal = viewModel.monsters[index];
+                              // Use o seu widget de design genérico, passando os dados de mock
+                              return AnimationConfiguration.staggeredList(
+                                position: index,
+                                duration: const Duration(milliseconds: 800),
+                                child: SlideAnimation(
+                                  verticalOffset: 100.0,
+                                  child: FadeInAnimation(child: ListItemCard(monster: monstroReal)),
+                                ),
+                              );
+                            },
+                          );
+                        }),
                   ),
                 ),
               ),
@@ -390,11 +367,9 @@ class _InfiniteListScreenState extends State<InfiniteListScreen> {
           ),
         ),
       ),
-    ); // Fim do GestureDetector
+    );
   }
 }
-
-
 
 class HomeScreenLayout extends StatefulWidget {
   const HomeScreenLayout({super.key});

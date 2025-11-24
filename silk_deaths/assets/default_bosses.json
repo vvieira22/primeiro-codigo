@@ -244,7 +244,7 @@
       "act": 2
     },
     {
-      "name": "broodmother",
+      "name": "brood_mother",
       "regions": [
         "the_slab"
       ],
@@ -256,7 +256,7 @@
     {
       "name": "bell_eater",
       "regions": [
-        "any_bellway "
+        "any_bellway"
       ],
       "boss": true,
       "optional": true,
@@ -384,7 +384,7 @@
       "act": 3
     },
     {
-      "name": "crawfather",
+      "name": "craw_father",
       "regions": [
         "greymoor"
       ],

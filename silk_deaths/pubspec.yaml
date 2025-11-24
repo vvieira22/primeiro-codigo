@@ -43,6 +43,7 @@ dependencies:
   flutter_staggered_animations: ^1.1.1 #animacao para listview
   smooth_page_indicator: ^1.2.1 #indicador de paginas carossel
   sqflite: ^2.4.2 #sqlite armazenamento local.
+  provider: ^6.1.5+1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -71,6 +72,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   assets:
+    - assets/default_bosses.json
     - assets/images/
     - assets/images/regions/
     - assets/images/wallpapers/

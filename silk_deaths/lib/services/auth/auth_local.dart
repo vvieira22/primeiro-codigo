@@ -1,8 +1,13 @@
 // lib/services/auth_service.dart
 
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:silk_deaths/enums/auth_status.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import '../../extensions/string_extensions.dart';
+import '../../models/Monster.dart';
 import '../../models/User.dart';
 
 /// Serviço (Service/Repository) para gerenciar operações de DB para autenticação.
@@ -14,7 +19,8 @@ class AuthLocal {
   // --- Fim do Singleton ---
 
   Database? _database;
-  final String _tableName = 'users';
+  final String _tableNames = 'users';
+  final String _tableMonstersNames = 'monsters';
   final String _dbName = 'auth_database.db';
 
   // 1. Getter que garante que o banco de dados só seja inicializado uma vez.
@@ -56,18 +62,47 @@ class AuthLocal {
         // Força permissão de escrita (crucial em alguns dispositivos)
         await db.execute('PRAGMA foreign_keys = ON');
       },
-      onCreate: (db, version) {
-        // SQL: Comando para CRIAR a tabela.
-        return db.execute(
-          '''
-          CREATE TABLE $_tableName(
+      onCreate: (db, version) async {
+        final batch = db.batch();
+
+        //Tabela de usuários
+        batch.execute('''
+          CREATE TABLE $_tableNames(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT,
             email TEXT UNIQUE, 
             password TEXT
           )
-          ''',
-        );
+        ''');
+
+        //Tabela de monstros
+        batch.execute('''
+          CREATE TABLE $_tableMonstersNames(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT UNIQUE,
+            regions TEXT,
+            deaths INTEGER DEFAULT 0,
+            boss INTEGER,
+            optional INTEGER,
+            act INTEGER
+          )
+        ''');
+        final List<Map<String, dynamic>> rawJsonMonsters = await _loadMonstersFromJson();
+        for (final jsonMonsters in rawJsonMonsters) {
+
+          final Monster monster = Monster.fromJson(jsonMonsters);
+          final dbMap = monster.toMap();
+
+          batch.insert(
+            _tableMonstersNames,
+            dbMap,
+            conflictAlgorithm: ConflictAlgorithm.ignore,
+          );
+        }
+
+        // Executa todas as operações no Batch
+        await batch.commit();
+        print('DB criado e preenchido com ${rawJsonMonsters.length} monstros default.');
       },
       onOpen: (db) async {
         // Opcional: validar estrutura, migrações, etc.
@@ -81,7 +116,7 @@ class AuthLocal {
       final db = await database; // ← aqui ele tenta abrir/recriar se necessário
 
       final id = await db.insert(
-        _tableName,
+        _tableNames,
         user.toMap(),
         conflictAlgorithm: ConflictAlgorithm.fail,
       );
@@ -110,7 +145,7 @@ class AuthLocal {
         // TENTA NOVAMENTE UMA VEZ
         try {
           final db = await database;
-          final id = await db.insert(_tableName, user.toMap(), conflictAlgorithm: ConflictAlgorithm.fail);
+          final id = await db.insert(_tableNames, user.toMap(), conflictAlgorithm: ConflictAlgorithm.fail);
           print('Usuário inserido após reset: $id');
           return AuthStatus.success;
         } catch (_) {
@@ -132,7 +167,7 @@ class AuthLocal {
       final db = await database;
       // SQL: Seleciona linhas onde o email E a password coincidem.
       final List<Map<String, dynamic>> maps = await db.query(
-        _tableName,
+        _tableNames,
         where: 'email = ? AND password = ?',
         whereArgs: [email, password], // Valores que substituem os '?' na ordem.
       );
@@ -170,20 +205,37 @@ class AuthLocal {
     }
   }
 
-  /// 5. Recover password (Simulação - operação SELECT).
-  // Future<String?> recoverpassword(String email) async {
-  //   final db = await database;
-  //   // Seleciona a coluna 'password' para o email fornecido.
-  //   final List<Map<String, dynamic>> maps = await db.query(
-  //     _tableName,
-  //     columns: ['password'],
-  //     where: 'email = ?',
-  //     whereArgs: [email],
-  //   );
-  //
-  //   if (maps.isNotEmpty) {
-  //     return maps.first['password'] as String;
-  //   }
-  //   return null;
-  // }
+  Future<List<Monster>> getMonsters() async {
+    try {
+      final db = await database;
+
+      final List<Map<String, dynamic>> maps = await db.query(
+        _tableMonstersNames,
+        orderBy: 'name ASC',
+      );
+
+      return List.generate(maps.length, (i) {
+        return Monster.fromMap(maps[i]);
+      });
+
+    } catch (e) {
+      print('Erro ao buscar monstros: $e');
+      return [];
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> _loadMonstersFromJson() async {
+    try {
+      final jsonString = await rootBundle.loadString('assets/default_bosses.json');
+
+      final Map<String, dynamic> jsonResponse = json.decode(jsonString);
+
+      final List<dynamic> list = jsonResponse['monsters'];
+
+      return list.cast<Map<String, dynamic>>();
+    } catch (e) {
+      print('Erro ao carregar JSON de monstros: $e');
+      return [];
+    }
+  }
 }
