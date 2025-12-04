@@ -113,7 +113,7 @@ class ListItemCard extends StatelessWidget {
                 child: SizedBox(
                   width: 80, // Largura fixa para o contador
                   child: Text(
-                    "99999",
+                    monster.deaths.toString(),
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 26,

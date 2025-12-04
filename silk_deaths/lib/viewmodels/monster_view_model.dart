@@ -22,6 +22,25 @@ class MonsterViewModel extends ChangeNotifier {
 
     try {
       _monsters = await _authLocal.getMonsters();
+      List<Monster> processedMonsters = [];
+      for (var monster in _monsters) {
+        if (monster.regions.length > 1) {
+          for (var region in monster.regions) {
+            processedMonsters.add(Monster(
+              id: monster.id,
+              name: monster.name,
+              regions: [region],
+              deaths: monster.deaths,
+              boss: monster.boss,
+              optional: monster.optional,
+              act: monster.act,
+            ));
+          }
+        } else {
+          processedMonsters.add(monster);
+        }
+      }
+      _monsters = processedMonsters;
       _status = UiDataStatus.loaded;
     } catch (e) {
       print('Erro no ViewModel ao buscar: $e');

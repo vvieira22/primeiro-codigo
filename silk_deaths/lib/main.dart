@@ -247,12 +247,12 @@ class _InfiniteListScreenState extends State<InfiniteListScreen> {
   final int totalItems = 50;
 
   final List<String> imagesIdle = [
+    'assets/images/regions/all_areas.png',
     'assets/images/regions/moss_grotto.png',
     'assets/images/regions/the_marrow.png',
     'assets/images/regions/deep_docks.png',
     'assets/images/regions/the_citadel.png',
     'assets/images/regions/greymoor.png',
-    'assets/images/regions/all_areas.png',
   ];
 
   void _onCarouselPageChanged(int newIndex) {
