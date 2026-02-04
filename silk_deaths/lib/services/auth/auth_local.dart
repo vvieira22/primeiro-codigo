@@ -238,4 +238,20 @@ class AuthLocal {
       return [];
     }
   }
+
+  Future<void> updateMonster(Monster monster) async {
+  try{
+    final db = await database;
+    final dbMap = monster.toMap();
+    await db.update(
+      _tableMonstersNames,
+      dbMap,
+      where: 'id = ?',
+      whereArgs: [monster.id],
+    );
+    print('Monstro atualizado com sucesso!');
+  }catch (e) {
+    print('Erro ao atualizar monstro: $e');
+  }
+  }
 }

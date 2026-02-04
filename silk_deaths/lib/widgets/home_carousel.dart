@@ -40,7 +40,7 @@ class _HomeCarouselState extends State<HomeCarousel> {
     if(currentPageIndex != null && currentPageIndex == currentPageIndex.roundToDouble()){
       // Verifica se houve uma mudança de índice inteiro (se a rolagem parou em uma nova página)
       // E garante que o callback foi fornecido
-      if (currentPageIndex != null && widget.onPageChanged != null) {
+      if (widget.onPageChanged != null) {
         // 5. Chama a função que foi passada pelo pai (HomeScreen)
         widget.onPageChanged!(currentPageIndex.round());
       }

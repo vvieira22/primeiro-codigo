@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:silk_deaths/extensions/int_extensions.dart';
 
 import '../models/Monster.dart';
 import '../theme/app_colors.dart';
+import '../viewmodels/monster_view_model.dart';
 
 const String rightArrow = 'assets/images/arrow_right.png';
 const String leftArrow = 'assets/images/arrow_left.png';
@@ -32,8 +35,8 @@ class ListItemCard extends StatelessWidget {
           Column(
             children: [
               SizedBox(
-                width: 100, //largura
-                height: 120, //altura
+                width: 100,
+                height: 120,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
@@ -100,10 +103,19 @@ class ListItemCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Image.asset(
-                  leftArrow,
-                  width: 30,
-                  height: 65),
+              GestureDetector(
+                onTap: () {
+                  if(monster.deaths.canDecrease()){
+                    monster.deaths--;
+                    context.read<MonsterViewModel>().updateMonster(monster);
+                  }
+                },
+                child:  Image.asset(
+                    leftArrow,
+                    width: 30,
+                    height: 65
+                ),
+              ),
               // const SizedBox(width: 4),
               Container(
                 decoration: BoxDecoration(
@@ -111,7 +123,7 @@ class ListItemCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: SizedBox(
-                  width: 80, // Largura fixa para o contador
+                  width: 80,
                   child: Text(
                     monster.deaths.toString(),
                     style: TextStyle(
@@ -124,10 +136,17 @@ class ListItemCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 1),
-              Image.asset(
-                  rightArrow,
-                  width: 30,
-                  height: 65),
+              GestureDetector(
+                onTap: () {
+                  monster.deaths++;
+                  context.read<MonsterViewModel>().updateMonster(monster);
+                },
+                child:  Image.asset(
+                    rightArrow,
+                    width: 30,
+                    height: 65
+                ),
+              )
             ],
           ),
 

@@ -4,6 +4,7 @@ class Monster {
   int? id;
   String name;
   List<String> regions;
+  List<String> databaseRegionsName;
   int deaths;
   bool boss = false;
   bool optional = false;
@@ -14,6 +15,7 @@ class Monster {
     this.id,
     required this.name,
     required this.regions,
+    required this.databaseRegionsName,
     required this.deaths,
     required this.boss,
     required this.optional,
@@ -36,6 +38,7 @@ class Monster {
     return Monster(
       name: map['name'],
       regions: List<String>.from(map['regions'] ?? []),
+      databaseRegionsName: List<String>.from(map['regions'] ?? []),
       deaths: map['deaths'] ?? 0,
       boss: map['boss'] == 1 || map['boss'] == true,
       optional: map['optional'] == 1 || map['optional'] == true,
@@ -46,6 +49,9 @@ class Monster {
   factory Monster.fromMap(Map<String, dynamic> map) {
 
     String regionsString = map['regions'] as String;
+    List<String> regionsListDefault = regionsString.isNotEmpty
+        ? regionsString.split('|').map((region) => region).toList()
+        : [];
     List<String> regionsList = regionsString.isNotEmpty
         ? regionsString.split('|').map((region) => region.clearAndUpperName()).toList()
         : [];
@@ -54,6 +60,7 @@ class Monster {
       id: map['id'] as int?,
       name: map['name'] as String,
       regions: regionsList,
+      databaseRegionsName: regionsListDefault,
       deaths: map['deaths'] as int,
       boss: map['boss'] == 1,
       optional: map['optional'] == 1,

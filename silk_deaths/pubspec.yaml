@@ -44,6 +44,7 @@ dependencies:
   smooth_page_indicator: ^1.2.1 #indicador de paginas carossel
   sqflite: ^2.4.2 #sqlite armazenamento local.
   provider: ^6.1.5+1
+  flutter_svg: ^2.0.10 #lib para trabalhar com svgs.
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -78,6 +79,7 @@ flutter:
     - assets/images/wallpapers/
     - assets/images/monsters/bosses/
     - assets/sounds/
+    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

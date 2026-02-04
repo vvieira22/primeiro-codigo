@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:silk_deaths/enums/auth_status.dart';
 import '../models/User.dart';
 import '../services/auth/auth_local.dart';
+import '../theme/app_colors.dart';
+import '../theme/app_textfield_style.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
@@ -22,7 +24,7 @@ class RegisterScreen extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       body: Container(
         padding: const EdgeInsets.all(16),
-        color: Colors.blue,
+        color: Colors.black,
         child: Center(
           child: SingleChildScrollView(
             child: Column(
@@ -33,20 +35,24 @@ class RegisterScreen extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: AppColors.backgroundElementsColor,
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Column(
                       children: [
-                        const FlutterLogo(size: 64),
+                      Image.asset(
+                      'assets/icons/icon_launcher.png', // Caminho para a sua imagem
+                      width: 340,
+                      height: 150,
+                    ),
                         const SizedBox(height: 16),
 
                         // 1. TextFormField (com validator)
                         TextFormField(
                           controller: _nomeControler,
-                          decoration: const InputDecoration(
-                            labelText: "Nome Completo",
-                            border: OutlineInputBorder(),
+                          style: defaultInputTextSyle,
+                          decoration: buildDarkInputDecoration(
+                            label: "Nome Completo",
                           ),
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {return 'Digite seu nome completo';}
@@ -59,9 +65,9 @@ class RegisterScreen extends StatelessWidget {
                         TextFormField(
                           controller: _emailControler,
                           keyboardType: TextInputType.emailAddress,
-                          decoration: const InputDecoration(
-                            labelText: "Email",
-                            border: OutlineInputBorder(),
+                          style: defaultInputTextSyle,
+                          decoration: buildDarkInputDecoration(
+                            label: "Email",
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {return 'Digite seu email';}
@@ -75,9 +81,9 @@ class RegisterScreen extends StatelessWidget {
                         TextFormField(
                           controller: _passwordControler,
                           obscureText: true,
-                          decoration: const InputDecoration(
-                            labelText: "Senha",
-                            border: OutlineInputBorder(),
+                          style: defaultInputTextSyle,
+                          decoration: buildDarkInputDecoration(
+                            label: "Senha",
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {return 'Digite uma senha';}
@@ -91,9 +97,9 @@ class RegisterScreen extends StatelessWidget {
                         TextFormField(
                           controller: _confirmpasswordControler,
                           obscureText: true,
-                          decoration: const InputDecoration(
-                            labelText: "Confirme sua senha",
-                            border: OutlineInputBorder(),
+                          style: defaultInputTextSyle,
+                          decoration: buildDarkInputDecoration(
+                            label: "Confirme sua senha",
                           ),
                           validator: (value) {
                             if (value != _passwordControler.text) {return 'Senhas não coincidem';}

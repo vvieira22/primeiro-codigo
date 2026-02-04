@@ -16,6 +16,7 @@ import 'package:silk_deaths/viewmodels/monster_view_model.dart';
 import 'package:silk_deaths/widgets/home_carousel.dart';
 import 'package:silk_deaths/widgets/home_drawer.dart';
 import 'package:silk_deaths/widgets/home_drawer2.dart';
+import 'enums/ui_data_status.dart';
 import 'firebase_options.dart';
 import 'models/Monster.dart';
 
@@ -46,7 +47,12 @@ class MyApp extends StatelessWidget {
         title: "SilkDeaths",
         theme: ThemeData(
           primarySwatch: Colors.blue,
-          useMaterial3: true
+          useMaterial3: true,
+          textSelectionTheme: const TextSelectionThemeData(
+            cursorColor: Colors.white, // Define a cor do cursor para o app todo
+            selectionColor: Colors.white,
+            selectionHandleColor: Colors.white,
+          ),
         ),
         home: HomeScreenLayout());
   }
@@ -256,13 +262,14 @@ class _InfiniteListScreenState extends State<InfiniteListScreen> {
   ];
 
   void _onCarouselPageChanged(int newIndex) {
-    // 1. Atualiza o estado interno da HomeScreen
-    setState(() {
-      _currentIndex = newIndex;
-    });
-    print('Página Alterada no HomeScreen!');
-    print('Novo Índice: $newIndex');;
-    print('URL/Caminho da Imagem: ${imagesIdle[newIndex]}');
+    setState(() {_currentIndex = newIndex;});
+
+    if(_currentIndex == 0){context.read<MonsterViewModel>().setRegion('');}
+    if(_currentIndex == 1){context.read<MonsterViewModel>().setRegion('moss_grotto');}
+    if(_currentIndex == 2){context.read<MonsterViewModel>().setRegion('the_marrow');}
+    if(_currentIndex == 3){context.read<MonsterViewModel>().setRegion('deep_docks');}
+    if(_currentIndex == 4){context.read<MonsterViewModel>().setRegion('the_citadel');}
+    if(_currentIndex == 5){context.read<MonsterViewModel>().setRegion('greymoor');}
   }
 
    Color fadeColor = Colors.transparent;
@@ -275,6 +282,13 @@ class _InfiniteListScreenState extends State<InfiniteListScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: isDrawerOpen ? () {
+        setState(() {
+          xOffset = 0;
+          yOffset = 0;
+          isDrawerOpen = false;
+        });
+      } : null,
       child: AnimatedContainer(
         transform: Matrix4.translationValues(xOffset, yOffset, 0)
           ..scale(isDrawerOpen ? 0.85 : 1.00)
@@ -316,52 +330,78 @@ class _InfiniteListScreenState extends State<InfiniteListScreen> {
               },
             ),
           ),
-          drawer: HomeDrawer(),
-      
-          // Aqui está o equivalente ao RecyclerView: ListView.builder
-          body: Column(
+          // O segredo está aqui: o Stack permite sobrepor o loading sem remover o fundo
+          body: Stack(
             children: [
-              SizedBox(height: 60), // Espaço para a AppBar transparente
-              HomeCarousel(
-                  images: imagesIdle,
-                  onPageChanged: _onCarouselPageChanged,
+              // CAMADA 1: O CONTEÚDO (Sempre fixo no fundo)
+              Column(
+                children: [
+                  const SizedBox(height: 80),
+                  HomeCarousel(
+                    images: imagesIdle,
+                    onPageChanged: _onCarouselPageChanged,
                   ),
-      
-              //MONSTROS
-              Expanded(
-                child: AnimationLimiter(
-                  child: ShaderMask(
-                    shaderCallback: (Rect rect) {
-                      return const LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [Colors.transparent, Colors.black, Colors.black, Colors.transparent],
-                        stops: [0.0, 0.05, 0.95, 1.0], // Ajuste os valores para controlar o tamanho do fade
-                      ).createShader(rect);
-                    },
-                    blendMode: BlendMode.dstIn,
-                    child: Consumer<MonsterViewModel>(
-                        builder: (context, viewModel, child) {
+                  Expanded(
+                    child: AnimationLimiter(
+                      child: ShaderMask(
+                        shaderCallback: (Rect rect) {
+                          return const LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [Colors.transparent, Colors.black, Colors.black, Colors.transparent],
+                            stops: [0.0, 0.05, 0.95, 1.0],
+                          ).createShader(rect);
+                        },
+                        blendMode: BlendMode.dstIn,
+                        child: Consumer<MonsterViewModel>(
+                          builder: (context, viewModel, child) {
+                            // Se a lista estiver vazia mas não estiver carregando, mostra um aviso
+                            if (viewModel.monsters.isEmpty && viewModel.status == UiDataStatus.loaded) {
+                              return const Center(child: Text("No monsters found", style: TextStyle(color: Colors.white)));
+                            }
 
-                          return ListView.builder(
-                            itemCount: viewModel.monsters.length,
-                            padding: const EdgeInsets.only(top: 5, bottom: 30),
-                            itemBuilder: (context, index) {
-                              final Monster monstroReal = viewModel.monsters[index];
-                              // Use o seu widget de design genérico, passando os dados de mock
-                              return AnimationConfiguration.staggeredList(
-                                position: index,
-                                duration: const Duration(milliseconds: 800),
-                                child: SlideAnimation(
-                                  verticalOffset: 100.0,
-                                  child: FadeInAnimation(child: ListItemCard(monster: monstroReal)),
-                                ),
-                              );
-                            },
-                          );
-                        }),
+                            return ListView.builder(
+                              itemCount: viewModel.monsters.length,
+                              padding: const EdgeInsets.only(top: 5, bottom: 30),
+                              itemBuilder: (context, index) {
+                                final Monster monstroReal = viewModel.monsters[index];
+                                return AnimationConfiguration.staggeredList(
+                                  position: index,
+                                  duration: const Duration(milliseconds: 800),
+                                  child: SlideAnimation(
+                                    verticalOffset: 100.0,
+                                    child: FadeInAnimation(child: ListItemCard(monster: monstroReal)),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                ],
+              ),
+
+              // CAMADA 2: O LOADING TRANSPARENTE (Fica por cima de tudo)
+              Consumer<MonsterViewModel>(
+                builder: (context, viewModel, child) {
+                  // Se não estiver carregando, retorna um widget vazio (não desenha nada)
+                  if (viewModel.status != UiDataStatus.loading) {
+                    return const SizedBox.shrink();
+                  }
+
+                  return Container(
+                    color: Colors.black.withValues(alpha: 0.7), // Levíssimo escurecimento
+                    child: Center(
+                      child: SizedBox(
+                        width: 160,
+                        height: 160,
+                        child: Image.asset('assets/icons/icon_launcher.png'), // Seu ícone centralizado
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),

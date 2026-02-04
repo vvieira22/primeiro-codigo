@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:silk_deaths/screens/register_screen.dart';
 
 import '../theme/app_colors.dart';
@@ -38,16 +39,12 @@ class LoginScreen extends StatelessWidget {
                         width: 340,
                         height: 150,
                       ),
-                      // Image.asset(
-                      //   'assets/images/icon_launcher.png', // Caminho para a sua imagem
-                      //   width: 124,
-                      //   height: 124,
-                      // ),
                       SizedBox(
                         height: 16,
                       ),
                       TextField(
                         controller: _emailControler,
+                        style: defaultInputTextSyle,
                         decoration: buildDarkInputDecoration(
                           label: "Email",
                         ),
@@ -58,9 +55,9 @@ class LoginScreen extends StatelessWidget {
                       TextField(
                         obscureText: true,
                         controller: _passwordControler,
-                        decoration: InputDecoration(
-                          labelText: "Senha",
-                          border: OutlineInputBorder(),
+                        style: defaultInputTextSyle,
+                        decoration: buildDarkInputDecoration(
+                          label: "Senha",
                         ),
                       ),
                       SizedBox(
@@ -80,21 +77,11 @@ class LoginScreen extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            FlutterLogo(
-                              size: 36,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            FlutterLogo(
-                              size: 36,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            FlutterLogo(
-                              size: 36,
-                            ),
+                            _buildSocialIcon(context, 'assets/icons/facebook_icon.svg', 'Facebook'),
+                            SizedBox(width: 24),
+                            _buildSocialIcon(context, 'assets/icons/gmail_icon.svg', 'Google'),
+                            SizedBox(width: 24),
+                            _buildSocialIcon(context, 'assets/icons/x_icon.svg', 'X (Twitter)'),
                           ],
                         ),
                       ),
@@ -121,5 +108,27 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-}
 
+  // Método auxiliar para padronizar o tamanho e clique dos ícones
+  Widget _buildSocialIcon(BuildContext context, String assetPath, String socialName) {
+    return GestureDetector(
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Login com $socialName"),
+            duration: const Duration(seconds: 2),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      },
+      child: SizedBox(
+        width: 32,
+        height: 32,
+        child: SvgPicture.asset(
+          assetPath,
+          fit: BoxFit.contain,
+        ),
+      ),
+    );
+  }
+}

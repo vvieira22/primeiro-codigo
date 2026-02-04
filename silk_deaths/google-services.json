@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "539301262423",
+    "project_id": "silkdeaths",
+    "storage_bucket": "silkdeaths.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539301262423:android:70ea975618978ed8c59f12",
+        "android_client_info": {
+          "package_name": "com.vvieira.silkdeaths"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDG65S3Dtzp82XmgI3QhXGZldYCj5A-Ark"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
