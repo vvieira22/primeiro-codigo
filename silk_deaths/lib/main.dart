@@ -12,6 +12,7 @@ import 'package:silk_deaths/screens/home_screen2.dart';
 import 'package:silk_deaths/screens/list_monsters.dart';
 import 'package:silk_deaths/screens/login_screen.dart';
 import 'package:silk_deaths/screens/register_screen.dart';
+import 'package:silk_deaths/viewmodels/auth_view_model.dart';
 import 'package:silk_deaths/viewmodels/monster_view_model.dart';
 import 'package:silk_deaths/widgets/home_carousel.dart';
 import 'package:silk_deaths/widgets/home_drawer.dart';
@@ -32,6 +33,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MonsterViewModel()),
+        ChangeNotifierProvider(create: (_) => AuthViewModel()),
       ],
       child: const MyApp(),
     ),
@@ -54,7 +56,21 @@ class MyApp extends StatelessWidget {
             selectionHandleColor: Colors.white,
           ),
         ),
-        home: HomeScreenLayout());
+        home: Consumer<AuthViewModel>(
+          builder: (context, auth, _) {
+            // Verificamos o status que você definiu na ViewModel
+            switch (auth.status) {
+              // case UiDataStatus.loading:
+              //   return const SplashScreen(); // Uma tela simples com seu loading centralizado
+              case UiDataStatus.authenticated:
+                return HomeScreenLayout(); // Tela principal com monstros
+              case UiDataStatus.unauthenticated:
+              default:
+                return const LoginScreen(); // Tela de login/cadastro
+            }
+          },
+        ),
+    );
   }
 }
 

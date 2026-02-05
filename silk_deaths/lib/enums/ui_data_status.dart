@@ -1,4 +1,8 @@
 enum UiDataStatus {
+  uninitialized,
+  authenticated,
+  unauthenticated,
+  authenticating,
   initial,
   loading,
   loaded,

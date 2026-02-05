@@ -102,3 +102,20 @@ Ele serve como um "endereço" que diz onde você está na árvore de widgets do 
 Esse BuildContext permite que o widget encontre informações sobre onde ele está e acesse coisas como temas, tamanhos, ou navegar para outras telas.
 
 BuildContext é só uma forma do Flutter saber "onde" você está no app, para poder te ajudar a acessar recursos ou navegar entre telas.
+
+### Consumindo ViewModels (Provider)
+
+Quando você declara ViewModels no `main.dart` usando `MultiProvider`, elas ficam disponíveis para todo o app. Para consumi-las em outras telas:
+
+1.  **`context.watch<T>()`**: Use dentro do `build` para que o widget reconstrua quando a ViewModel mudar (ex: mostrar lista de monstros).
+2.  **`context.read<T>()`**: Use em funções de clique (`onPressed`) para chamar métodos da ViewModel sem monitorar mudanças (ex: fazer login).
+3.  **`Consumer<T>`**: Use no corpo do widget para envolver apenas a parte da tela que depende dos dados, otimizando a performance.
+
+Exemplo de uso:
+```dart
+// No clique de um botão
+context.read<AuthViewModel>().login(email, password);
+
+// Para exibir um dado na tela
+final status = context.watch<AuthViewModel>().status;
+```
