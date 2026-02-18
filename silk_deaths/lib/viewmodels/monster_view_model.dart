@@ -49,7 +49,7 @@ class MonsterViewModel extends ChangeNotifier {
   Future<void> fetchMonsters() async {
     _status = UiDataStatus.loading;
     notifyListeners();
-
+    //TODO PASSAR OS IDS PARA ONDE PRECISA, PRA ELE SABER!
     try {
       _monsters = await _authLocal.getMonsters();
       List<Monster> processedMonsters = [];
@@ -79,6 +79,13 @@ class MonsterViewModel extends ChangeNotifier {
       _monsters = [];
     }
 
+    notifyListeners();
+  }
+
+  void clearData() {
+    _monsters = [];
+    _selectedRegion = "";
+    _status = UiDataStatus.initial;
     notifyListeners();
   }
 

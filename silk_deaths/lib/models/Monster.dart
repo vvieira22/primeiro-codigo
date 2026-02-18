@@ -22,6 +22,29 @@ class Monster {
     required this.act
   });
 
+  // Método copyWith adicionado para facilitar atualizações parciais
+  Monster copyWith({
+    int? id,
+    String? name,
+    List<String>? regions,
+    List<String>? databaseRegionsName,
+    int? deaths,
+    bool? boss,
+    bool? optional,
+    int? act,
+  }) {
+    return Monster(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      regions: regions ?? this.regions,
+      databaseRegionsName: databaseRegionsName ?? this.databaseRegionsName,
+      deaths: deaths ?? this.deaths,
+      boss: boss ?? this.boss,
+      optional: optional ?? this.optional,
+      act: act ?? this.act,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,

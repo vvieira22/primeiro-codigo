@@ -17,9 +17,12 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   Future<void> _checkSession() async {
-    String? token = await _storage.read(key: 'user_token');
+    String? userIdStr = await _storage.read(key: 'user_session_id');
 
-    if (token != null) {
+    if (userIdStr != null) {
+      final userId = int.parse(userIdStr);
+
+      await _authLocal.restoreSession(userId);
       _status = UiDataStatus.authenticated;
     } else {
       _status = UiDataStatus.unauthenticated;
@@ -30,17 +33,26 @@ class AuthViewModel extends ChangeNotifier {
   Future<void> login(String email, String password) async {
     _status = UiDataStatus.authenticating;
     notifyListeners();
+    
     final user = await _authLocal.login(email, password);
     if (user != null) {
-      await _storage.write(key: 'user_token', value: 'token_da_api');
+      print("Usuario encontrado, fazendo login: $user ${user.id.toString()}");
+      await _storage.write(key: 'user_session_id', value: user.id.toString());
+      
+      await _storage.write(key: 'last_logged_email', value: user.email);
+      await _storage.write(key: 'last_logged_name', value: user.name);
 
       _status = UiDataStatus.authenticated;
-      notifyListeners();
+    } else {
+      _status = UiDataStatus.unauthenticated;
     }
+    notifyListeners();
   }
 
+
   Future<void> logout() async {
-    await _storage.delete(key: 'user_token');
+    await _storage.delete(key: 'user_session_id');
+    await _authLocal.logout();
     _status = UiDataStatus.unauthenticated;
     notifyListeners();
   }

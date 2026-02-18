@@ -295,6 +295,15 @@ class _InfiniteListScreenState extends State<InfiniteListScreen> {
    double yOffset = 0;
    bool isDrawerOpen = false;
 
+  //Isso aqui foi feito pra garantir que atualize a tela quando fizer logout
+  @override
+  void initState(){
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<MonsterViewModel>().fetchMonsters();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
