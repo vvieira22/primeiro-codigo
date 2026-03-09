@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:silk_deaths/viewmodels/auth_view_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../viewmodels/monster_view_model.dart';
 
@@ -51,20 +53,58 @@ class _HomeDrawer2State extends State<HomeDrawer2> {
                           SizedBox(
                             height: 100,
                           ),
-                          NewRow(text: "Meu perfil",
-                              icon: Icons.person),
-                          SizedBox(
-                            height: 10,
+                          GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text("Sobre o App"),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        "Silk Deaths é um aplicativo totalmente gratuito e desenvolvido sem uso comercial.\n\n"
+                                        "Dúvidas e sugestões são bem vindas..",
+                                      ),
+                                      const SizedBox(height: 20),
+                                      RichText(
+                                        text: TextSpan(
+                                          style: const TextStyle(color: Colors.black, fontSize: 14),
+                                          children: [
+                                            const TextSpan(text: "Logo por: "),
+                                            TextSpan(
+                                              text: "u/dotvhs",
+                                              style: const TextStyle(
+                                                color: Colors.blue,
+                                                decoration: TextDecoration.underline,
+                                              ),
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = () async {
+                                                  final url = Uri.parse('https://www.reddit.com/r/macgaming/comments/1nbgnhh/i_wasnt_very_happy_with_silksongs_icon_on_macos/');
+                                                  if (await canLaunchUrl(url)) {
+                                                    await launchUrl(url);
+                                                  }
+                                                },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text("Fechar"),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            child: const NewRow(
+                                text: "Sobre o App",
+                                icon: Icons.info),
                           ),
-                          NewRow(
-                              text: "Configurações",
-                              icon: Icons.settings),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          NewRow(
-                              text: "Sobre o App",
-                              icon: Icons.info),
                           SizedBox(
                             height: 10,
                           ),
@@ -79,26 +119,6 @@ class _HomeDrawer2State extends State<HomeDrawer2> {
                           SizedBox(
                             height: 10,
                           ),
-                          // Row(
-                          //   children: <Widget> [
-                          //     Icon(
-                          //       Icons.copyright,
-                          //       color: Colors.white,
-                          //       size: 30,
-                          //     ),
-                          //     SizedBox(
-                          //         width : 10
-                          //     ),
-                          //     Text(
-                          //       "Teste",
-                          //       style: TextStyle(
-                          //         color: Colors.white,
-                          //         fontSize: 20,
-                          //         fontWeight: FontWeight.bold,
-                          //       ),
-                          //     )
-                          //   ]
-                          // )
                         ]
                     )
                   ]

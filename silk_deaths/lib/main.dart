@@ -270,22 +270,18 @@ class _InfiniteListScreenState extends State<InfiniteListScreen> {
 
   final List<String> imagesIdle = [
     'assets/images/regions/all_areas.png',
-    'assets/images/regions/moss_grotto.png',
-    'assets/images/regions/the_marrow.png',
-    'assets/images/regions/deep_docks.png',
-    'assets/images/regions/the_citadel.png',
-    'assets/images/regions/greymoor.png',
+    'assets/images/regions/act1_english.png',
+    'assets/images/regions/act2_english.png',
+    'assets/images/regions/act3_english.png',
   ];
 
   void _onCarouselPageChanged(int newIndex) {
     setState(() {_currentIndex = newIndex;});
 
-    if(_currentIndex == 0){context.read<MonsterViewModel>().setRegion('');}
-    if(_currentIndex == 1){context.read<MonsterViewModel>().setRegion('moss_grotto');}
-    if(_currentIndex == 2){context.read<MonsterViewModel>().setRegion('the_marrow');}
-    if(_currentIndex == 3){context.read<MonsterViewModel>().setRegion('deep_docks');}
-    if(_currentIndex == 4){context.read<MonsterViewModel>().setRegion('the_citadel');}
-    if(_currentIndex == 5){context.read<MonsterViewModel>().setRegion('greymoor');}
+    if(_currentIndex == 0){context.read<MonsterViewModel>().setRegion(0);}
+    if(_currentIndex == 1){context.read<MonsterViewModel>().setRegion(1);}
+    if(_currentIndex == 2){context.read<MonsterViewModel>().setRegion(2);}
+    if(_currentIndex == 3){context.read<MonsterViewModel>().setRegion(3);}
   }
 
    Color fadeColor = Colors.transparent;

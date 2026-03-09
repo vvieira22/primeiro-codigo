@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:silk_deaths/screens/register_screen.dart';
@@ -16,13 +15,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  // Inicializando os controladores corretamente
-  final TextEditingController _emailController = TextEditingController(text: "vitor123@gmail.com");
+  final TextEditingController _emailController = TextEditingController(text: "admin@gmail.com");
   final TextEditingController _passwordController = TextEditingController(text: "123456");
 
   @override
   void dispose() {
-    // É importante dar dispose nos controladores ao sair da tela
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();

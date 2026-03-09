@@ -6,20 +6,16 @@ import 'package:flutter/services.dart';
 import 'package:silk_deaths/enums/auth_status.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import '../../extensions/string_extensions.dart';
 import '../../models/Monster.dart';
 import '../../models/User.dart';
 
 /// Serviço (Service/Repository) para gerenciar operações de DB para autenticação.
 class AuthLocal {
-  // --- Implementação do Padrão Singleton ---
+  // --- Singleton --- 
   static final AuthLocal _instance = AuthLocal._internal();
-
   factory AuthLocal() => _instance;
-
   AuthLocal._internal();
-
-  // --- Fim do Singleton ---
+  // --- --- 
 
   Database? _globalUsersDb;
   Database? _userMonsterDb;
@@ -48,6 +44,11 @@ class AuthLocal {
             password TEXT
           )
         ''');
+        await db.insert('users', {
+          'name': 'Admin',
+          'email': 'admin@gmail.com',
+          'password': '123456'
+        });
       },
     );
   }
@@ -56,11 +57,6 @@ class AuthLocal {
 
     final databasePath = await getDatabasesPath();
     final path = join(databasePath, 'user_$userId.db');
-
-    print("getuserMonsterDatabase");
-    print("userId: $userId");
-    print("databasePath: $databasePath");
-    print("path: $path");
 
     if (_userMonsterDb != null && _userMonsterDb!.isOpen && _userMonsterDb!.path == path) {
       return _userMonsterDb!;

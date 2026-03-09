@@ -7,7 +7,7 @@ import '../models/Monster.dart';
 
 class MonsterViewModel extends ChangeNotifier {
   final AuthLocal _authLocal = AuthLocal();
-  String _selectedRegion = "";
+  int _selectedAct = 0;
 
   List<Monster> _monsters = [];
   UiDataStatus _status = UiDataStatus.initial;
@@ -17,13 +17,13 @@ class MonsterViewModel extends ChangeNotifier {
   // List<Monster> get monsters => _monsters;
   List<Monster> get monsters {
 
-    if (_selectedRegion.isEmpty) {
+    if (_selectedAct == 0) {
       return _monsters;
     }
 
     return _monsters.where((m) {
-      bool matches = m.databaseRegionsName.contains(_selectedRegion);
-      // print('Procurando por: "$_selectedRegion"');
+      bool matches = (m.act == _selectedAct);
+      // print('Procurando por: "$_selectedAct"');
       // print('No Monstro: ${m.name}');
       // print('Regiões do Monstro: ${m.databaseRegionsName}');
       // print('Resultado: $matches');
@@ -36,12 +36,12 @@ class MonsterViewModel extends ChangeNotifier {
     fetchMonsters();
   }
 
-  setRegion(String region) async{
+  setRegion(int act) async{
     _status = UiDataStatus.loading;
     notifyListeners();
     await Future.delayed(const Duration(milliseconds: 300));
 
-    _selectedRegion = region;
+    _selectedAct = act;
     _status = UiDataStatus.loaded;
     notifyListeners();
   }
@@ -84,7 +84,7 @@ class MonsterViewModel extends ChangeNotifier {
 
   void clearData() {
     _monsters = [];
-    _selectedRegion = "";
+    _selectedAct = 0;
     _status = UiDataStatus.initial;
     notifyListeners();
   }
