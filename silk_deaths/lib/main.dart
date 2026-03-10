@@ -1,10 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:math';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:silk_deaths/screens/home_screen.dart';
@@ -18,16 +18,14 @@ import 'package:silk_deaths/widgets/home_carousel.dart';
 import 'package:silk_deaths/widgets/home_drawer.dart';
 import 'package:silk_deaths/widgets/home_drawer2.dart';
 import 'enums/ui_data_status.dart';
-import 'firebase_options.dart';
+// import 'firebase_options.dart';
 import 'models/Monster.dart';
-
-final db = FirebaseFirestore.instance;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 
   runApp(
     MultiProvider(
@@ -94,10 +92,6 @@ class _HomePageState extends State<HomePage> {
         "teste": "teste_$mortes",
         "teste2": "123"
       };
-      db.collection("teste_$mortes")
-          .doc("teste").set(teste)
-          .onError((error, stacktrace) =>
-          print("Erro firebase"));
       mortes++;
       playSoundDeath();
     });
@@ -232,27 +226,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class RoteadorTelas extends StatelessWidget {
-  const RoteadorTelas({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: FirebaseAuth.instance.userChanges(),
-        builder: (context, snapshot){
-          if(snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            if (snapshot.hasData) {
-              return HomeScreen(user: snapshot.data!);
-            } else {
-              return LoginScreen();
-            }}
-        });
-  }
-}
 
 class InfiniteListScreen extends StatefulWidget {
   InfiniteListScreen({Key? key}) : super(key: key);

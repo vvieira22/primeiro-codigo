@@ -58,21 +58,21 @@ class _HomeDrawer2State extends State<HomeDrawer2> {
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
-                                  title: const Text("Sobre o App"),
+                                  title: const Text("About the App"),
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       const Text(
-                                        "Silk Deaths é um aplicativo totalmente gratuito e desenvolvido sem uso comercial.\n\n"
-                                        "Dúvidas e sugestões são bem vindas..",
+                                        "Silk Deaths is a free app, built and designed to practice Flutter.\n\n"
+                                        "Feel free to reach out with questions or suggestions!.",
                                       ),
                                       const SizedBox(height: 20),
                                       RichText(
                                         text: TextSpan(
-                                          style: const TextStyle(color: Colors.black, fontSize: 14),
+                                          style: const TextStyle(color: Colors.black, fontSize: 16),
                                           children: [
-                                            const TextSpan(text: "Logo por: "),
+                                            const TextSpan(text: "Launcher/Loading Logo: "),
                                             TextSpan(
                                               text: "u/dotvhs",
                                               style: const TextStyle(
@@ -83,7 +83,51 @@ class _HomeDrawer2State extends State<HomeDrawer2> {
                                                 ..onTap = () async {
                                                   final url = Uri.parse('https://www.reddit.com/r/macgaming/comments/1nbgnhh/i_wasnt_very_happy_with_silksongs_icon_on_macos/');
                                                   if (await canLaunchUrl(url)) {
-                                                    await launchUrl(url);
+                                                    await launchUrl(url, mode: LaunchMode.externalApplication);
+                                                  }
+                                                },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      RichText(
+                                        text: TextSpan(
+                                          style: const TextStyle(color: Colors.black, fontSize: 16),
+                                          children: [
+                                            const TextSpan(text: "Original Repository: "),
+                                            TextSpan(
+                                              text: "github.com",
+                                              style: const TextStyle(
+                                                color: Colors.blue,
+                                                decoration: TextDecoration.underline,
+                                              ),
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = () async {
+                                                  final url = Uri.parse('https://github.com/vvieira22/primeiro-codigo/tree/flutter/silk_deaths/');
+                                                  if (await canLaunchUrl(url)) {
+                                                    await launchUrl(url, mode: LaunchMode.externalApplication);
+                                                  }
+                                                },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      RichText(
+                                        text: TextSpan(
+                                          style: const TextStyle(color: Colors.black, fontSize: 16),
+                                          children: [
+                                            const TextSpan(text: "Contact-me: "),
+                                            TextSpan(
+                                              text: "email",
+                                              style: const TextStyle(
+                                                color: Colors.blue,
+                                                decoration: TextDecoration.underline,
+                                              ),
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = () async {
+                                                  final url = Uri.parse('mailto:vitorgoncalvesvieira22@gmail.com?subject=Silk Deaths App');
+                                                  if (await canLaunchUrl(url)) {
+                                                    await launchUrl(url, mode: LaunchMode.externalApplication);
                                                   }
                                                 },
                                             ),

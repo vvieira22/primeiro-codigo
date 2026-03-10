@@ -122,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
       onTap: () {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text("Login com $socialName"),
+            content: Text("Feature $socialName login not implemented yet"),
             duration: const Duration(seconds: 2),
             behavior: SnackBarBehavior.floating,
           ),
