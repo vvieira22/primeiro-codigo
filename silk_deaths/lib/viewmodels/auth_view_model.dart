@@ -30,7 +30,7 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> login(String email, String password) async {
+  Future<bool> login(String email, String password) async {
     _status = UiDataStatus.authenticating;
     notifyListeners();
     
@@ -43,10 +43,15 @@ class AuthViewModel extends ChangeNotifier {
       await _storage.write(key: 'last_logged_name', value: user.name);
 
       _status = UiDataStatus.authenticated;
+      notifyListeners();
+      return true;
     } else {
-      _status = UiDataStatus.unauthenticated;
+      print("Senha ou usuario incorreto -> $email.");
+
+      _status = UiDataStatus.invalidCredentials;
+      notifyListeners();
+      return false;
     }
-    notifyListeners();
   }
 
 

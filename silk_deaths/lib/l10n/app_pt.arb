@@ -1,0 +1,21 @@
+{
+  "invalidPassword": "Senha incorreta!",
+  "fullName": "Nome completo",
+  "aboutApp": "Sobre o App",
+  "logout": "Sair",
+  "login": "Login",
+  "back": "Voltar",
+  "login": "Entrar",
+  "register": "Cadastrar",
+  "password": "Senha",
+  "confirm_password": "Confirme sua senha",
+  "email": "E-mail",
+  "forgot_password": "Esqueceu sua senha?",
+  "first_acess": "Primeiro acesso? Crie sua conta aqui!",
+  "full_name" : "Nome completo",
+  "aboutTitle": "Sobre o App",
+  "aboutDescription": "Silk Deaths é um aplicativo gratuito, feito e pensado para estudar Flutter.\n\nSinta-se à vontade para entrar em contato com dúvidas ou sugestões!",
+  "logoCredit": "Logo de Abertura/Carregamento: ",
+  "repoCredit": "Repositório Original: ",
+  "contactMe": "Contate-me: "
+}

@@ -58,7 +58,7 @@ class HomeDrawer extends StatelessWidget {
           // 4. Item de Ação
           ListTile(
             leading: const Icon(Icons.exit_to_app),
-            title: const Text('Sair'),
+            title: const Text('Logout'),
             onTap: () {
               _closeDrawer(context);
               // Lógica para deslogar o usuário

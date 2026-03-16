@@ -58,7 +58,7 @@ class _HomeDrawer2State extends State<HomeDrawer2> {
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
-                                  title: const Text("About the App"),
+                                  title: const Text("About The App"),
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,7 +146,7 @@ class _HomeDrawer2State extends State<HomeDrawer2> {
                               );
                             },
                             child: const NewRow(
-                                text: "Sobre o App",
+                                text: "About",
                                 icon: Icons.info),
                           ),
                           SizedBox(
@@ -157,7 +157,7 @@ class _HomeDrawer2State extends State<HomeDrawer2> {
                               context.read<AuthViewModel>().logout();
                             },
                             child: NewRow(
-                                text: "Sair",
+                                text: "Logout",
                                 icon: Icons.exit_to_app),
                           ),
                           SizedBox(

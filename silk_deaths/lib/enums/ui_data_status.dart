@@ -7,4 +7,5 @@ enum UiDataStatus {
   loading,
   loaded,
   error,
+  invalidCredentials
 }

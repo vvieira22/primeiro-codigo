@@ -13,25 +13,26 @@ import 'package:silk_deaths/screens/list_monsters.dart';
 import 'package:silk_deaths/screens/login_screen.dart';
 import 'package:silk_deaths/screens/register_screen.dart';
 import 'package:silk_deaths/viewmodels/auth_view_model.dart';
+import 'package:silk_deaths/viewmodels/local_provider_view_model.dart';
 import 'package:silk_deaths/viewmodels/monster_view_model.dart';
 import 'package:silk_deaths/widgets/home_carousel.dart';
 import 'package:silk_deaths/widgets/home_drawer.dart';
 import 'package:silk_deaths/widgets/home_drawer2.dart';
 import 'enums/ui_data_status.dart';
 // import 'firebase_options.dart';
+import 'l10n/app_localizations.dart';
 import 'models/Monster.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
 
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MonsterViewModel()),
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
+        ChangeNotifierProvider(create: (_) => LocaleProvider()),
       ],
       child: const MyApp(),
     ),
@@ -43,31 +44,41 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: "SilkDeaths",
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          useMaterial3: true,
-          textSelectionTheme: const TextSelectionThemeData(
-            cursorColor: Colors.white, // Define a cor do cursor para o app todo
-            selectionColor: Colors.white,
-            selectionHandleColor: Colors.white,
+    return Consumer<LocaleProvider>(
+        builder: (context, localeProvider, _) {
+          return MaterialApp(
+            title: "SilkDeaths",
+
+            locale: localeProvider.locale, // Usa o locale da sua ViewModel
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+              useMaterial3: true,
+              textSelectionTheme: const TextSelectionThemeData(
+                cursorColor: Colors.white,
+                selectionColor: Colors.white,
+                selectionHandleColor: Colors.white,
+              ),
+            ),
+
+          home: Consumer<AuthViewModel>(
+            builder: (context, auth, _) {
+              // Verificamos o status que você definiu na ViewModel
+              switch (auth.status) {
+                // case UiDataStatus.loading:
+                //   return const SplashScreen(); // Uma tela simples com seu loading centralizado
+                case UiDataStatus.authenticated:
+                  return HomeScreenLayout(); // Tela principal com monstros
+                case UiDataStatus.unauthenticated:
+                default:
+                  return const LoginScreen(); // Tela de login/cadastro
+              }
+            },
           ),
-        ),
-        home: Consumer<AuthViewModel>(
-          builder: (context, auth, _) {
-            // Verificamos o status que você definiu na ViewModel
-            switch (auth.status) {
-              // case UiDataStatus.loading:
-              //   return const SplashScreen(); // Uma tela simples com seu loading centralizado
-              case UiDataStatus.authenticated:
-                return HomeScreenLayout(); // Tela principal com monstros
-              case UiDataStatus.unauthenticated:
-              default:
-                return const LoginScreen(); // Tela de login/cadastro
-            }
-          },
-        ),
+        );
+      },
     );
   }
 }

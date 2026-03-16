@@ -61,22 +61,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         obscureText: true,
                         controller: _passwordController,
                         style: defaultInputTextSyle,
-                        decoration: buildDarkInputDecoration(label: "Senha"),
+                        decoration: buildDarkInputDecoration(label: "Password"),
                       ),
                       const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
                           // Agora não dará erro de null, pois os controllers existem
-                          context.read<AuthViewModel>().login(
-                                _emailController.text,
-                                _passwordController.text,
-                              );
+                          _handleLogin();
                         },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 42, vertical: 12),
                         ),
-                        child: const Text("Entrar"),
+                        child: const Text("Login"),
                       ),
                       const SizedBox(height: 16),
                       Center(
@@ -93,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: const Text("Esqueceu a senha?"),
+                        child: const Text("Forgot the password?"),
                       ),
                       TextButton(
                         onPressed: () {
@@ -103,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 builder: (context) => RegisterScreen()),
                           );
                         },
-                        child: const Text("Primeiro acesso? Crie uma conta aqui"),
+                        child: const Text("First acess? Create a new account here!"),
                       ),
                     ],
                   ),
@@ -115,6 +112,34 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+  void _handleLogin() async {
+    final auth = context.read<AuthViewModel>();
+    bool sucess = await context.read<AuthViewModel>().login(
+      _emailController.text,
+      _passwordController.text,
+    );
+    if (!sucess) {
+      _showErrorDialog(context);
+    }
+  }
+
+  void _showErrorDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text("Authentication error"),
+        content: const Text("Wrong Password or Email invalid.\nPlease, try again."),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: const Text("OK"),
+          ),
+        ],
+      ),
+    );
+  }
+
 
   Widget _buildSocialIcon(
       BuildContext context, String assetPath, String socialName) {

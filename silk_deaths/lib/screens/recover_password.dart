@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:silk_deaths/enums/auth_status.dart';
-import '../l10n/app_localizations.dart';
 import '../models/User.dart';
 import '../services/auth/auth_local.dart';
 import '../theme/app_colors.dart';
@@ -41,11 +40,11 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                      Image.asset(
-                      'assets/icons/icon_launcher.png', // Caminho para a sua imagem
-                      width: 340,
-                      height: 150,
-                    ),
+                        Image.asset(
+                          'assets/icons/icon_launcher.png', // Caminho para a sua imagem
+                          width: 340,
+                          height: 150,
+                        ),
                         const SizedBox(height: 16),
 
                         // 1. TextFormField (com validator)
@@ -53,7 +52,7 @@ class RegisterScreen extends StatelessWidget {
                           controller: _nomeControler,
                           style: defaultInputTextSyle,
                           decoration: buildDarkInputDecoration(
-                            label: AppLocalizations.of(context)!.fullName,
+                            label: "Nome Completo",
                           ),
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {return 'Digite seu nome completo';}
@@ -94,21 +93,6 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
 
-                        // 4. Confirmar senha
-                        TextFormField(
-                          controller: _confirmpasswordControler,
-                          obscureText: true,
-                          style: defaultInputTextSyle,
-                          decoration: buildDarkInputDecoration(
-                            label: "Confirme sua senha",
-                          ),
-                          validator: (value) {
-                            if (value != _passwordControler.text) {return 'Senhas não coincidem';}
-                            return null;
-                          },
-                        ),
-                        const SizedBox(height: 16),
-
                         // BOTÃO COM VALIDAÇÃO AUTOMÁTICA
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -118,9 +102,9 @@ class RegisterScreen extends StatelessWidget {
                                 Navigator.pop(context);
                               },
                               style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 42,
-                                    vertical: 12,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 42,
+                                  vertical: 12,
                                 ),
                               ),
                               child: const Text("Voltar"),
@@ -180,7 +164,7 @@ class RegisterScreen extends StatelessWidget {
                                   vertical: 12,
                                 ),
                               ),
-                              child: const Text("Cadastrar"),
+                              child: const Text("Recover Password"),
                             ),
                           ],
                         ),
