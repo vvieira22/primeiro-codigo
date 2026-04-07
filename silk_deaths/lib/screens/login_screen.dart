@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:silk_deaths/screens/recover_password_screen.dart';
 import 'package:silk_deaths/screens/register_screen.dart';
 
+import '../l10n/app_localizations.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_textfield_style.dart';
 import '../viewmodels/auth_view_model.dart';
@@ -15,8 +17,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _emailController = TextEditingController(text: "admin@gmail.com");
-  final TextEditingController _passwordController = TextEditingController(text: "123456");
+  final TextEditingController _emailController = TextEditingController(text: "");
+  final TextEditingController _passwordController = TextEditingController(text: "");
 
   @override
   void dispose() {
@@ -54,14 +56,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextField(
                         controller: _emailController,
                         style: defaultInputTextSyle,
-                        decoration: buildDarkInputDecoration(label: "Email"),
+                        decoration: buildDarkInputDecoration(label: AppLocalizations.of(context)!.email),
                       ),
                       const SizedBox(height: 16),
                       TextField(
                         obscureText: true,
                         controller: _passwordController,
                         style: defaultInputTextSyle,
-                        decoration: buildDarkInputDecoration(label: "Password"),
+                        decoration: buildDarkInputDecoration(label: AppLocalizations.of(context)!.password),
                       ),
                       const SizedBox(height: 20),
                       ElevatedButton(
@@ -73,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 42, vertical: 12),
                         ),
-                        child: const Text("Login"),
+                        child: Text(AppLocalizations.of(context)!.login),
                       ),
                       const SizedBox(height: 16),
                       Center(
@@ -89,8 +91,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
-                        child: const Text("Forgot the password?"),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RecoverPasswordScreen()),
+                          );
+                        },
+                        child: Text(AppLocalizations.of(context)!.forgotPassword),
                       ),
                       TextButton(
                         onPressed: () {
@@ -100,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 builder: (context) => RegisterScreen()),
                           );
                         },
-                        child: const Text("First acess? Create a new account here!"),
+                        child: Text(AppLocalizations.of(context)!.firstAcess),
                       ),
                     ],
                   ),

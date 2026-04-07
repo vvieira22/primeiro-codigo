@@ -98,17 +98,83 @@ abstract class AppLocalizations {
     Locale('pt'),
   ];
 
-  /// No description provided for @invalidPassword.
+  /// No description provided for @login.
   ///
   /// In en, this message translates to:
-  /// **'Wrong password!'**
-  String get invalidPassword;
+  /// **'Log In'**
+  String get login;
+
+  /// No description provided for @register.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get register;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot your password?'**
+  String get forgotPassword;
+
+  /// No description provided for @firstAcess.
+  ///
+  /// In en, this message translates to:
+  /// **'First time? Create your account here!'**
+  String get firstAcess;
 
   /// No description provided for @fullName.
   ///
   /// In en, this message translates to:
   /// **'Full name'**
   String get fullName;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm your password'**
+  String get confirmPassword;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'Ok'**
+  String get ok;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @success.
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get success;
+
+  /// No description provided for @madeALoginToContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Log-in to continue'**
+  String get madeALoginToContinue;
 
   /// No description provided for @aboutApp.
   ///
@@ -121,66 +187,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logout'**
   String get logout;
-
-  /// No description provided for @login.
-  ///
-  /// In en, this message translates to:
-  /// **'Login'**
-  String get login;
-
-  /// No description provided for @back.
-  ///
-  /// In en, this message translates to:
-  /// **'Back'**
-  String get back;
-
-  /// No description provided for @enter.
-  ///
-  /// In en, this message translates to:
-  /// **'Log In'**
-  String get enter;
-
-  /// No description provided for @register.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign Up'**
-  String get register;
-
-  /// No description provided for @password.
-  ///
-  /// In en, this message translates to:
-  /// **'Password'**
-  String get password;
-
-  /// No description provided for @confirm_password.
-  ///
-  /// In en, this message translates to:
-  /// **'Confirm your password'**
-  String get confirm_password;
-
-  /// No description provided for @email.
-  ///
-  /// In en, this message translates to:
-  /// **'Email'**
-  String get email;
-
-  /// No description provided for @forgot_password.
-  ///
-  /// In en, this message translates to:
-  /// **'Forgot your password?'**
-  String get forgot_password;
-
-  /// No description provided for @first_acess.
-  ///
-  /// In en, this message translates to:
-  /// **'First time? Create your account here!'**
-  String get first_acess;
-
-  /// No description provided for @full_name.
-  ///
-  /// In en, this message translates to:
-  /// **'Full name'**
-  String get full_name;
 
   /// No description provided for @aboutTitle.
   ///
@@ -211,6 +217,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Contact-me: '**
   String get contactMe;
+
+  /// No description provided for @wrongPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong password!'**
+  String get wrongPassword;
+
+  /// No description provided for @typeFullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your full name'**
+  String get typeFullName;
+
+  /// No description provided for @typeAPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Type a password'**
+  String get typeAPassword;
+
+  /// No description provided for @typeEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your email'**
+  String get typeEmail;
+
+  /// No description provided for @invalidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid email!'**
+  String get invalidEmail;
+
+  /// No description provided for @minimumCaracters.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum 6 characters'**
+  String get minimumCaracters;
+
+  /// No description provided for @passwordNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords don\'t match'**
+  String get passwordNotMatch;
+
+  /// No description provided for @adminPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin password'**
+  String get adminPassword;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPassword;
+
+  /// No description provided for @adminPasswordIncorrectly.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin password is incorrect'**
+  String get adminPasswordIncorrectly;
 }
 
 class _AppLocalizationsDelegate

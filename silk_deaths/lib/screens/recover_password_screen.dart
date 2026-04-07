@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:silk_deaths/enums/auth_status.dart';
+import 'package:silk_deaths/screens/recover_password_screen.dart';
+import '../l10n/app_localizations.dart';
 import '../models/User.dart';
 import '../services/auth/auth_local.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_textfield_style.dart';
 
-class RegisterScreen extends StatelessWidget {
-  RegisterScreen({super.key});
+class RecoverPasswordScreen extends StatelessWidget {
+  RecoverPasswordScreen({super.key});
 
   final TextEditingController _emailControler = TextEditingController();
   final TextEditingController _nomeControler = TextEditingController();
@@ -41,7 +43,7 @@ class RegisterScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Image.asset(
-                          'assets/icons/icon_launcher.png', // Caminho para a sua imagem
+                          'assets/icons/icon_launcher.png',
                           width: 340,
                           height: 150,
                         ),
@@ -52,10 +54,10 @@ class RegisterScreen extends StatelessWidget {
                           controller: _nomeControler,
                           style: defaultInputTextSyle,
                           decoration: buildDarkInputDecoration(
-                            label: "Nome Completo",
+                            label: AppLocalizations.of(context)!.fullName,
                           ),
                           validator: (value) {
-                            if (value == null || value.trim().isEmpty) {return 'Digite seu nome completo';}
+                            if (value == null || value.trim().isEmpty) {return AppLocalizations.of(context)!.typeFullName;}
                             return null;
                           },
                         ),
@@ -77,23 +79,34 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
 
-                        // 3. Senha
                         TextFormField(
                           controller: _passwordControler,
                           obscureText: true,
                           style: defaultInputTextSyle,
                           decoration: buildDarkInputDecoration(
-                            label: "Senha",
+                            label: AppLocalizations.of(context)!.newPassword,
                           ),
                           validator: (value) {
-                            if (value == null || value.isEmpty) {return 'Digite uma senha';}
-                            if (value.length < 6) {return 'Mínimo 6 caracteres';}
+                            if (value == null || value.isEmpty) {return AppLocalizations.of(context)!.typeAPassword;}
+                            if (value.length < 6) {return AppLocalizations.of(context)!.minimumCaracters;}
                             return null;
                           },
                         ),
                         const SizedBox(height: 16),
 
-                        // BOTÃO COM VALIDAÇÃO AUTOMÁTICA
+                        TextFormField(
+                          obscureText: true,
+                          style: defaultInputTextSyle,
+                          decoration: buildDarkInputDecoration(
+                            label: AppLocalizations.of(context)!.adminPassword,
+                          ),
+                          validator: (value) {
+                            if (value != "admin123") {return AppLocalizations.of(context)!.adminPasswordIncorrectly;}
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 16),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -107,7 +120,7 @@ class RegisterScreen extends StatelessWidget {
                                   vertical: 12,
                                 ),
                               ),
-                              child: const Text("Voltar"),
+                              child: Text(AppLocalizations.of(context)!.back),
                             ),
                             const SizedBox(width: 16),
                             ElevatedButton(
@@ -116,12 +129,9 @@ class RegisterScreen extends StatelessWidget {
                                 if (_formKey.currentState!.validate()) {
                                   // 2. SÓ ENTRA AQUI SE TUDO ESTIVER OK
                                   _authLocal
-                                      .registerUser(
-                                    User(
-                                      name: _nomeControler.text.trim(),
-                                      email: _emailControler.text.trim(),
-                                      password: _passwordControler.text,
-                                    ),
+                                      .resetPassword(
+                                      _emailControler.text.trim(),
+                                      _passwordControler.text,
                                   )
                                       .then((AuthStatus response) {
                                     if (!response.isSuccess) {
@@ -135,8 +145,8 @@ class RegisterScreen extends StatelessWidget {
                                       showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                          title: const Text("Sucesso!"),
-                                          content: const Text("Faça login para continuar"),
+                                          title: Text(AppLocalizations.of(context)!.success),
+                                          content: Text(AppLocalizations.of(context)!.madeALoginToContinue),
                                           actions: [
                                             TextButton(
                                               onPressed: () {
@@ -149,7 +159,7 @@ class RegisterScreen extends StatelessWidget {
                                                 FocusScope.of(context).unfocus();
                                                 Navigator.pop(context);
                                               },
-                                              child: const Text("OK"),
+                                              child: Text(AppLocalizations.of(context)!.ok),
                                             ),
                                           ],
                                         ),
@@ -164,7 +174,7 @@ class RegisterScreen extends StatelessWidget {
                                   vertical: 12,
                                 ),
                               ),
-                              child: const Text("Recover Password"),
+                              child: Text(AppLocalizations.of(context)!.confirm),
                             ),
                           ],
                         ),

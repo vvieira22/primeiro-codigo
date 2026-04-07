@@ -5,6 +5,7 @@ import '../models/User.dart';
 import '../services/auth/auth_local.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_textfield_style.dart';
+import 'login_screen.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
@@ -42,13 +43,12 @@ class RegisterScreen extends StatelessWidget {
                     child: Column(
                       children: [
                       Image.asset(
-                      'assets/icons/icon_launcher.png', // Caminho para a sua imagem
+                      'assets/icons/icon_launcher.png',
                       width: 340,
                       height: 150,
                     ),
                         const SizedBox(height: 16),
 
-                        // 1. TextFormField (com validator)
                         TextFormField(
                           controller: _nomeControler,
                           style: defaultInputTextSyle,
@@ -56,7 +56,7 @@ class RegisterScreen extends StatelessWidget {
                             label: AppLocalizations.of(context)!.fullName,
                           ),
                           validator: (value) {
-                            if (value == null || value.trim().isEmpty) {return 'Digite seu nome completo';}
+                            if (value == null || value.trim().isEmpty) {return AppLocalizations.of(context)!.typeFullName;}
                             return null;
                           },
                         ),
@@ -68,11 +68,11 @@ class RegisterScreen extends StatelessWidget {
                           keyboardType: TextInputType.emailAddress,
                           style: defaultInputTextSyle,
                           decoration: buildDarkInputDecoration(
-                            label: "Email",
+                            label: AppLocalizations.of(context)!.email,
                           ),
                           validator: (value) {
-                            if (value == null || value.isEmpty) {return 'Digite seu email';}
-                            if (!value.contains('@') || !value.contains('.')) {return 'Email inválido';}
+                            if (value == null || value.isEmpty) {return AppLocalizations.of(context)!.typeEmail;}
+                            if (!value.contains('@') || !value.contains('.')) {return AppLocalizations.of(context)!.invalidEmail;}
                             return null;
                           },
                         ),
@@ -84,11 +84,11 @@ class RegisterScreen extends StatelessWidget {
                           obscureText: true,
                           style: defaultInputTextSyle,
                           decoration: buildDarkInputDecoration(
-                            label: "Senha",
+                            label: AppLocalizations.of(context)!.password,
                           ),
                           validator: (value) {
-                            if (value == null || value.isEmpty) {return 'Digite uma senha';}
-                            if (value.length < 6) {return 'Mínimo 6 caracteres';}
+                            if (value == null || value.isEmpty) {return AppLocalizations.of(context)!.typeAPassword;}
+                            if (value.length < 6) {return AppLocalizations.of(context)!.minimumCaracters;}
                             return null;
                           },
                         ),
@@ -100,10 +100,10 @@ class RegisterScreen extends StatelessWidget {
                           obscureText: true,
                           style: defaultInputTextSyle,
                           decoration: buildDarkInputDecoration(
-                            label: "Confirme sua senha",
+                            label: AppLocalizations.of(context)!.confirmPassword,
                           ),
                           validator: (value) {
-                            if (value != _passwordControler.text) {return 'Senhas não coincidem';}
+                            if (value != _passwordControler.text) {return AppLocalizations.of(context)!.passwordNotMatch;}
                             return null;
                           },
                         ),
@@ -123,7 +123,7 @@ class RegisterScreen extends StatelessWidget {
                                     vertical: 12,
                                 ),
                               ),
-                              child: const Text("Voltar"),
+                              child: Text(AppLocalizations.of(context)!.back),
                             ),
                             const SizedBox(width: 16),
                             ElevatedButton(
@@ -151,21 +151,20 @@ class RegisterScreen extends StatelessWidget {
                                       showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                          title: const Text("Sucesso!"),
-                                          content: const Text("Faça login para continuar"),
+                                          title: Text(AppLocalizations.of(context)!.success),
+                                          content: Text(AppLocalizations.of(context)!.madeALoginToContinue),
                                           actions: [
                                             TextButton(
-                                              onPressed: () {
-                                                _formKey.currentState?.reset();
-                                                _nomeControler.clear();
-                                                _emailControler.clear();
-                                                _passwordControler.clear();
-                                                _confirmpasswordControler.clear();
-                                                // Remove o foco de qualquer campo de texto
-                                                FocusScope.of(context).unfocus();
-                                                Navigator.pop(context);
+                                              onPressed: () async {
+                                                if (context.mounted) {
+                                                  Navigator.pushAndRemoveUntil(
+                                                    context,
+                                                    MaterialPageRoute(builder: (context) => const LoginScreen()),
+                                                        (route) => false, // Remove todas as rotas anteriores (Login/Register), importante!
+                                                  );
+                                                }
                                               },
-                                              child: const Text("OK"),
+                                              child: Text(AppLocalizations.of(context)!.ok),
                                             ),
                                           ],
                                         ),
@@ -180,7 +179,7 @@ class RegisterScreen extends StatelessWidget {
                                   vertical: 12,
                                 ),
                               ),
-                              child: const Text("Cadastrar"),
+                              child: Text(AppLocalizations.of(context)!.register),
                             ),
                           ],
                         ),

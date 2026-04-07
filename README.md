@@ -119,3 +119,52 @@ context.read<AuthViewModel>().login(email, password);
 // Para exibir um dado na tela
 final status = context.watch<AuthViewModel>().status;
 ```
+
+### Arquivos de tradução (PTBR / EN)
+
+Para ter "strings"/elementos de textos traduzidos disponíveis em mais de uma linguagem, devemos declarar
+da seguinte forma os arquivos de texto.
+
+1.  Adicione o seguinte texto no arquivo `pubspec.yaml` e rode `flutter pub get`:  
+```dart 
+flutter_localizations:
+    sdk: flutter
+    intl: any
+```
+2.  Crie um arquivo chamado `l10n.yaml` na raiz do projeto com o seguinte conteúdo:.
+```dart
+arb-dir: lib/l10n
+template-arb-file: app_en.arb
+output-localization-file: app_localizations.dart
+preferred-supported-locales:
+  - en
+  - pt
+```
+3.  Crie a pasta `lib/l10n`, e dentro dela crie os arquivos `app_en.arb` e `app_pt.arb` por exemplo.
+Abaixo está um exemplo de como eles devem estar preenchidos.
+
+_app_en.arb_
+```dart
+{
+"@@locale": "pt",
+  "invalidPassword": "Wrong password!",
+  "fullName": "Full name",
+  "aboutApp": "About the App"
+}
+```
+
+app_pt.arb
+```dart
+{
+"@@locale": "en",
+"invalidPassword": "Senha incorreta!",
+"fullName": "Nome completo",
+"aboutApp": "Sobre o App"
+}
+```
+4. Assim que você buildar o projeto ele deve criar alguns arquivos de tradução
+dentro da pasta l10n, caso não crie e de algum erro, rode manualmente o comando `flutter gen-l10n`,
+no cmd, mas é bom resolver isso pq é horrível ter que lembrar esse comando toda hora que adicionar algum item traduzido.
+6. E para finalizar para usar o item traduzido você chama da seguinte forma, por exemplo `AppLocalizations.of(context)!.fullName`
+e ele deve pedir pra importar o pacote `import '../l10n/app_localizations.dart';`. Assim automaticamente quando a linguagem do sistema
+corresponder a alguma mapeada dentro do seu app, ele troca os textos de forma automática :)

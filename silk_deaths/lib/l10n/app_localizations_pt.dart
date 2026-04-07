@@ -9,46 +9,49 @@ class AppLocalizationsPt extends AppLocalizations {
   AppLocalizationsPt([String locale = 'pt']) : super(locale);
 
   @override
-  String get invalidPassword => 'Senha incorreta!';
+  String get login => 'Entrar';
+
+  @override
+  String get register => 'Cadastrar';
+
+  @override
+  String get email => 'E-mail';
+
+  @override
+  String get password => 'Senha';
+
+  @override
+  String get forgotPassword => 'Esqueceu sua senha?';
+
+  @override
+  String get firstAcess => 'Primeiro acesso? Crie sua conta aqui!';
 
   @override
   String get fullName => 'Nome completo';
+
+  @override
+  String get confirmPassword => 'Confirme sua senha';
+
+  @override
+  String get back => 'Voltar';
+
+  @override
+  String get ok => 'Ok';
+
+  @override
+  String get confirm => 'Confirmar';
+
+  @override
+  String get success => 'Sucesso';
+
+  @override
+  String get madeALoginToContinue => 'Faça login para continuar';
 
   @override
   String get aboutApp => 'Sobre o App';
 
   @override
   String get logout => 'Sair';
-
-  @override
-  String get login => 'Entrar';
-
-  @override
-  String get back => 'Voltar';
-
-  @override
-  String get enter => 'Log In';
-
-  @override
-  String get register => 'Cadastrar';
-
-  @override
-  String get password => 'Senha';
-
-  @override
-  String get confirm_password => 'Confirme sua senha';
-
-  @override
-  String get email => 'E-mail';
-
-  @override
-  String get forgot_password => 'Esqueceu sua senha?';
-
-  @override
-  String get first_acess => 'Primeiro acesso? Crie sua conta aqui!';
-
-  @override
-  String get full_name => 'Nome completo';
 
   @override
   String get aboutTitle => 'Sobre o App';
@@ -65,4 +68,34 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get contactMe => 'Contate-me: ';
+
+  @override
+  String get wrongPassword => 'Senha incorreta!';
+
+  @override
+  String get typeFullName => 'Digite seu nome completo';
+
+  @override
+  String get typeAPassword => 'Digite uma senha';
+
+  @override
+  String get typeEmail => 'Digite seu email';
+
+  @override
+  String get invalidEmail => 'E-mail inválido!';
+
+  @override
+  String get minimumCaracters => 'Mínimo 6 caracteres';
+
+  @override
+  String get passwordNotMatch => 'As senhas não coincidem';
+
+  @override
+  String get adminPassword => 'Senha de Admin';
+
+  @override
+  String get newPassword => 'Nova Senha';
+
+  @override
+  String get adminPasswordIncorrectly => 'Senha de admin incorreta';
 }

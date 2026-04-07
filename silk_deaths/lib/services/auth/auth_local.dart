@@ -126,6 +126,20 @@ class AuthLocal {
     return null;
   }
 
+  Future<AuthStatus> resetPassword(String email, String newPassword) async {
+    final db = await globalUsersDatabase;
+    try {    final count = await db.update(
+      'users',
+      {'password': newPassword},
+      where: 'email = ?',
+      whereArgs: [email],
+    );
+    return count > 0 ? AuthStatus.success : AuthStatus.invalidCredentials;
+    } catch (e) {
+      return AuthStatus.unknownError;
+    }
+  }
+
   Future<List<Monster>> getMonsters() async {
     if (_currentUserId == null) return [];
     final db = await getuserMonsterDatabase(_currentUserId!);
