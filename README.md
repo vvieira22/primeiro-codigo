@@ -146,7 +146,7 @@ Abaixo está um exemplo de como eles devem estar preenchidos.
 _app_en.arb_
 ```dart
 {
-"@@locale": "pt",
+"@@locale": "en",
   "invalidPassword": "Wrong password!",
   "fullName": "Full name",
   "aboutApp": "About the App"
@@ -156,7 +156,7 @@ _app_en.arb_
 app_pt.arb
 ```dart
 {
-"@@locale": "en",
+"@@locale": "pt",
 "invalidPassword": "Senha incorreta!",
 "fullName": "Nome completo",
 "aboutApp": "Sobre o App"
