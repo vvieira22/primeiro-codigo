@@ -1,6 +1,5 @@
 <p align="center">
-  <img width="360" height="200" src="shinji_lets_go.gif">
+  <img src="shinji_lets_go.gif">
 </p>
 
-
-### This project was become BIGGGER, and has been moved another to his own repository, you can [find it by this link.](https://github.com/vvieira22/silk_deaths)
+## This project has grown and has been moved to its own repository. You can find it [here](https://github.com/vvieira22/silk_deaths).
