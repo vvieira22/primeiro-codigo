@@ -1,0 +1,594 @@
+Unidade 2.1- Aspectos arquiteturais das APIs - Estilos Arquiteturais
+
+Nessa unidade vamos entender aspectos arquiteturais, representação dos dados e documentação de APIs.
+
+Abordagens de comunicação em apis:
+    Request/Response (Requisicoes e respostas):
+        - Interacao iniciada pelo cliente, ele envia uma solicitação (request) para o servidor, que processa a solicitação e retorna uma resposta (response) com os dados solicitados ou o resultado da operação.
+        - Exemplo: REST (Representational State Transfer), onde as operações são realizadas por meio de métodos HTTP (GET, POST, PUT, DELETE).
+    Event Driven (Orientada a eventos):
+        - O cliente e o servidor se comunicam por meio de eventos. O cliente pode emitir um evento para solicitar uma ação, e o servidor pode responder emitindo um evento de resposta.
+        - Exemplo: WebSockets, onde a comunicação é bidirecional e em tempo real, permitindo que o servidor envie dados para o cliente sem que este precise fazer uma solicitação explícita.
+
+    Principais estilos arquiteturais de APIs:
+        -Request/Response: SOAP, REST, GraphQL, gRPC
+        -Event Driven: WebSockets, Webhooks
+
+Estilos arquiteturais:
+    SOAP (Simple Object Access Protocol):
+        Abordagem robusta para construção de apis, que mescla complexidade e potência. Utiliza XML para formatar mensagens e suporta uma ampla gama de protocolos de transporte, como HTTP, SMTP e TCP. É conhecido por sua segurança e confiabilidade, sendo amplamente utilizado em ambientes corporativos.
+        -Caso de uso + Exemplo:
+            -Integração com sistemas empresariais, como sistemas de gerenciamento de pedidos e contabilidade.
+            -Serviços de pagamento online 
+            (exp: Nota fiscal NFe sistema brasileiro)
+
+    REST (Representational State Transfer):
+        Estilo arquitetural que aproveita principalmente os métodos HTTP para realizar operações em recursos identificados por URLs. É conhecido por sua simplicidade, escalabilidade e flexibilidade, sendo amplamente adotado para construção de APIs web. REST é baseado em princípios como statelessness (sem estado) e cacheability (capacidade de cache), o que contribui para a eficiência e desempenho das APIs.
+            -Caso de uso + Exemplo:
+                -APIs públicas para acesso a dados, como APIs de redes sociais (Twitter, Facebook) e APIs de serviços de mapas (Google Maps).
+                -APIs internas para comunicação entre microserviços em uma arquitetura de software.
+                (exp: Github Rest api)
+
+    GraphQL:
+        Linguagem de consulta para APIs que permite aos clientes solicitar exatamente os dados de que precisam, evitando o excesso ou a falta de informações. É especialmente útil para aplicações móveis e front-end, onde a eficiência na transferência de dados é crucial. Alguns acham que é a evolução do REST, mas isso é controverso, pois ambos têm suas vantagens e desvantagens dependendo do caso de uso.
+            -Caso de uso + Exemplo:
+                -APIs para aplicações móveis, onde a eficiência na transferência de dados é crucial.
+                -APIs para aplicações front-end, onde os clientes podem solicitar exatamente os dados de que precisam.
+                (exp: Github GraphQL api)
+
+    gRPC:
+        Framework de comunicação de alto desempenho desenvolvido pelo Google, que utiliza o protocolo HTTP/2 e o formato de serialização Protocol Buffers. É ideal para comunicação entre serviços em ambientes distribuídos, como microserviços.
+        -Caso de uso + Exemplo:
+            -Comunicação entre microserviços em uma arquitetura de software.
+            -APIs para aplicações de alto desempenho, como jogos online e streaming de vídeo.
+            (exp: Google Cloud APIs, e a api do Slack)
+
+    WebSockets:
+        Oferece uma alternativa de comunicação em tempo real e bidirecional entre clientes e servidores. Ele permite que o servidor envie dados para o cliente sem que este precise fazer uma solicitação explícita, tornando-o ideal para aplicações como chat em tempo real, jogos online e monitoramento de dados em tempo real, evitando o polling(cliente fica fazendo requisições constantes).
+            -Caso de uso + Exemplo:
+                -Aplicações de chat em tempo real, onde os usuários podem enviar e receber mensagens instantaneamente.
+                -Jogos online, onde a comunicação rápida entre clientes e servidores é essencial para a experiência do usuário.
+                (exp: Aplicações de chat como Slack e Discord)
+
+    Webhooks:
+        - Voltados para as arquiteturas orientadas a eventos, os webhooks permitem que um sistema envie dados para outro sistema em resposta a eventos específicos. Eles são configurados para enviar uma solicitação HTTP POST para uma URL especificada quando um evento ocorre, facilitando a integração entre sistemas e a automação de processos.
+
+        Basicamente O cliente vai disparar um processo e nao tem uma resposta imediata, quando o processamento
+        dessa requisicao acontecer  o servidor vai enviar notificação para que o sistema que fez a requisicao saiba que o que ocorreu, ou seja, o cliente nao precisa ficar fazendo requisições para saber se o processamento foi concluido, o servidor vai notificar quando isso acontecer.
+            -Caso de uso + Exemplo:
+                -Notificação de transações financeiras.
+                -Atualizações em tempo real em aplicativos de colaboração.
+                -Integração entre sistemas, onde um sistema pode notificar outro sobre eventos importantes, como a criação de um novo usuário ou a conclusão de uma transação.
+                -Automação de processos, onde um sistema pode acionar ações em resposta a eventos, como o envio de notificações ou a atualização de dados.
+                (exp: GitHub Webhooks para notificar sobre eventos em repositórios, Amazon Lambda para acionar funções em resposta a eventos específicos)
+
+
+Unidade 2.2- Comparativo de Estilos de apis
+                -iMAGEM 2.2 mostra comparativos de apis.
+    
+    Rest vs GraphQL:
+        REST continua dominante em APIs públicas e integrações simples, enquanto GraphQL cresce fortemente em ambientes corporativos e aplicações complexas.
+       
+        GraphQL
+            Linguagem de consulta que oferece eficiência e flexibilidade para resolver problemas comuns ao integrar APIs.
+
+            -Disponível via um único endpoint HTTP que provê todas as funcionalidades do serviço.
+            -Utiliza uma arquitetura baseada no cliente.
+            -Dificulta o uso do mecanismo de cache.
+            -Não trabalha com versionamento de API.
+            -Trabalha apenas com JSON.
+            -Oferece uma única forma de documentação: GraphiQL.
+            -Dificulta o uso de códigos de status do protocolo HTTP para identificação de erros.
+        REST
+            Estilo arquitetural amplamente visto como padrão para o desenho de APIs.
+            Disponível via um conjunto de URLs, cada uma expondo um único recurso.
+                -Utiliza uma arquitetura baseada no servidor.
+                -Utiliza cache de maneira simplificada e automática.
+                -Suporta múltiplas versões da API.
+                -Suporta múltiplos formatos de dados (JSON, XML, etc.).
+                -Oferece uma faixa de opções para documentação automatizada (OpenAPI e API Blueprint).
+                -Utiliza os códigos de status do protocolo HTTP para identificar facilmente os erros.
+        
+    | Tipo de API | Porcentagem de uso | Tendência desde 2023 | Observações principais |
+    | --- | --- | --- | --- |
+    | **REST** | **48%** | ↓ (era ~65% em 2023) | Continua dominante, mas perde espaço para tecnologias mais flexíveis. |
+    | **GraphQL** | **18%** | ↑ (era ~10% em 2023) | Crescimento acelerado em apps mobile e sistemas com múltiplos clientes. |
+    | **gRPC** | **14%** | ↑ (era ~7% em 2023) | Popular em microsserviços e aplicações de alta performance. |
+    | **SOAP** | **11%** | ↓ (era ~13% em 2023) | Mantém relevância em sistemas legados e governamentais. |
+    | **RPC / Outros** | **9%** | ≈ (era ~5% em 2023) | Usado em integrações internas e soluções específicas. |
+
+Unidade 2.3- Representação dos dados e documentação de APIs
+
+    Representação dos dados:
+        - JSON (JavaScript Object Notation): Formato leve e fácil de ler, amplamente utilizado para troca de dados em APIs web.
+        - XML (eXtensible Markup Language): Formato mais verboso, mas altamente estruturado, usado em APIs mais antigas ou que exigem uma estrutura de dados complexa.
+        - YAML (YAML Ain't Markup Language): Formato legível por humanos, frequentemente usado para configuração e documentação de APIs.
+        - Protocol Buffers: Formato binário eficiente desenvolvido pelo Google, usado principalmente em gRPC para comunicação de alto desempenho.
+
+
+Unidade 2.4- Documentação de APIs
+    - A documentação de APIs é crucial para garantir que os desenvolvedores possam entender e usar a API de forma eficaz. Ela deve incluir informações sobre os endpoints disponíveis, os parâmetros esperados, os formatos de resposta, os códigos de status HTTP e exemplos de uso. Uma boa documentação pode acelerar o desenvolvimento, reduzir erros e aumentar a adoção da API.
+
+    Mais usadas, estilos arquiteturais:
+        Soap:
+            - WSDL (Web Services Description Language): Formato XML usado para descrever os serviços SOAP, incluindo os métodos disponíveis, os parâmetros e os tipos de dados.
+        Rest:
+            *É o mais utilizado! openAPI
+            - OpenAPI (anteriormente Swagger): Especificação para descrever APIs RESTful, permitindo a geração automática de documentação, clientes e servidores.
+            - Swagger: Ferramenta que utiliza a especificação OpenAPI para criar documentação interativa e fácil de usar para APIs RESTful.
+            - Api blueprint: Linguagem de marcação para descrever APIs RESTful, focada em simplicidade e legibilidade.
+            - RAML (RESTful API Modeling Language): Linguagem de modelagem para descrever APIs RESTful, com foco em reutilização e modularidade.
+            - WADL (Web Application Description Language): Especificação para descrever APIs web, incluindo RESTful e SOAP, com foco em interoperabilidade e reutilização.
+
+Unidade 2.5- JavaScript Object Notation (JSON)
+    - JSON é um formato de dados leve e fácil de ler, amplamente utilizado para troca de dados em APIs web. Ele é baseado em uma estrutura de chave-valor, onde os dados são organizados em objetos e arrays. JSON é suportado nativamente por muitas linguagens de programação, o que o torna uma escolha popular para a representação de dados em APIs.
+    Json e muito mais dinamico e permite flexibilidade se comparado a uma tabela comum de dados!
+
+    Tipos de dados json (valor):
+        - Dados numéricos: Representam números inteiros ou de ponto flutuante. (int, float)
+        - Dados de string: Representam sequências de caracteres, como texto, precisa estar entre aspas duplas. (string)
+        - Dados booleanos: Representam valores verdadeiros ou falsos. (boolean)
+        - Dados Compostos: Representam objetos e arrays, que podem conter outros tipos de dados. (Datas, objects, arrays)
+
+    Sempre começa com chave e no final fecha com a chave:
+        atributo: valor
+    O atributo sempre tem que estar entre aspas duplas, e o valor pode ser um número, string, booleano ou outro objeto/array.
+
+    Exemplo de JSON:
+    {
+        "Alunos": [
+            {
+                "nome": "João",
+                "idade": 30,
+                "email": "joao@example.com",
+                "endereco": {
+                    "rua": "Rua A",
+                    "numero": 123,
+                    "cidade": "São Paulo"
+                }
+            },
+            {
+                "nome": "Maria",
+                "idade": 25,
+                "email": "maria@example.com",
+                "endereco": {
+                    "rua": "Rua B",
+                    "numero": 456,
+                    "cidade": "Rio de Janeiro"
+                }
+            }
+        ]
+    }
+
+Unidade 2.6 JSON Schema
+    É um vocalulário que permmite descrever, referenciar e validar documentos jsons.
+    
+    Benefícios:
+        -descrever formato de dados que vao no documento
+        - prove uma documentacao legivel para seres humanos
+        - permite validação de dados.
+    Aplicação:
+        -Automação de testes
+        - Garantir qualidade de dados submetidas por clientes.
+
+    Exemplo de Json Schema:
+    {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Pessoa",
+        "type": "object",
+        "properties": {
+            "nome": {
+                "description": "O nome completo da pessoa",
+                "type": "string"
+            },
+            "idade": {
+                "description": "A idade da pessoa",
+                "type": "integer",
+                "exclusiveMinimum": 0
+            },
+            "email": {
+                "description": "O endereço de email da pessoa", 
+                "type": "string",
+                "format": "email"
+            }
+        },
+        "required": ["nome", "idade", "email"]
+    }
+
+    Palavras reservadas:
+    - $schema: Especifica a versão do JSON Schema que está sendo usada.
+    - $id: Identificador único para o schema, usado para referência.
+    - $ref: Permite referenciar outros schemas, facilitando a reutilização de definições.
+    Imagina que dentro do schema usuario tenha um campo endereco, esse endereco tem um formato complexo, entao ao inves de definir o formato do endereco dentro do schema usuario, voce pode criar um schema separado para endereco e referenciar ele dentro do schema usuario usando $ref.
+        -"address": {"$ref": "#/definitions/Endereco"}
+    - $defs: Define subschemas que podem ser referenciados dentro do schema principal.
+    Basicamente voce pode criar um schema para endereco e colocar ele dentro de $defs, e depois referenciar ele dentro do schema usuario usando $ref. Basicamente é o ref so que para referenciar um schema que esta dentro do mesmo documento, e o $defs é onde voce define esse schema que esta dentro do mesmo documento.
+        Exemplo:
+        {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "Usuario",
+            "type": "object",
+            "properties": {
+                "nome": {
+                    "description": "O nome completo do usuário",
+                    "type": "string"
+                },
+                "endereco": {
+                    "$ref": "#/definitions/Endereco"
+                }
+            },
+            "required": ["nome", "endereco"],
+            "$defs": {
+                "Endereco": {
+                    "type": "object",
+                    "properties": {
+                        "rua": {"type": "string"},
+                        "numero": {"type": "integer"},
+                        "cidade": {"type": "string"}
+                    },
+                    "required": ["rua", "numero", "cidade"]
+                }
+            }
+        }
+    
+    Importante!: o caractere # pode ser utilizzado para fazer referencia a raiz do documento, e com isso referenciar outras partes do documento, como por exemplo "$ref": "#/properties/nome" para referenciar a propriedade nome dentro do mesmo documento.
+
+    Ferramentas:
+        - Json Schema Validator: Ferramenta que permite validar documentos JSON contra um schema definido, garantindo que os dados estejam no formato esperado. (bota lado a lado do schema e do documento json, e ele vai validar se o documento json esta de acordo com o schema definido)
+        - Json to Json Schema: Ferramenta que gera um schema JSON a partir de um documento JSON, facilitando a criação de schemas para dados existentes. (bota o documento json e ele gera o schema automaticamente)
+        -Json validator online: Ferramenta online que permite validar documentos JSON contra um schema definido, sem a necessidade de instalar software adicional. (bota o documento json e o schema, e ele valida online)
+
+Unidade 2.8 APis SOAP
+    obs: O soap é antigo e usado em casos bem especificos, mas é importante conhecer ele para entender a evolução das APIs e as necessidades que surgiram para o desenvolvimento de novos estilos arquiteturais, como o REST e o GraphQL.
+
+    Soap é um protocolo baseado na troca de dados em XML. É como uma linguagem de comunicação entre sistemas, onde um sistema pode enviar uma mensagem em XML para outro sistema, e esse outro sistema pode responder com outra mensagem em XML. O SOAP é conhecido por sua robustez e segurança, sendo amplamente utilizado em ambientes corporativos e governamentais.
+
+    Basicamente temos o UDDI que é um catálogo, onde registramos todos os serviços disponíveis, ele retorna o documento WSDL que é um documento XML que descreve os serviços disponíveis, incluindo os métodos, os parâmetros e os tipos de dados. O cliente pode usar o WSDL para entender como interagir com o serviço SOAP.
+
+    Vamos ter um soap envelope, que é a estrutura básica de uma mensagem SOAP, ele tem um header opcional, onde podemos colocar informações de autenticação, por exemplo, e um body obrigatório, onde colocamos a mensagem principal que queremos enviar para o servidor.
+    Estrutura da mensagem SOAP:
+
+    Envelope:
+        -Define o inicio e o fina da mensagem
+        -É obrigatorio
+    Header(Cabeçalho):
+        -Traz atributos opcionais da mensagem utilizada para o seu processamento
+        -É opcional
+    Body(Corpo):
+        -Contém a mensagem principal que queremos enviar para o servidor
+        -É obrigatório
+
+    Exemplo requisicao SOAP:
+    <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+        <soap:Header>
+            <auth>
+                <username>usuario</username>
+                <password>senha</password>
+            </auth>
+        </soap:Header>
+        <soap:Body>
+            <getUserInfo xmlns="http://example.com/">
+                <userId>12345</userId>
+            </getUserInfo>
+        </soap:Body>
+    </soap:Envelope>
+
+    Exemplo respostas SOAP:
+        <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+            <soap:Body>
+                <getUserInfoResponse xmlns="http://example.com/">
+                    <userId>12345</userId>
+                    <name>João Silva</name>
+                    <email>joao.silva@example.com</email>
+                </getUserInfoResponse>
+            </soap:Body>
+        </soap:Envelope>
+
+    WSDL:
+        - WSDL (Web Services Description Language) é um formato XML usado para descrever os serviços SOAP, incluindo os métodos disponíveis, os parâmetros e os tipos de dados. Ele serve como um contrato entre o cliente e o servidor, permitindo que o cliente entenda como interagir com o serviço SOAP.
+        Dentro do arquivo wsdl eu vou ter:
+            - Types: Define os tipos de dados usados pelo serviço, como strings, inteiros, etc.
+            - Messages: Define as mensagens que o serviço pode enviar e receber, incluindo os parâmetros e os tipos de dados associados.
+            - PortType: Define as operações disponíveis no serviço, associando cada operação a uma mensagem de entrada e uma mensagem de saída.
+            - Binding: Define como as operações e mensagens são transportadas, especificando o protocolo (como HTTP ou SMTP) e o formato de codificação (como SOAP).
+            - Service: Define o endpoint do serviço, ou seja, a URL onde o serviço pode ser acessado.
+
+        Exemplo de WSDL:
+        <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+                    xmlns:tns="http://example.com/" 
+                    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+                    targetNamespace="http://example.com/">
+            <types>
+                <xsd:schema targetNamespace="http://example.com/">
+                    <xsd:element name="getUserInfoRequest">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="userId" type="xsd:string"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:schema>
+            </types>
+        </definitions>
+
+    Muito usado em:
+        BPMS (Business Process Management System):
+            - BPMS é um sistema de gerenciamento de processos de negócios que pode ser integrado com serviços SOAP para automatizar e orquestrar processos empresariais. Ele permite que as organizações definam, executem e monitorem processos de negócios complexos, utilizando serviços SOAP para realizar tarefas específicas dentro desses processos.
+    
+    UDDI (Universal Description, Discovery, and Integration):
+        - UDDI é um padrão para a publicação e descoberta de serviços web, incluindo serviços SOAP. Ele funciona como um diretório onde os provedores de serviços podem registrar seus serviços, e os consumidores de serviços podem pesquisar e descobrir esses serviços com base em critérios específicos. O UDDI facilita a integração entre sistemas, permitindo que as organizações encontrem e utilizem serviços SOAP de forma eficiente. Basicamente um catálogo de serviços.
+
+    SOAP É UMA ARQUITETURA VOLTADA A SERVIÇOS!
+        Estilo de arquitetura de software cujo prinicpa fuindamenta esta baseado em funcionaidade implementadas por aplicacos e disponibiizadads de forma de servicos. Web services!
+
+        Exemplo separados em camadas:
+            -Interface de usuario
+            -Processos de negocios
+            -Servicos
+            -Componentes de servicos
+            -Sistemas operacionais
+
+Unidade 2.9 APis Rest
+    Rest é um estilo arquitetural para contrução de serviços Web, que significa a transferencia de estado representacional
+    (Representational State Transfer). 
+
+    O termo RESTful caracteriza serviços web que seguem integralmente as recomendações rest, diferentemente
+    daqueles (RESTLike) que implementam parcialmente.
+
+    Requisitos de APIs REST:
+        -Cliente e servidor: Cliente e servidor sao independentes e não se preocupam com os detalhes de implemnetação do outr
+        -Stateless: O servidor não mantém estado sobre a sessão do usuario/aplicação, e toda requisição deve conter todas as informacoes
+        requeridas.
+        -Cache: As respostas podem ser armazenadas em cache (cliente ou proxies reversos). As respostas devem definir se permitem ou não o cache.
+        -Interface uniforme: A interface entre cliente e servidor deve identificar adequadamente os recursos por meio de uma URI e representações padronizadas.
+        -Sistema em cadamas: Os componeentes não tem visibilidade além da camada seguinte, podendo interagir com interlocutores intermediários de forma natural.
+
+Unidade 2.10: Principios de design REST:
+
+    Definições do protocolo HTTP:
+        Usa os metodos do http para dar sentido semantico do recurso.
+
+        -GET: Recuperar um recurso ou uma coleção de recursos.
+        -POST: Criar um novo recurso ou sub-recurso.
+        -PUT e PATCH: Alterar um estado de um recurso ou atualizar um recurso (UPDATE).
+        -DELETE: Remover um recurso.
+        -OPTIONS: Obter informações sobre os métodos suportados por um recurso.
+        -HEAD: Recuperar os cabeçalhos de um recurso, sem o corpo da resposta.
+    Exemplo (usuarios):
+        -GET /usuarios: Recupera uma lista de usuários.
+        -POST /usuarios: Cria um novo usuário.
+        -GET /usuarios/{id}: Recupera um usuário específico por ID.
+        -PUT /usuarios/{id}: Atualiza completamente um usuário específico por ID.
+        -PATCH /usuarios/{id}: Atualiza parcialmente um usuário específico por ID.
+        -DELETE /usuarios/{id}: Remove um usuário específico por ID.
+    Evitar metodos fora da semantica do recurso:
+        Percebe que nao mudamos o nome do recurso, apenas o metodo http, e isso é uma das caracteristicas do rest, a semantica do recurso é dada pelo metodo http utilizado. O nome do recurso deve ser substantivo, e deve representar a entidade que estamos manipulando, e o metodo http vai dar o sentido da operação que estamos realizando com esse recurso.!!!
+
+    Um exemplo bem interessante de um recurso não rest vs rest é justamente esse, percebe como ficaria restlike:
+        -GET /getUserInfo: Recupera informações de um usuário.
+        -POST /createUser: Cria um novo usuário.
+        -GET /getUserInfoById: Recupera informações de um usuário específico por ID.
+        -POST /updateUser: Atualiza um usuário específico por ID.
+        -POST /deleteUser: Remove um usuário específico por ID.
+
+        Cõdigos de status HTTP:
+        Vamos usar os codigos efetivamente para dar sentido a resposta da nossa API, e isso é uma das caracteristicas do rest, o uso dos codigos de status http para indicar o resultado da operação realizada.
+            -200 OK: A requisição foi bem-sucedida e a resposta contém os dados solicitados.
+            -201 Created: A requisição foi bem-sucedida e um novo recurso foi criado como resultado.
+            -204 No Content: A requisição foi bem-sucedida, mas não há conteúdo para retornar.
+            -400 Bad Request: A requisição é inválida ou malformada.
+            -401 Unauthorized: A requisição requer autenticação ou a autenticação falhou.
+            -403 Forbidden: O servidor entendeu a requisição, mas se recusa a autorizá-la.
+            -404 Not Found: O recurso solicitado não foi encontrado no servidor.
+            -500 Internal Server Error: Ocorreu um erro no servidor ao processar a requisição.
+
+        MIME Types no Content Type:
+        Usamos o cabecalho que indica o tipo de dado que estamos enviando e ou recebendo, 
+        e isso é uma das caracteristicas do rest, o uso dos tipos de mídia (MIME types) 
+        para indicar o formato dos dados na requisição e na resposta.
+            Exemplo, no corpo vai ficar assim:
+                Envio:
+                    POST /usuarios
+                    Content-Type: application/json
+                    Accept: application/json
+                    ...
+                Resposta:
+                    HTTP/1.1 201 Created
+                    Content-Type: application/json
+                    ...
+    Estrutura Uniforme de Endpoint:
+        -Uma URI intuitiva direta, auto-documentada, e compreensivel
+        -Ter uma estrutura hierárquica semelhantes a diretórios.
+
+        Exemplo:
+            -/usuarios: Representa a coleção de usuários.
+            -/usuarios/{id}: Representa um usuário específico por ID.
+            -/usuarios/{id}/enderecos: Representa a coleção de endereços de um usuário específico por ID.
+        Orientacoes adicionais:
+            -Ocultar extensão da tecnologia empregada (.php, .asp, etc).
+            -Manter tudo em caixa baixa (minusculo)
+            -Evitar espaços nos caminhos da uri
+            -Evite parâmetros de QueryString, o mãximo possível.
+    
+        Crud de Recursos:
+            -Incluir um curso: CREATE -> POST /cursos
+            -Listar cursos: READ -> GET /cursos
+            -Alterar um curso: UPDATE -> PUT /cursos/{id}
+            -Remover um curso: DELETE -> DELETE /cursos/{id}
+            -Pesquisar um curso por nome: GET /cursos?nome=curso1
+    
+    Abordagem stateless (sem estado):
+        -Servidor não mantem estado sobre a sessao do usuario;aplicacao.
+        -Toda requisicao deve conter todas as informacoes requeridas para o processamento, e isso é uma das caracteristicas do rest, a abordagem stateless, onde o servidor não mantém estado sobre a sessão do usuário ou da aplicação,
+            e toda requisição deve conter todas as informações necessárias para o processamento.
+        
+        Benefícios:
+            -Simplica o servidor
+            -Maior escalabilidade uma vez que o servidor não mantém informações sobre sessão
+            -Servidores de balanceamento de carga não precisam se preocupar com dados de sessão
+            -Maior confiabilidade (recuperação de falhas mais fácil, pois não há estado a ser mantido)
+        
+        Um exemplo é uma query grande que tenha paginação, como iriamos fazer se o servidor n guarda estado?:
+            Nossa aplicação vai enviar uma requisição para o servidor, e o servidor vai retornar a primeira página de resultados,
+                e junto com essa resposta ele vai retornar um link para a próxima página de resultados, e assim por diante, até que 
+                o cliente tenha acesso a todas as páginas de resultados. Dessa forma, o servidor não precisa manter estado sobre a sessão 
+                do usuário ou da aplicação, e toda requisição contém todas as informações necessárias para o processamento.
+
+                traduzindo isso para endpoints ficaria +- assim:
+                GET /cursos?page=1&size=10
+                GET /cursos?page=2&size=10
+                GET /cursos?page=3&size=10
+
+            O controle de estado quem faz é o cliente :), evitando que o servidor tenha que manter informações sobre a sessão 
+            do usuário ou da aplicação, e toda requisição contém todas as informações necessárias para o processamento.
+    
+    Abordagem HATEOAS:
+        Hipertexto como mecamismos de estado da aplicação, ou seja, o cliente pode navegar pela API
+            seguindo os links fornecidos nas respostas, sem a necessidade de conhecer previamente a 
+            estrutura da API. Isso permite uma maior flexibilidade e evolução da API ao longo do tempo, 
+            sem quebrar a compatibilidade com os clientes existentes.
+
+            Por exemplo retornar uma conta, ele vai retornar 100 no balance mas pode ter outros link relacionados
+            a essa conta, como por exemplo um link para transferir dinheiro, ou um link para ver o extrato da 
+            conta, ou um link para fechar a conta, e assim por diante. Dessa forma, o cliente pode navegar 
+            pela API seguindo os links fornecidos nas respostas, sem a necessidade de conhecer previamente 
+            a estrutura da API. Exemplo, o cliente retornou -25, ele so pode fazer o que? depositar kkk todos
+            os outros possiveis endpoints não vão estar disponíveis para ele. (retornar na resposta xD)
+    
+    Versionamento da API:
+        -Incorporar a versão do serviço sempre na URI. (Uma URI (Identificador Uniforme de Recursos))
+        exemplo:
+            GET /v1/cursos
+            GET /v2/cursos
+        -Incluir informações da versão na representação de estado do recurso!
+            <beer version="1.0">
+            ...
+
+    Controle adequado do cache:
+        Cabeçalhos HTTP:
+            Date: Data e hora de geração da representação.
+            Last Modified: Data e hora da ultima alteracao da representacao.
+            Cache-Control: O cabecalho utilizado pelo HTTP 1.1 para controle de cache.
+            Expires: Data e hora de expiração da representação. Para compatibilizar com clientes HTTP 1.0.
+            Age: Tempo que o recurso é válido e mantido em cache. Tempo passado em segundos desde que a representação foi extraida do servidor. Pode ser inserido por um cache intermediário.
+            ETag: Identificador de versão especifica de uma representação. Se houver alteração, a terá um novo valor.             
+        Valores para o cabecalho Cache-Control:
+            Public: Valor padrao. Indica que a resposta pode ser armazenada em cache por qualquer cache, mesmo que seja compartilhado.
+            Private: Indica que a resposta é específica para um usuário e não deve ser armazenada em cache compartilhado.
+            No-Cache;no-store: Armazenamento da representacao em cache desabilitado.
+            max-age: Tempo máximo de validade da representação em cache, em segundos. tommando como base a data informada no cabeçalho "Date"
+            s-maxage: Similar ao max-age, mas específico para caches compartilhados. Ele substitui o valor de max-age para caches compartilhados, enquanto os caches privados continuam a usar o valor de max-age.
+            must-revalidate: Indica que a representação em cache deve ser revalidada com o servidor antes de ser usada, mesmo que ainda esteja dentro do tempo de validade especificado por max-age ou s-maxage. Isso garante que os clientes sempre obtenham a versão mais recente da representação, mesmo que ela ainda seja considerada válida em cache.
+            proxy-validate: Similar ao must-revalidate, mas específico para caches intermediários (proxies). Ele indica que a representação em cache deve ser revalidada com o servidor antes de ser usada por um cache intermediário, garantindo que os proxies sempre obtenham a versão mais recente da representação, mesmo que ela ainda seja considerada válida em cache.
+        
+    Documentação clara e adequada da API:
+
+    OpenAPI Specification:
+        -Padrao para definicao de apis restfull
+        -independenter de linguagem de programacao
+        -permite a geracao automatica de codigo
+
+    Unidade 2.11: Modelo de maturidade rest (Richardson Maturity Model)
+        -Nivel 0: Utiliza apenas um endpoint e um método HTTP (geralmente POST) para todas as operações, sem seguir os princípios REST.
+        -Nivel 1: Introduz a utilização de múltiplos endpoints para representar diferentes recursos, mas ainda utiliza apenas um método HTTP (geralmente POST) para todas as operações.
+        -Nivel 2: Utiliza múltiplos endpoints e métodos HTTP adequados para cada operação (GET, POST, PUT, DELETE), seguindo os princípios REST.
+        -Nivel 3: Além de utilizar múltiplos endpoints e métodos HTTP adequados, também implementa HATEOAS (Hypermedia as the Engine of Application State), permitindo que os clientes naveguem pela API seguindo os links fornecidos nas respostas.
+    
+    Unidade 2.12: APis GraphQL
+        Uma linguagem de consulta para dados em grafos, e um ambiente que executa operações nos dados
+        voltada para a criacao de apis.
+
+        Vantagens:
+            - Endpoint unico ao invez de diversos igual rest
+            - Independente de linguagem, protocolo ou framework
+            - Maior controle do cliente via linguagem de consulta (Graph Query Language).
+            - Acabar cmo o overfetching e underfetching (O que é isso? 
+                Overfetching é quando o cliente recebe mais dados do que precisa, 
+                e underfetching é quando o cliente recebe menos dados do que precisa.
+                Com o GraphQL, o cliente pode especificar exatamente quais dados deseja receber,
+                  evitando tanto o overfetching quanto o underfetching.)
+            -Reduz o trafego de dados e numero de rquicicoes
+            -Reduz a necessidade de manutencao.
+
+        Schema:
+            -Define toda especificacao da api, tudo esta descrito ali!
+            -Estabelece os tipos de dados possiveis de serem em uma api baseada em GraphQL.
+            -Define as operacoes de consulta (QUeries) e alteracao (Mutatations).
+
+            Dentro do schema temos:
+                -Tipo de objeto (Define o elemento mais basico no schema graphql)
+                -Tipos escalares:
+                    -string
+                    -int
+                    -float
+                    -boolean
+                    -id (um tipo escalar especial que representa um identificador único, geralmente usado para representar IDs de objetos. Ele é tratado como uma string, mas tem a semântica de um identificador único, o que o torna útil para representar relações entre objetos no schema GraphQL.)
+                -Tipos enumerados: Tipo especial rstrito a conjunto particulares de valores
+                -Tipo Query: Operacoes disponiveis em uma api GraphQl, que permitem obter dados do servidor.
+            
+            Resolvers:
+                Sao funcoes que implementacao a logica por traz das queries e mutations definidas no schema!
+                Cada campo do schema deve ter um resolver correspondente que implementa o que e necessario parabuscar os dados e executar acoes relacionadas.
+                O resolver resolve a queries que enviei pra api....
+                Logica e operacao por tras do meu schema.
+
+            A arquitetura e feita por query - schema -> resolvers -> Any (database, apis...)
+
+            Exemplo de Query:
+                query {
+                    usuario(id: "12345") {
+                        nome
+                        email
+                    }
+                }
+        GraphQl Playground tool!
+        
+        Uma boa comparacao entre GraphQL e o rest é:
+            Imagine um cenario em que precisamos mostrar detalhes de um post, seus likes e usuarios associados!
+            Rest: Vou fazer requisicao de post, likes e users.
+            Graphql? Faco uma requisicao e ele mesmo me retorna tudo o que preciso, sem precisar fazer multiplas requisicoes, e isso é uma das caracteristicas do GraphQL, a capacidade de obter exatamente os dados necessários em uma única requisição, evitando tanto o overfetching quanto o underfetching.
+        
+    Unidade 2.13: Apis WebSockets
+        Protocolo aberto que permite comunicacao em duas vias entre clientes e servidores.
+
+        Características:
+        -Conexão persistente entre cliente e servidor
+        -Permite o envio de mensagens a partir do servidor de maneiro independente 
+
+    Web Sockets vs Comunicacao http:
+        -Conexao nao persistente
+        -Comunicacao sempre iniciada pelo lado do cliente.
+        -Associada apenas com HTTP/HTTPS
+
+        Já o websocket:
+        -a conexao se inicia pelo (handshake) que é essa comunicacao inicial via http,
+        avisando que a conexao vai ser websocket mandando um Upgrade, e depois disso a conexao se torna 
+        persistente, e o servidor pode enviar mensagens para o cliente de maneira independente,
+        sem que o cliente precise fazer uma requisicao para isso, até que alguem feche a conexao.
+    
+    Uso real dos websockets:
+        -Aplicações de chat em tempo real
+        -Notificações em tempo real
+        -Jogos online
+        -Monitoramento de dados em tempo real (como dashboards)
+
+    Unidade 2.14: Apis Webhooks
+        Apis baseada em EVENTOS, que permite o envio de notificacoes entre aplicacoes.
+        Sao muitas vezes chamadas de callbacks http.
+
+        Caracteristicas:
+            -Disparados a partir de eventos especificos:
+                -Alteracao em um pagamento, issues em repositorio, etc..
+            -Acessiveis via URL disponivel publicamente (endpoints)
+                -Normalmente implementado via HTTP Post com payload JSON.
+
+            Webhooks vs Apis normais:
+                -As apis normais usam polling, onde o cliente precisa fazer requisições 
+                periódicas para verificar se houve alguma alteração ou evento, enquanto 
+                
+                -Os webhooks são baseados em eventos, onde o servidor envia uma notificação
+                 para o cliente assim que um evento específico ocorre, eliminando a necessidade
+                de polling e reduzindo a latência na comunicação entre as aplicações. Basicamente o cliente
+                fica esperando o servidor enviar uma notificação quando um evento específico ocorre, 
+                ao invés de ficar fazendo requisições periódicas para verificar se houve alguma 
+                alteração ou evento.

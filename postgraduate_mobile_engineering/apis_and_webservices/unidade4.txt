@@ -1,0 +1,168 @@
+Unidade 4.1 - Gerenciamento de APIs
+    -Projeto e Desenvolvimento de apis
+    -Plataforma de api gateway (ex: apigee, kong, wso2, etc)
+    -Gegenciamento de ciclo de vida de apis
+
+    Outros aspectos importantes:
+
+    -Design de Apis:
+        -Definição de endpoints, recursos e operações
+        -Uso de padrões e estilos arquiteturais
+    -Especificação e documentação de Apis:
+        -Abrangência e clareza na documentação de APIs
+        -Uso de ferrramentas e padrões de documentação (ex: OpenAPI, Swagger, RAML, etc)
+    -Projeto de segurança:
+        -Uso de padrões consistentes de autenticação e autorização (ex: OAuth, JWT, CORS)
+        -Prevenção de ameaças (ex: injeção de SQL, XSS, CSRF, etc)
+    -Desenvolvimento e Testes com foco em Apis
+        -Abordagem API First
+        -Testes unitários e testes de integração
+        -Ferramentas de produtividade para APIs
+    
+    API LifeCycle Management:
+        Temos necessidades para cada tipo, API Publishers, e API Consumers, e cada um tem necessidades diferentes.
+        Precisamos Entender a necessidade do negocio!
+        - Planejar / Definir
+        - Desenvolver / Testar
+        - Publicar
+        - Suportar / Manter
+        - Retirar / Descontinuar
+
+    ALM Tools:
+    Pesquisar Quadrante mágico (Gartner) para ferramentas de gerenciamento de ciclo de vida de APIs
+        -Ferramentas de gerenciamento de ciclo de vida de APIs (ex: Apigee, Kong, WSO2, etc)
+        -Integração com ferramentas de desenvolvimento e teste (ex: Jenkins, Postman, etc)
+     Ferramentas que ajudam na operacao, desenho das apis:
+        -Google apigee
+        -SmartBear - SwaggerHub | Soap UI
+        -Kong
+        -Postman
+
+
+Unidade 4.2 - Arquitetura de microserviços
+    Um resumo sobre microservicos é basicamente uma abordagem de arquitetura de software onde um aplicativo
+     é estruturado como um conjunto de serviços pequenos, independentes e focados em um único propósito. 
+     Cada serviço é responsável por uma funcionalidade específica e pode ser desenvolvido, 
+     implantado e escalado de forma independente.
+
+     Um exemplo é, temos um cliente que se conecta a api gw, essa api gw tem uma serie de regras, 
+     e depois encaminha para um microservico, esse microservico tem uma funcao especifica, 
+     e depois encaminha para outro microservico, e assim por diante, cada um tem uma funcao especifica, 
+     e cada um pode ser desenvolvido, implantado e escalado de forma independente.
+
+     Entao posso ter microservicos que se conectam a base nosql, outros a sql, java, node, go tanto faz! tipo a uber da vida
+     cada feature na uber é um microserviço:
+        -autenticacao
+        -buscar corrida
+        -calcular valor
+        -processar pagamento
+        -avaliar motorista
+
+    maaasss nem tudo é microserviços e nem faz sentido ser microserviços, tem que ser algo que faça sentido, 
+    tem que ser algo que seja independente,
+
+    Microserviços vs Monolitos:
+    -Monolitos:
+        -Arquitetura tradicional onde todo o aplicativo é construído como uma única unidade.
+        -Pode ser mais simples de desenvolver e implantar inicialmente, mas pode se tornar difícil de manter e escalar
+         à medida que o aplicativo cresce.
+        -Deploy facil
+        -Dificil aplicar e manter mudanças
+        -Um erro pode afetar o sistema inteiro.
+        -Teste fim a fim
+        -Comunicacao dentro de uma unidade unica
+        -Dificuldade em separar os esfoços dos times em funçao da estrutura
+    -Microserviços:
+        -Arquitetura onde o aplicativo é dividido em serviços pequenos e independentes.
+        -Permite desenvolvimento, implantação e escalabilidade independentes, mas pode introduzir complexidade
+         adicional na comunicação entre serviços e na gestão de dados.
+        -Deploy mais dificil
+        -Cada serviço pode ser escalado independentemente sem downtime
+        -Adota novas tecnologias resolvendo problemas de negócio! (go, java, node, kotlin api.. tanto faz!)
+        -Uma falha nao afeta os demais servicos
+        -Componentes requerem testes individuais.
+        -Comunicacao interprocessos requer qpis gateways e maior complexidade
+        -Os times podem trabalhar de forma independente em cada componente
+
+    API Gateway:
+        É um design pattern que oferece um único ponto de entrada para APIs numa arquiteutra de microservicos, atuando como
+        um proxy reverso que trata solicitações de clientes e encaminha ao serviço apropriado. Ele orquestra os acessos aos microservicos.
+
+        Ele pode fornecer funcionalidades adicionais:
+            -Cache de respostas
+            -Balanceamento de carga (20% nesse microservico, 10% outro)
+            -Rotemento de requisições
+            -Gerenciamento de autenticação e autorização
+            -Monitoramenteo e análise de dados
+            -Documentações de APIs (de todos os microservicos)
+
+Unidade 4.3 - Microserviços e API Gateway
+    Arquitetura de Microservicos:
+        Tinhamos uma arquitetura monolítica, onde tudo estava em um único aplicativo, e isso se tornou difícil de manter e escalar.
+        ai depois veio service-oriented architecture (SOA), onde o aplicativo era dividido em serviços, mas ainda havia uma dependência 
+        forte entre eles. e depois veio microserviços, onde o aplicativo é dividido em serviços pequenos e independentes.
+    
+    A arquitetura orientada a servico (soa) é um estilo arquitetural de software baseado na estruturacao das aplicacoes de negócios
+    por meio de um conjunto de serviços.
+
+    Cada serviço prove uma funcionalidade específica do negócio e permite a criação de aplicações distribuidas utilizando
+    diferentes tecnologias e plataformas.
+
+    Camadas:
+        -Interface de usuario
+        -Processo de negocios (BPNN/S)
+        -Servicos
+        -Componentes de Servicos
+        -Sistemas operacionais
+
+    Microservicos, é uma abordagem arqutieturam que vai definir um conjunto de serviços independentes com escopo limitado
+    UI -> SERVIÇO DE PAGAMENTO (pode ter sobrecarga em black friday, logo, eu posso escalar esse microservico sem precisar aumentar toda infraestrutura)
+    UI -> SERVIÇO DE AUTENTICAÇÃO
+    UI -> SERVIÇO DE NOTIFICAÇÃO
+    
+Unidade 4.4 - Versionamento de APIs
+
+    A lógica de negócio de uma aplicação ou os recursos disponiveis podem sofrer alterações com o tempo. Isso acaba refletindo
+    na API desta aplicação.
+    Para garantir que clientes tratem estas mudanças adequadamente, é fundamental controlar o número da versão da API e refletir
+    isso na forma de acesso garantido o uso correto das funcionalidades disponiveis.
+
+    Diante disso, precisamos entender:
+    1- como numerar novas versoes?
+    2- como refletir os novos numeros na forma de acesso?
+
+    Forma de acesso:
+        VIA URL
+        -dominio do site api-v1/recurso
+        -caminho do recurso api/v1/recurso (MELHOR OPCAO TEORICAMENTE! E MAIS USADA)
+        -parametro na query string api/recurso?version=1
+
+        Via cabeçalho HTTP
+        -Cabecalho accept -> acept: application/json;versao=1
+        -Cabecalho customizado -> Accept-Version: v1
+
+    VERSIONAMENTO SEMANTICO:
+        "4.16.3"
+        -MAJOR(Breaking) 4: mudanças incompatíveis na API, possivel quebra de compatibilidade
+        -MINOR(Features) 16: adição de funcionalidades de forma compatível / retroativa, refatoracao interna, funcionalidade 
+        depreciada mas funcional!
+        -PATCH(Bugfix) 3: correção de bugs sem alterações na API
+
+Unidade 4.5 - Estrategia API First
+
+    A Api precisa ser criada sempre antes de qualquer desenvolvimento do sistema! estabelecendo um contrato prévio, entre equipes
+    backend e frontend.
+
+    Vantagens:
+        -Separacao de preocupacoes
+        -Reducao de interdependencias
+        -Expansao facilitava para diferentes dispostivios (cliente celular, web etc..)
+        -Rapidez no desenvolvimento e entrega entre os times.
+
+    Modelo tradicional:
+        Primeiro o backend sempre implementa, uma vez desenhada e construida o sistema, o frontend pode consumir a API e desenvolver a 
+        interface do usuário de forma independente, sem precisar esperar o backend terminar o desenvolvimento.
+    Modelo API First:
+        Processo paralelo define junto! front e back, mas primeiro faz uma camada entre o front e back, desenhando pra entender e mockar dados os endpoints,
+         recursos e operações da API, e depois o backend implementa a API, e o frontend pode consumir a API e desenvolver a 
+         interface do usuário de forma independente, sem precisar esperar o backend terminar o desenvolvimento.

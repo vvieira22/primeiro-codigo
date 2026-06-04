@@ -1,0 +1,322 @@
+Unidade 1.1- Introdução ao mundo das apis.
+
+Aplication Programming Interface (API) é uma forma de permitir a integração 
+de uma aplicação com outra. A api que permite a integração entre software distintos.
+
+Api x web services
+    Enquanto webservices é um sistema de software projetado para suportar
+    comunicação interoperável máquina-máquina atraves de uma rede. Ele é um tipo
+    específico de api que se comunica atravez da internet.
+
+    Uma api pode ser comunicar de diversas maneiras, incluindo web services.
+    Todo web services é uma api, mas nem toda api é um web service.
+
+Tipos de apis:
+    Privadas(empresas, integração de sistemas internos)
+    Parceiras(auditoria, integrar 2 ou mais organizações ja conhecidas)
+    Publicas ou externas(abertas e totalmente comerciais, abertas a inovação externa)
+
+Ciclo de vida (Life Cycle Api)
+    -Planejar/Definir
+    -Desenvolvedor/Testar
+    -Publicar
+    -Suportar/Manter
+    -Retirar
+
+Unidadade 1.2 - Protocolo HTTP - Introdução
+    É um protocolo da camada de aplicação para sistemas distribuidos, no formato de hipertextos.
+
+Caracteristicas
+    -criado em 1991.
+    -Requer atuação de dois programas: Cliente e Servidor
+    -Atua na camada de aplicação da pilha TCP/IP
+    -Comunicação feita por TCP.(udp para http v3.0 mais novo)
+    =Servidor http por padrao usa porta 80.
+    -Nao guarda estado do cliente (stateless)
+
+Como funciona uma requisicao:
+    O cliente manda uma requisição para o servidor,
+     e ele envia uma resposta. 
+     
+     Sempre formado por:
+     
+    --------------Linhas de requisicao------------
+        - Metodo/Recurso/versaohttp
+            Exemplo: 
+                post /app/processamento http/1.1
+    ----------------------------------------------
+
+    --------------Linhas de Cabeçalho--------------
+        = Campo cabeçalho : Valor
+            Exemplo:
+                User-Agent: Mozilla/1.4
+                Host: www.puc.br
+                Content-Type: text/XML
+                Content-Length: 80
+    ----------------------------------------------
+
+    -----------Corpo Requisição [PAYLOAD]---------
+        -XML, JSON....
+    ----------------------------------------------
+
+Como funciona a resposta:
+    A resposta vai ter:
+
+    --------------Linhas de Resposta--------------
+        versão http/code status/msg status:
+            Exemplo: 
+                http/1.1 200 OK
+    ----------------------------------------------
+
+    --------------Linhas de Cabeçalho-------------
+    = Campo cabeçalho : Valor
+            Exemplo:
+                Date: Mon, 27 Jul 2000
+                Server: Apache **É O SOFTWARE SERVIDOR
+    ----------------------------------------------
+
+    -----------Corpo Resposta [RESPONSE]---------
+        -XML, JSON....
+    ----------------------------------------------
+
+
+Códigos de retorno http:
+
+    Códigos que começam com:
+        1- Informacional (Requisição recebida, processo em continuidade)
+        2- Sucesso (Ação foi recebida, entendida e aceita)
+        3- Redirecionamento (Ações adicionais devem ser executadas para completar o pedido)
+        4- Erro no cliente (O pedido contém erro de sintaxe ou não pode ser completado)
+        5- Erro no servidor (O servidor falhou em completar um pedido que aparentemente estava válido)
+    
+    Mais comuns:
+        200: OK
+        403: Acesso negado
+        404: Página não encontrada
+        500: Erro interno do servidor
+
+
+Unidade 1.3 - Métodos HTTP:
+
+Idempotente(repetindo a operação, nao gera problemas no servidor)
+Safe read-only (não altera o estado do servidor)
+Cacheável (respostas podem ser armazenadas em cache)
+
+    GET: Recuperar um recurso do servidor. (Safe, Idempotente, Cacheável)
+    POST: Enviar dados para o servidor para criar um novo recurso. (Não Safe, Não idempotente, Cacheável)
+    HEAD: Simular ao get, mas o retorno deve ser somente no conjunto de cabeçalhos associados ao recurso solicitado. (Safe, Idempotente, Cacheável)
+    PUT: Atualizar um recurso existente ou criar um novo recurso se ele não existir. (Não Safe, Idempotente, Não cacheável)
+    DELETE: Remover um recurso do servidor. (Não Safe, Idempotente, Não cacheável)
+    TRACE: Solicita ao servidor uma cópia da requisição. Usado para testar se a requisição foi alterada no caminho. (Safe, Idempotente, Não cacheável)
+    PATCH: Aplicar modificações parciais a um recurso existente. (Não Safe, Não idempotente, Não cacheável)
+    OPTIONS: Usado pelo cliente para entender ou descobrir os métodos http e outras opções suportadas por um servidor web. (Safe, Idempotente, Não cacheável)
+    CONNECT: Usado quando o cliente estabelece conexão https com um servidor via um proxy. (Não Safe, Não idempotente, Não cacheável)
+
+Get:
+Método mais utilizado para acessar recursos na web. Ele é usado para solicitar a representação de um recurso específico do servidor. 
+O servidor processa a solicitação e retorna a representação do recurso solicitado, geralmente em formato HTML, JSON ou XML.
+    
+    Normalmente/Ideal é nao ter corpo preenchido, o que precisamos enviar para o servidor é via parâmetros na query string, que ficam visíveis na url.
+    
+    Requisitar a representacao de um recurso ao servidor.
+    -Não devem alterar o estado do servidor! (safe)
+    -As requisições podem ser mantidas em cache (favoritos ou bookmarks)
+    -Envia dados ao servidor via parâmetros na query string que ficam visíveis na url
+        https://www.pegarcep/requisitarcep/?25920203
+    -Tem restrição quanto a tamanho e ao formato das informações enviadas ao servidor.
+        -Limitado a caracteres textuais (ASCII)
+        -Apache: 4k caracteres
+        -Ms IIS: 16.384 caracteres
+        -Tomcat: padrão 8192, podendo chegar a 65.536 caracteres
+
+
+Post:
+O método POST é usado para enviar dados ao servidor para criar um novo recurso ou processar uma solicitação. 
+Ele é frequentemente utilizado para enviar formulários, fazer upload de arquivos ou enviar dados em formato JSON ou XML.
+
+    -Não é criptografado, a menos que seja usado em conjunto com HTTPS.
+    -Não é seguro (não safe) porque pode alterar o estado do servidor.
+    -Não é idempotente, pois múltiplas requisições podem resultar em múltiplos recursos criados ou ações processadas.
+    -Os dados são enviados no corpo da requisição, o que permite o envio de grandes quantidades de dados e formatos variados, como JSON, XML ou arquivos binários.
+    -Não possuem restrição quanto ao tamanho dos dados enviados, embora o servidor possa impor limites de tamanho para evitar abusos ou ataques.
+    -A resposta depende da url+corpo da requisição, ou seja, a mesma url pode ter respostas diferentes dependendo do corpo da requisição.
+        Entao não faz sentido usar cache para post, pois a resposta pode variar dependendo do corpo da requisição.
+
+Head:
+O método HEAD é usado para solicitar apenas os cabeçalhos de resposta de um recurso, sem incluir o corpo da resposta. Ele é útil para verificar a 
+existência de um recurso, obter informações sobre ele ou verificar se ele foi modificado desde a última solicitação.
+
+Ver coisas de um recurso que ta la no servidor.
+
+    -Semelhante ao GET, mas retorna apenas os cabeçalhos de resposta, sem o corpo.
+    -Pode ser usado para verificar a existência de um recurso ou obter informações sobre ele sem transferir o conteúdo completo.
+    -Pode ser usado para verificar se um recurso foi modificado desde a última solicitação, usando o cabeçalho "Last-Modified" ou "ETag".
+
+Put:
+No contexto de APIs RESTful, é chamado de UPDATE, pois é usado para atualizar um recurso existente ou criar um novo recurso se ele não existir.
+O método PUT é usado para atualizar um recurso existente ou criar um novo recurso se ele não existir. 
+Ele é idempotente, o que significa que múltiplas requisições com o mesmo conteúdo terão o mesmo efeito no servidor.
+
+    -Usado para atualizar um recurso existente ou criar um novo recurso se ele não existir.
+    -Não é seguro (não safe) porque pode alterar o estado do servidor.
+    -É idempotente, pois múltiplas requisições com o mesmo conteúdo terão o mesmo efeito no servidor.
+    -Os dados são enviados no corpo da requisição, permitindo o envio de grandes quantidades de dados e formatos variados, como JSON, XML ou arquivos binários.
+
+Delete:
+O método DELETE é usado para remover um recurso do servidor. Ele é idempotente, o que significa que múltiplas requisições para deletar o mesmo recurso terão o mesmo efeito no servidor.
+
+    -Usado para remover um recurso do servidor.
+    -Não é seguro (não safe) porque pode alterar o estado do servidor.
+    -É idempotente, pois múltiplas requisições para deletar o mesmo recurso terão o mesmo efeito no servidor.
+    -Geralmente não possui um corpo de requisição, mas pode incluir informações adicionais nos cabeçalhos ou na URL para especificar qual recurso deve ser deletado.
+
+Trace:
+O método TRACE é usado para solicitar ao servidor uma cópia da requisição que foi enviada. 
+Ele é útil para testar se a requisição foi alterada no caminho entre o cliente e o servidor, permitindo que o cliente veja exatamente o que o servidor recebeu.
+Usado para validar proxies e identificar possíveis alterações ou interferências na requisição durante o trânsito.
+Validar alterações no caminho entre cliente e servidor, ou seja, se a requisição foi alterada por algum proxy ou firewall.
+
+    -Usado para solicitar ao servidor uma cópia da requisição enviada.
+    -É seguro (safe) porque não altera o estado do servidor.
+    -É idempotente, pois múltiplas requisições terão o mesmo efeito no servidor.
+    -Geralmente não possui um corpo de requisição, mas pode incluir informações adicionais nos cabeçalhos ou na URL para especificar detalhes da solicitação.
+
+Options:
+O método OPTIONS é usado pelo cliente para entender ou descobrir os métodos HTTP e outras opções suportadas por um servidor web. 
+Ele é útil para verificar quais métodos estão disponíveis para um recurso específico ou para o servidor como um todo.
+    -Interessante no contexto de CORS (Cross-Origin Resource Sharing), onde o navegador pode enviar uma requisição OPTIONS para verificar se o servidor permite requisições de origem cruzada antes de enviar a requisição real.
+    -Usado para descobrir os métodos HTTP e outras opções suportadas por um servidor web.
+    -É seguro (safe) porque não altera o estado do servidor.
+    -É idempotente, pois múltiplas requisições terão o mesmo efeito no servidor.
+    -Geralmente não possui um corpo de requisição, mas pode incluir informações adicionais nos cabeçalhos ou na URL para especificar detalhes da solicitação.
+exp: (Allow: GET, POST, PUT, DELETE)
+
+Connect:
+O método CONNECT é usado quando o cliente estabelece uma conexão HTTPS com um servidor via um proxy. 
+Ele é utilizado para criar um túnel seguro entre o cliente e o servidor, permitindo que a comunicação seja criptografada e protegida contra interceptação.
+
+    -Usado para estabelecer uma conexão segura (HTTPS) através de um proxy.
+    -Não é seguro (não safe) porque pode alterar o estado do servidor.
+    -Não é idempotente, pois múltiplas requisições podem resultar em múltiplas conexões estabelecidas.
+    -Geralmente não possui um corpo de requisição, mas pode incluir informações adicionais nos cabeçalhos ou na URL para especificar detalhes da solicitação.
+
+Unidade 1.4 - Http versoes
+1991- HTTP/0.9
+1996- HTTP/1.0 (cabeçalhos, status code)
+1999- HTTP/1.1 (conexoes persistentes, cabeçalho host, controle de cache, possibilidade compressão de dados)
+2015- HTTP/2.0 (muito utilizado, compressão de dados obrigatória,requisições paralelas, envio apenas de cabeças alterados em uma requisicao, server push - servidor pode enviar recursos pro cliente sem que ele solicite, ou seja, o servidor pode antecipar as necessidades do cliente e enviar recursos antes mesmo de o cliente solicitar)
+2018- HTTP/3.0 (pouco utilizado, mais recente, usa UDP ao invés de TCP)
+
+http 1.1 x 2.0
+HTTP/1.1:
+    -Sequencial, requer mais de uma conexão para simular o paralelismo de requisicoes.
+    -nao prioriza requisicoes.
+    -apenas o cliente pode iniciar uma requisicao.
+    -compressao opcional
+    -envia todos os dados de cabecalho em cada mensagem
+HTTP/2.0:
+    -Assincrono, utiliza multiplexacao para realizar requisicoes paralelas em uma unica conexao.
+    -prioriza requisicoes, ou seja, o cliente pode indicar quais recursos são mais importantes e o servidor pode priorizar o envio desses recursos.
+    -Permite que o servidor inicie o envio de recursos para o cliente sem que ele solicite, conhecido como server push.
+    -Compressao de dados obrigatoria, o que reduz o tamanho das mensagens e melhora a eficiência da comunicação.
+    -Comprime cabeçalhos, enviando apenas os cabeçalhos alterados em uma requisição, o que reduz a quantidade de dados enviados e melhora a eficiência da comunicação.
+
+Http2 novos recursos
+-Conexão unica e persistente: Apenas uma conexão é usada para cada página web, permitindo que múltiplas requisições sejam enviadas em paralelo sem a necessidade de abrir conexões adicionais.
+-Multiplexação: Permite que múltiplas requisições e respostas sejam enviadas simultaneamente em uma única conexão, eliminando a necessidade de esperar por uma resposta antes de enviar a próxima requisição.
+-Compressão de cabeçalhos e codificacao binaria: Reduz o tamanho dos cabeçalhos HTTP, melhorando a eficiência da comunicação e reduzindo a latência. Cabecalhos sao comprimidos usando o algoritmo HPACK, que reduz o tamanho dos cabeçalhos e melhora a eficiência da comunicação.
+e sao enviados em formato binário, o que reduz a quantidade de dados enviados e melhora a eficiência da comunicação.
+-Prioridade de requisições: Permite que o cliente indique quais recursos são mais importantes, permitindo que o servidor priorize o envio desses recursos, melhorando a performance e a experiência do usuário.
+-Criptografia SSL/TLS: O HTTP/2 é projetado para ser usado com criptografia SSL/TLS, o que melhora a segurança da comunicação entre o cliente e o servidor.
+
+NGINX (IMAGEM DEMONSTRANDO COMO ELE ATUA ENTRE O CLIENTE O SERVIDOR.)
+
+Unidade 1.5 - Cabecalhos (headers) HTTP
+
+    Usados em requisicoes e respostas HTTP para transmitir informações adicionais sobre a mensagem, como tipo de conteúdo, autenticação, cache, entre outros.
+
+Tipos de cabeçalhos:
+    -Request header: Enviados pelo cliente para o servidor, fornecendo informações sobre a requisição, como tipo de conteúdo aceito, idioma preferido, autenticação, entre outros.
+    -Response header: Enviados pelo servidor para o cliente, fornecendo informações sobre a
+    -Entity header: Fornecem informações sobre o corpo da mensagem, como tipo de conteúdo, tamanho, codificação, entre outros.
+    -General header: Podem ser usados tanto em requisições quanto em respostas, fornecendo informações gerais sobre a mensagem, como data, hora, servidor, entre outros.
+
+Cabeçalhos de requisicao:
+Mais frequentes:
+    -Accept: Especifica os tipos de mídia que o cliente aceita como resposta.
+        exp:
+            Accept: text/html, application/json
+    -Accept-Charset: Especifica os conjuntos de caracteres que o cliente aceita para a resposta.
+        exp:
+            Accept-Charset: utf-8, iso-8859-1
+    -Accept-Encoding: Especifica os tipos de codificação de conteúdo que o cliente aceita para a resposta.
+        exp:
+            Accept-Encoding: gzip, deflate
+    -Accept-Language: Especifica os idiomas preferidos pelo cliente para a resposta.
+        exp:
+            Accept-Language: en-US, fr-CA
+    -Authorization: Usado para enviar credenciais de autenticação ao servidor.
+        exp:
+            Authorization: Basic YWxhZGRpbjpvcGVuc2VzYW1l
+    -Cache-Control: Controla o comportamento de cache da requisição.
+        exp:
+            Cache-Control: no-cache
+    -Content-Type: Especifica o tipo de mídia do corpo da requisição.
+        exp:
+            Content-Type: application/json
+    -User-Agent: Identifica o cliente que está fazendo a requisição, como navegador ou aplicativo.
+        exp:
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3
+    -Authorization: Usado para enviar credenciais de autenticação ao servidor.
+        exp:
+            Authorization: Basic YWxhZGRpbjpvcGVuc2VzYW1l
+    -Host: Especifica o nome do host e a porta do servidor ao qual a requisição está sendo enviada.
+        exp:
+            Host: www.example.com
+    -Referer: Especifica a URL da página que fez a requisição, permitindo que o servidor saiba de onde a requisição se originou.
+        (Normalmente usado para afiliados, qual foi a página que fez a requisição, para o servidor saber de onde a requisição se originou)
+        exp:
+            Referer: https://www.example.com/page1.html
+
+Cabeçalhos de resposta:
+Mais frequentes:
+    -Server: Identifica o software do servidor que está respondendo à requisição.
+        exp:
+            Server: Apache/2.4.1 (Unix)
+    -Set-Cookie: Usado para enviar cookies do servidor para o cliente, permitindo que o servidor armazene informações no navegador do cliente.
+        exp:
+            Set-Cookie: sessionId=abc123; Path=/; HttpOnly
+    -Etag: Fornece um identificador único para a versão atual de um recurso, permitindo que o cliente e o servidor verifiquem se o recurso foi modificado desde a última solicitação.
+        Identificar se teve alteracao no servidor, exemplo, verificar se teve mudanca ele pega novamente ou usa do cache, ou seja, se o recurso nao tiver mudado, ele pode usar a versao em cache, economizando banda e melhorando a performance.
+        exp:
+            ETag: "abc123"
+    -Location: Usado para redirecionar o cliente para uma nova URL, geralmente em resposta a uma requisição POST ou PUT.
+        exp:
+            Location: https://www.example.com/newpage.html
+    -WWW-Authenticate: Usado para indicar que o cliente deve fornecer credenciais de autenticação para acessar um recurso protegido.
+        exp:
+            WWW-Authenticate: Basic realm="Access to the site"
+
+Cabeçalhos de entidade:
+Mais frequentes:
+    -Content-Type: Especifica o tipo de mídia do corpo da mensagem, como text/html, application/json, entre outros.
+        exp:
+            Content-Type: application/json
+    -Content-Length: Especifica o tamanho do corpo da mensagem em bytes.
+        exp:
+            Content-Length: 1234
+    -Content-Encoding: Especifica a codificação usada para compactar o corpo da mensagem, como gzip ou deflate.
+        exp:
+            Content-Encoding: gzip
+    -Content-Encoding: Especifica a codificação usada para compactar o corpo da mensagem, como gzip ou deflate.
+        exp:
+            Content-Encoding: gzip
+    -Content-Language: Especifica o idioma do conteúdo da mensagem, como en-US ou fr-CA.
+        exp:
+            Content-Language: en-US
+    -Expires: Especifica a data e hora em que o recurso deve ser considerado expirado, permitindo que o cliente saiba quando deve solicitar uma nova versão do recurso.
+        exp:
+            Expires: Wed, 21 Oct 2021 07:28:00 GMT
+    -Last-Modified: Especifica a data e hora da última modificação do recurso, permitindo que o cliente e o servidor verifiquem se o recurso foi modificado desde a última solicitação.
+        exp:
+            Last-Modified: Wed, 21 Oct 2021 07:28:00 GMT 
